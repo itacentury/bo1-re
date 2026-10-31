@@ -1,0 +1,1066 @@
+root.activecontracts byte=0x0 bit=0 bits=288 element=96 type=6 array=3 enum=-1
+root.activecontracts.contractindex byte=0x0 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.activecontracts.progress byte=0x4 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.activecontracts.startingtime byte=0x8 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.afteractionreportstats byte=0x24 bit=0 bits=684 element=684 type=6 array=1 enum=0
+root.afteractionreportstats.bestkillstreak byte=0x24 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.cpearned byte=0x26 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.deaths byte=0x28 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.demofileid byte=0x2A bit=0 bits=64 element=64 type=3 array=1 enum=0
+root.afteractionreportstats.gametype byte=0x32 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.headshots byte=0x34 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.kills byte=0x36 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.matchbonus byte=0x38 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.miscbonus byte=0x3A bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.nemesiskilledby byte=0x3C bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.nemesiskills byte=0x3E bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.nemesisname byte=0x40 bit=0 bits=256 element=256 type=5 array=1 enum=0
+root.afteractionreportstats.nemesisrank byte=0x60 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.nemesisrankicon byte=0x62 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.nemesisxuid byte=0x64 bit=0 bits=64 element=64 type=3 array=1 enum=0
+root.afteractionreportstats.privatematch byte=0x6C bit=0 bits=1 element=1 type=2 array=1 enum=0
+root.afteractionreportstats.score byte=0x6C bit=1 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.topweaponitemindex byte=0x6E bit=1 bits=8 element=8 type=0 array=1 enum=0
+root.afteractionreportstats.topweaponkills byte=0x6F bit=1 bits=16 element=16 type=1 array=1 enum=0
+root.afteractionreportstats.valid byte=0x71 bit=1 bits=1 element=1 type=2 array=1 enum=0
+root.afteractionreportstats.wagerawards byte=0x71 bit=2 bits=48 element=16 type=1 array=3 enum=-1
+root.afteractionreportstats.wagermatch byte=0x77 bit=2 bits=1 element=1 type=2 array=1 enum=0
+root.afteractionreportstats.wagermatchfailed byte=0x77 bit=3 bits=1 element=1 type=2 array=1 enum=0
+root.afteractionreportstats.xpearned byte=0x77 bit=4 bits=16 element=16 type=1 array=1 enum=0
+root.attachments byte=0x79 bit=4 bits=4736 element=296 type=6 array=16 enum=7
+root.attachments.stats byte=0x79 bit=4 bits=296 element=74 type=6 array=4 enum=8
+root.attachments.stats.challengetier byte=0x79 bit=4 bits=5 element=5 type=2 array=1 enum=0
+root.attachments.stats.challengevalue byte=0x7A bit=1 bits=16 element=16 type=1 array=1 enum=0
+root.attachments.stats.currentmilestone byte=0x7C bit=1 bits=5 element=5 type=2 array=1 enum=0
+root.attachments.stats.personalbest byte=0x7C bit=6 bits=16 element=16 type=1 array=1 enum=0
+root.attachments.stats.statvalue byte=0x7E bit=6 bits=32 element=32 type=2 array=1 enum=0
+root.cacloadouts byte=0x2C9 bit=4 bits=2834 element=2834 type=6 array=1 enum=0
+root.cacloadouts.customclass1 byte=0x2C9 bit=4 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.customclass1.body byte=0x2C9 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.classbonus byte=0x2CA bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.equipment byte=0x2CB bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.facepaintcolor byte=0x2CC bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.facepaintpattern byte=0x2CD bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.head byte=0x2CE bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primary byte=0x2CF bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primaryattachment byte=0x2D0 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primaryattachmentbottom byte=0x2D1 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primaryattachmentmuzzle byte=0x2D2 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primaryattachmenttop byte=0x2D3 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primaryattachmenttrigger byte=0x2D4 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primarycamo byte=0x2D5 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primaryemblem byte=0x2D6 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primarygrenade byte=0x2D7 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primarylens byte=0x2D8 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primaryreticle byte=0x2D9 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primaryreticlecolor byte=0x2DA bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.primarytag byte=0x2DB bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondary byte=0x2DC bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondaryattachment byte=0x2DD bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondaryattachmentbottom byte=0x2DE bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondaryattachmentmuzzle byte=0x2DF bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondaryattachmenttop byte=0x2E0 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondaryattachmenttrigger byte=0x2E1 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondarycamo byte=0x2E2 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondaryemblem byte=0x2E3 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondarylens byte=0x2E4 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondaryreticle byte=0x2E5 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondaryreticlecolor byte=0x2E6 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.secondarytag byte=0x2E7 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.specialgrenade byte=0x2E8 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.specialty1 byte=0x2E9 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.specialty2 byte=0x2EA bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass1.specialty3 byte=0x2EB bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2 byte=0x2EC bit=4 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.customclass2.body byte=0x2EC bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.classbonus byte=0x2ED bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.equipment byte=0x2EE bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.facepaintcolor byte=0x2EF bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.facepaintpattern byte=0x2F0 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.head byte=0x2F1 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primary byte=0x2F2 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primaryattachment byte=0x2F3 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primaryattachmentbottom byte=0x2F4 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primaryattachmentmuzzle byte=0x2F5 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primaryattachmenttop byte=0x2F6 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primaryattachmenttrigger byte=0x2F7 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primarycamo byte=0x2F8 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primaryemblem byte=0x2F9 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primarygrenade byte=0x2FA bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primarylens byte=0x2FB bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primaryreticle byte=0x2FC bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primaryreticlecolor byte=0x2FD bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.primarytag byte=0x2FE bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondary byte=0x2FF bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondaryattachment byte=0x300 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondaryattachmentbottom byte=0x301 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondaryattachmentmuzzle byte=0x302 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondaryattachmenttop byte=0x303 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondaryattachmenttrigger byte=0x304 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondarycamo byte=0x305 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondaryemblem byte=0x306 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondarylens byte=0x307 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondaryreticle byte=0x308 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondaryreticlecolor byte=0x309 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.secondarytag byte=0x30A bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.specialgrenade byte=0x30B bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.specialty1 byte=0x30C bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.specialty2 byte=0x30D bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass2.specialty3 byte=0x30E bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3 byte=0x30F bit=4 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.customclass3.body byte=0x30F bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.classbonus byte=0x310 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.equipment byte=0x311 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.facepaintcolor byte=0x312 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.facepaintpattern byte=0x313 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.head byte=0x314 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primary byte=0x315 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primaryattachment byte=0x316 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primaryattachmentbottom byte=0x317 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primaryattachmentmuzzle byte=0x318 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primaryattachmenttop byte=0x319 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primaryattachmenttrigger byte=0x31A bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primarycamo byte=0x31B bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primaryemblem byte=0x31C bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primarygrenade byte=0x31D bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primarylens byte=0x31E bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primaryreticle byte=0x31F bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primaryreticlecolor byte=0x320 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.primarytag byte=0x321 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondary byte=0x322 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondaryattachment byte=0x323 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondaryattachmentbottom byte=0x324 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondaryattachmentmuzzle byte=0x325 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondaryattachmenttop byte=0x326 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondaryattachmenttrigger byte=0x327 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondarycamo byte=0x328 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondaryemblem byte=0x329 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondarylens byte=0x32A bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondaryreticle byte=0x32B bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondaryreticlecolor byte=0x32C bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.secondarytag byte=0x32D bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.specialgrenade byte=0x32E bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.specialty1 byte=0x32F bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.specialty2 byte=0x330 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass3.specialty3 byte=0x331 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4 byte=0x332 bit=4 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.customclass4.body byte=0x332 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.classbonus byte=0x333 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.equipment byte=0x334 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.facepaintcolor byte=0x335 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.facepaintpattern byte=0x336 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.head byte=0x337 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primary byte=0x338 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primaryattachment byte=0x339 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primaryattachmentbottom byte=0x33A bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primaryattachmentmuzzle byte=0x33B bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primaryattachmenttop byte=0x33C bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primaryattachmenttrigger byte=0x33D bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primarycamo byte=0x33E bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primaryemblem byte=0x33F bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primarygrenade byte=0x340 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primarylens byte=0x341 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primaryreticle byte=0x342 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primaryreticlecolor byte=0x343 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.primarytag byte=0x344 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondary byte=0x345 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondaryattachment byte=0x346 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondaryattachmentbottom byte=0x347 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondaryattachmentmuzzle byte=0x348 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondaryattachmenttop byte=0x349 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondaryattachmenttrigger byte=0x34A bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondarycamo byte=0x34B bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondaryemblem byte=0x34C bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondarylens byte=0x34D bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondaryreticle byte=0x34E bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondaryreticlecolor byte=0x34F bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.secondarytag byte=0x350 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.specialgrenade byte=0x351 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.specialty1 byte=0x352 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.specialty2 byte=0x353 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass4.specialty3 byte=0x354 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5 byte=0x355 bit=4 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.customclass5.body byte=0x355 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.classbonus byte=0x356 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.equipment byte=0x357 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.facepaintcolor byte=0x358 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.facepaintpattern byte=0x359 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.head byte=0x35A bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primary byte=0x35B bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primaryattachment byte=0x35C bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primaryattachmentbottom byte=0x35D bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primaryattachmentmuzzle byte=0x35E bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primaryattachmenttop byte=0x35F bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primaryattachmenttrigger byte=0x360 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primarycamo byte=0x361 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primaryemblem byte=0x362 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primarygrenade byte=0x363 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primarylens byte=0x364 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primaryreticle byte=0x365 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primaryreticlecolor byte=0x366 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.primarytag byte=0x367 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondary byte=0x368 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondaryattachment byte=0x369 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondaryattachmentbottom byte=0x36A bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondaryattachmentmuzzle byte=0x36B bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondaryattachmenttop byte=0x36C bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondaryattachmenttrigger byte=0x36D bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondarycamo byte=0x36E bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondaryemblem byte=0x36F bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondarylens byte=0x370 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondaryreticle byte=0x371 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondaryreticlecolor byte=0x372 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.secondarytag byte=0x373 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.specialgrenade byte=0x374 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.specialty1 byte=0x375 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.specialty2 byte=0x376 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.customclass5.specialty3 byte=0x377 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.deathstreak byte=0x378 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.iamacheater byte=0x379 bit=4 bits=1 element=1 type=2 array=1 enum=0
+root.cacloadouts.killstreak1 byte=0x379 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.killstreak2 byte=0x37A bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.killstreak3 byte=0x37B bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1 byte=0x37C bit=5 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.prestigeclass1.body byte=0x37C bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.classbonus byte=0x37D bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.equipment byte=0x37E bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.facepaintcolor byte=0x37F bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.facepaintpattern byte=0x380 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.head byte=0x381 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primary byte=0x382 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primaryattachment byte=0x383 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primaryattachmentbottom byte=0x384 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primaryattachmentmuzzle byte=0x385 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primaryattachmenttop byte=0x386 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primaryattachmenttrigger byte=0x387 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primarycamo byte=0x388 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primaryemblem byte=0x389 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primarygrenade byte=0x38A bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primarylens byte=0x38B bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primaryreticle byte=0x38C bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primaryreticlecolor byte=0x38D bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.primarytag byte=0x38E bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondary byte=0x38F bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondaryattachment byte=0x390 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondaryattachmentbottom byte=0x391 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondaryattachmentmuzzle byte=0x392 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondaryattachmenttop byte=0x393 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondaryattachmenttrigger byte=0x394 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondarycamo byte=0x395 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondaryemblem byte=0x396 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondarylens byte=0x397 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondaryreticle byte=0x398 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondaryreticlecolor byte=0x399 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.secondarytag byte=0x39A bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.specialgrenade byte=0x39B bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.specialty1 byte=0x39C bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.specialty2 byte=0x39D bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass1.specialty3 byte=0x39E bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2 byte=0x39F bit=5 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.prestigeclass2.body byte=0x39F bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.classbonus byte=0x3A0 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.equipment byte=0x3A1 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.facepaintcolor byte=0x3A2 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.facepaintpattern byte=0x3A3 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.head byte=0x3A4 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primary byte=0x3A5 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primaryattachment byte=0x3A6 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primaryattachmentbottom byte=0x3A7 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primaryattachmentmuzzle byte=0x3A8 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primaryattachmenttop byte=0x3A9 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primaryattachmenttrigger byte=0x3AA bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primarycamo byte=0x3AB bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primaryemblem byte=0x3AC bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primarygrenade byte=0x3AD bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primarylens byte=0x3AE bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primaryreticle byte=0x3AF bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primaryreticlecolor byte=0x3B0 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.primarytag byte=0x3B1 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondary byte=0x3B2 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondaryattachment byte=0x3B3 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondaryattachmentbottom byte=0x3B4 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondaryattachmentmuzzle byte=0x3B5 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondaryattachmenttop byte=0x3B6 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondaryattachmenttrigger byte=0x3B7 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondarycamo byte=0x3B8 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondaryemblem byte=0x3B9 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondarylens byte=0x3BA bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondaryreticle byte=0x3BB bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondaryreticlecolor byte=0x3BC bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.secondarytag byte=0x3BD bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.specialgrenade byte=0x3BE bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.specialty1 byte=0x3BF bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.specialty2 byte=0x3C0 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass2.specialty3 byte=0x3C1 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3 byte=0x3C2 bit=5 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.prestigeclass3.body byte=0x3C2 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.classbonus byte=0x3C3 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.equipment byte=0x3C4 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.facepaintcolor byte=0x3C5 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.facepaintpattern byte=0x3C6 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.head byte=0x3C7 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primary byte=0x3C8 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primaryattachment byte=0x3C9 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primaryattachmentbottom byte=0x3CA bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primaryattachmentmuzzle byte=0x3CB bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primaryattachmenttop byte=0x3CC bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primaryattachmenttrigger byte=0x3CD bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primarycamo byte=0x3CE bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primaryemblem byte=0x3CF bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primarygrenade byte=0x3D0 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primarylens byte=0x3D1 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primaryreticle byte=0x3D2 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primaryreticlecolor byte=0x3D3 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.primarytag byte=0x3D4 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondary byte=0x3D5 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondaryattachment byte=0x3D6 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondaryattachmentbottom byte=0x3D7 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondaryattachmentmuzzle byte=0x3D8 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondaryattachmenttop byte=0x3D9 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondaryattachmenttrigger byte=0x3DA bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondarycamo byte=0x3DB bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondaryemblem byte=0x3DC bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondarylens byte=0x3DD bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondaryreticle byte=0x3DE bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondaryreticlecolor byte=0x3DF bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.secondarytag byte=0x3E0 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.specialgrenade byte=0x3E1 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.specialty1 byte=0x3E2 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.specialty2 byte=0x3E3 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass3.specialty3 byte=0x3E4 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4 byte=0x3E5 bit=5 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.prestigeclass4.body byte=0x3E5 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.classbonus byte=0x3E6 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.equipment byte=0x3E7 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.facepaintcolor byte=0x3E8 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.facepaintpattern byte=0x3E9 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.head byte=0x3EA bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primary byte=0x3EB bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primaryattachment byte=0x3EC bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primaryattachmentbottom byte=0x3ED bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primaryattachmentmuzzle byte=0x3EE bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primaryattachmenttop byte=0x3EF bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primaryattachmenttrigger byte=0x3F0 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primarycamo byte=0x3F1 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primaryemblem byte=0x3F2 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primarygrenade byte=0x3F3 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primarylens byte=0x3F4 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primaryreticle byte=0x3F5 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primaryreticlecolor byte=0x3F6 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.primarytag byte=0x3F7 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondary byte=0x3F8 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondaryattachment byte=0x3F9 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondaryattachmentbottom byte=0x3FA bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondaryattachmentmuzzle byte=0x3FB bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondaryattachmenttop byte=0x3FC bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondaryattachmenttrigger byte=0x3FD bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondarycamo byte=0x3FE bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondaryemblem byte=0x3FF bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondarylens byte=0x400 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondaryreticle byte=0x401 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondaryreticlecolor byte=0x402 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.secondarytag byte=0x403 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.specialgrenade byte=0x404 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.specialty1 byte=0x405 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.specialty2 byte=0x406 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass4.specialty3 byte=0x407 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5 byte=0x408 bit=5 bits=280 element=280 type=6 array=1 enum=0
+root.cacloadouts.prestigeclass5.body byte=0x408 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.classbonus byte=0x409 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.equipment byte=0x40A bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.facepaintcolor byte=0x40B bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.facepaintpattern byte=0x40C bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.head byte=0x40D bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primary byte=0x40E bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primaryattachment byte=0x40F bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primaryattachmentbottom byte=0x410 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primaryattachmentmuzzle byte=0x411 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primaryattachmenttop byte=0x412 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primaryattachmenttrigger byte=0x413 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primarycamo byte=0x414 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primaryemblem byte=0x415 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primarygrenade byte=0x416 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primarylens byte=0x417 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primaryreticle byte=0x418 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primaryreticlecolor byte=0x419 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.primarytag byte=0x41A bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondary byte=0x41B bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondaryattachment byte=0x41C bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondaryattachmentbottom byte=0x41D bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondaryattachmentmuzzle byte=0x41E bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondaryattachmenttop byte=0x41F bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondaryattachmenttrigger byte=0x420 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondarycamo byte=0x421 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondaryemblem byte=0x422 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondarylens byte=0x423 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondaryreticle byte=0x424 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondaryreticlecolor byte=0x425 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.secondarytag byte=0x426 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.specialgrenade byte=0x427 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.specialty1 byte=0x428 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.specialty2 byte=0x429 bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.prestigeclass5.specialty3 byte=0x42A bit=5 bits=8 element=8 type=0 array=1 enum=0
+root.cacloadouts.resetwarningdislayed byte=0x42B bit=5 bits=1 element=1 type=2 array=1 enum=0
+root.cg_mature byte=0x42B bit=6 bits=1 element=1 type=2 array=1 enum=0
+root.cg_subtitles byte=0x42B bit=7 bits=1 element=1 type=2 array=1 enum=0
+root.challengetier byte=0x42C bit=0 bits=1560 element=5 type=2 array=312 enum=0
+root.challengevalue byte=0x4EF bit=0 bits=4992 element=16 type=1 array=312 enum=0
+root.clantagstats byte=0x75F bit=0 bits=36 element=36 type=6 array=1 enum=0
+root.clantagstats.features byte=0x75F bit=0 bits=28 element=2 type=6 array=14 enum=12
+root.clantagstats.features.new byte=0x75F bit=0 bits=1 element=1 type=2 array=1 enum=0
+root.clantagstats.features.purchased byte=0x75F bit=1 bits=1 element=1 type=2 array=1 enum=0
+root.clantagstats.selectedfeature byte=0x762 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.connectionid byte=0x763 bit=4 bits=64 element=64 type=3 array=1 enum=0
+root.consoleinfo byte=0x76B bit=4 bits=2960 element=296 type=6 array=10 enum=-1
+root.consoleinfo.consoleipexternal byte=0x76B bit=4 bits=32 element=32 type=6 array=1 enum=0
+root.consoleinfo.consoleipexternal.a byte=0x76B bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.consoleinfo.consoleipexternal.b byte=0x76C bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.consoleinfo.consoleipexternal.c byte=0x76D bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.consoleinfo.consoleipexternal.d byte=0x76E bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.consoleinfo.consoleipinternal byte=0x76F bit=4 bits=32 element=32 type=6 array=1 enum=0
+root.consoleinfo.consoleipinternal.a byte=0x76F bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.consoleinfo.consoleipinternal.b byte=0x770 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.consoleinfo.consoleipinternal.c byte=0x771 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.consoleinfo.consoleipinternal.d byte=0x772 bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.consoleinfo.consolemachineidhigh byte=0x773 bit=4 bits=64 element=64 type=3 array=1 enum=0
+root.consoleinfo.consolemachineidlow byte=0x77B bit=4 bits=64 element=64 type=3 array=1 enum=0
+root.consoleinfo.macaddress byte=0x783 bit=4 bits=64 element=64 type=3 array=1 enum=0
+root.consoleinfo.nattype byte=0x78B bit=4 bits=8 element=8 type=0 array=1 enum=0
+root.consoleinfo.timestamp byte=0x78C bit=4 bits=32 element=32 type=2 array=1 enum=0
+root.contracts byte=0x8DD bit=4 bits=32768 element=64 type=6 array=512 enum=-1
+root.contracts.lasttimedeactivated byte=0x8DD bit=4 bits=32 element=32 type=2 array=1 enum=0
+root.contracts.timespurchased byte=0x8E1 bit=4 bits=32 element=32 type=2 array=1 enum=0
+root.currentgamemodemilestone byte=0x18DD bit=4 bits=1500 element=75 type=6 array=20 enum=2
+root.currentgamemodemilestone.milestones byte=0x18DD bit=4 bits=75 element=5 type=2 array=15 enum=3
+root.emblemstats byte=0x1999 bit=0 bits=3856 element=3856 type=6 array=1 enum=0
+root.emblemstats.backgrounds byte=0x1999 bit=0 bits=768 element=3 type=6 array=256 enum=-1
+root.emblemstats.backgrounds.new byte=0x1999 bit=0 bits=1 element=1 type=2 array=1 enum=0
+root.emblemstats.backgrounds.purchased byte=0x1999 bit=1 bits=1 element=1 type=2 array=1 enum=0
+root.emblemstats.backgrounds.unlocked byte=0x1999 bit=2 bits=1 element=1 type=2 array=1 enum=0
+root.emblemstats.icons byte=0x19F9 bit=0 bits=3072 element=3 type=6 array=1024 enum=-1
+root.emblemstats.icons.new byte=0x19F9 bit=0 bits=1 element=1 type=2 array=1 enum=0
+root.emblemstats.icons.purchased byte=0x19F9 bit=1 bits=1 element=1 type=2 array=1 enum=0
+root.emblemstats.icons.unlocked byte=0x19F9 bit=2 bits=1 element=1 type=2 array=1 enum=0
+root.emblemstats.layers byte=0x1B79 bit=0 bits=12 element=1 type=6 array=12 enum=-1
+root.emblemstats.layers.new byte=0x1B79 bit=0 bits=1 element=1 type=2 array=1 enum=0
+root.emblemstats.layerspurchased byte=0x1B7A bit=4 bits=4 element=4 type=2 array=1 enum=0
+root.friendslistfingerprint byte=0x1B7B bit=0 bits=64 element=64 type=3 array=1 enum=0
+root.gpad_buttonsconfig byte=0x1B83 bit=0 bits=3 element=3 type=2 array=1 enum=0
+root.gpad_rumble byte=0x1B83 bit=3 bits=1 element=1 type=2 array=1 enum=0
+root.gpad_sticksconfig byte=0x1B83 bit=4 bits=3 element=3 type=2 array=1 enum=0
+root.groupstats byte=0x1B83 bit=7 bits=13986 element=666 type=6 array=21 enum=6
+root.groupstats.stats byte=0x1B83 bit=7 bits=666 element=74 type=6 array=9 enum=5
+root.groupstats.stats.challengetier byte=0x1B83 bit=7 bits=5 element=5 type=2 array=1 enum=0
+root.groupstats.stats.challengevalue byte=0x1B84 bit=4 bits=16 element=16 type=1 array=1 enum=0
+root.groupstats.stats.currentmilestone byte=0x1B86 bit=4 bits=5 element=5 type=2 array=1 enum=0
+root.groupstats.stats.personalbest byte=0x1B87 bit=1 bits=16 element=16 type=1 array=1 enum=0
+root.groupstats.stats.statvalue byte=0x1B89 bit=1 bits=32 element=32 type=2 array=1 enum=0
+root.higheststats byte=0x2258 bit=1 bits=192 element=32 type=2 array=6 enum=1
+root.input_autoaim byte=0x2270 bit=1 bits=1 element=1 type=2 array=1 enum=0
+root.input_invertpitch byte=0x2270 bit=2 bits=1 element=1 type=2 array=1 enum=0
+root.input_targetassist byte=0x2270 bit=3 bits=1 element=1 type=2 array=1 enum=0
+root.itemstats byte=0x2270 bit=4 bits=171776 element=671 type=6 array=256 enum=-1
+root.itemstats.isproversionunlocked byte=0x2270 bit=4 bits=3 element=1 type=2 array=3 enum=-1
+root.itemstats.new byte=0x2270 bit=7 bits=1 element=1 type=2 array=1 enum=0
+root.itemstats.purchased byte=0x2271 bit=0 bits=1 element=1 type=2 array=1 enum=0
+root.itemstats.stats byte=0x2271 bit=1 bits=666 element=74 type=6 array=9 enum=5
+root.itemstats.stats.challengetier byte=0x2271 bit=1 bits=5 element=5 type=2 array=1 enum=0
+root.itemstats.stats.challengevalue byte=0x2271 bit=6 bits=16 element=16 type=1 array=1 enum=0
+root.itemstats.stats.currentmilestone byte=0x2273 bit=6 bits=5 element=5 type=2 array=1 enum=0
+root.itemstats.stats.personalbest byte=0x2274 bit=3 bits=16 element=16 type=1 array=1 enum=0
+root.itemstats.stats.statvalue byte=0x2276 bit=3 bits=32 element=32 type=2 array=1 enum=0
+root.lastconsolesave byte=0x7650 bit=4 bits=4 element=4 type=2 array=1 enum=0
+root.lifechallengetier byte=0x7651 bit=0 bits=1560 element=5 type=2 array=312 enum=0
+root.personalbests byte=0x7714 bit=0 bits=4992 element=16 type=1 array=312 enum=0
+root.playerbeststatsbygamemode byte=0x7984 bit=0 bits=4800 element=240 type=6 array=20 enum=2
+root.playerbeststatsbygamemode.stats byte=0x7984 bit=0 bits=240 element=16 type=1 array=15 enum=3
+root.playerchallengebygamemode byte=0x7BDC bit=0 bits=8960 element=448 type=6 array=20 enum=2
+root.playerchallengebygamemode.assists byte=0x7BDC bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.captures byte=0x7BDE bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.cur_win_streak byte=0x7BE0 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.deaths byte=0x7BE2 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.defends byte=0x7BE4 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.defuses byte=0x7BE6 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.destructions byte=0x7BE8 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.kdratio byte=0x7BEA bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerchallengebygamemode.kill_streak byte=0x7BEE bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.kills byte=0x7BF0 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.losses byte=0x7BF2 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.offends byte=0x7BF4 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.pickups byte=0x7BF6 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.plants byte=0x7BF8 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.returns byte=0x7BFA bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.score byte=0x7BFC bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerchallengebygamemode.ties byte=0x7C00 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.time_played_total byte=0x7C02 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerchallengebygamemode.top3 byte=0x7C06 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.top3team byte=0x7C08 bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.topplayer byte=0x7C0A bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.win_streak byte=0x7C0C bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.wins byte=0x7C0E bit=0 bits=16 element=16 type=1 array=1 enum=0
+root.playerchallengebygamemode.wlratio byte=0x7C10 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode byte=0x803C bit=0 bits=21960 element=1098 type=6 array=20 enum=2
+root.playerstatsbygamemode.assists byte=0x803C bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.captures byte=0x8040 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.cur_win_streak byte=0x8044 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.deaths byte=0x8048 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.defends byte=0x804C bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.defuses byte=0x8050 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.destructions byte=0x8054 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.kdratio byte=0x8058 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.kill_streak byte=0x805C bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.kills byte=0x8060 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.losses byte=0x8064 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.offends byte=0x8068 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.pickups byte=0x806C bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.plants byte=0x8070 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.prevscores byte=0x8074 bit=0 bits=330 element=33 type=6 array=10 enum=-1
+root.playerstatsbygamemode.prevscores.score byte=0x8074 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.prevscores.valid byte=0x8078 bit=0 bits=1 element=1 type=2 array=1 enum=0
+root.playerstatsbygamemode.returns byte=0x809D bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.score byte=0x80A1 bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.ties byte=0x80A5 bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.time_played_total byte=0x80A9 bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.top3 byte=0x80AD bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.top3team byte=0x80B1 bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.topplayer byte=0x80B5 bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.win_streak byte=0x80B9 bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.wins byte=0x80BD bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbygamemode.wlratio byte=0x80C1 bit=2 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbymap byte=0x8AF5 bit=0 bits=2880 element=96 type=6 array=30 enum=4
+root.playerstatsbymap.arcademode_score byte=0x8AF5 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbymap.skip_passed byte=0x8AF9 bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatsbymap.vote_succeeded byte=0x8AFD bit=0 bits=32 element=32 type=2 array=1 enum=0
+root.playerstatslist byte=0x8C5D bit=0 bits=9984 element=32 type=2 array=312 enum=0
+root.playerxuid byte=0x913D bit=0 bits=64 element=64 type=3 array=1 enum=0
+root.purchasedattachments byte=0x9145 bit=0 bits=23 element=1 type=2 array=23 enum=11
+root.r_stereo3davailable byte=0x9147 bit=7 bits=1 element=1 type=2 array=1 enum=0
+root.r_stereo3don byte=0x9148 bit=0 bits=1 element=1 type=2 array=1 enum=0
+root.recentearnings byte=0x9148 bit=1 bits=330 element=33 type=6 array=10 enum=-1
+root.recentearnings.score byte=0x9148 bit=1 bits=32 element=32 type=2 array=1 enum=0
+root.recentearnings.valid byte=0x914C bit=1 bits=1 element=1 type=2 array=1 enum=0
+root.recenthitloccounts byte=0x9171 bit=3 bits=3050 element=305 type=6 array=10 enum=-1
+root.recenthitloccounts.criticalhitlocations byte=0x9171 bit=3 bits=152 element=8 type=0 array=19 enum=-1
+root.recenthitloccounts.hitlocations byte=0x9184 bit=3 bits=152 element=8 type=0 array=19 enum=-1
+root.recenthitloccounts.valid byte=0x9197 bit=3 bits=1 element=1 type=2 array=1 enum=0
+root.recentscores byte=0x92EE bit=5 bits=810 element=81 type=6 array=10 enum=-1
+root.recentscores.deaths byte=0x92EE bit=5 bits=16 element=16 type=1 array=1 enum=0
+root.recentscores.gametype byte=0x92F0 bit=5 bits=16 element=16 type=1 array=1 enum=0
+root.recentscores.kills byte=0x92F2 bit=5 bits=16 element=16 type=1 array=1 enum=0
+root.recentscores.score byte=0x92F4 bit=5 bits=32 element=32 type=2 array=1 enum=0
+root.recentscores.valid byte=0x92F8 bit=5 bits=1 element=1 type=2 array=1 enum=0
+root.snd_console_config byte=0x9353 bit=7 bits=64 element=64 type=3 array=1 enum=0
+root.snd_menu_cinematic byte=0x935B bit=7 bits=5 element=5 type=2 array=1 enum=0
+root.snd_menu_listen_level byte=0x935C bit=4 bits=1 element=1 type=2 array=1 enum=0
+root.snd_menu_master byte=0x935C bit=5 bits=5 element=5 type=2 array=1 enum=0
+root.snd_menu_music byte=0x935D bit=2 bits=5 element=5 type=2 array=1 enum=0
+root.snd_menu_sfx byte=0x935D bit=7 bits=5 element=5 type=2 array=1 enum=0
+root.snd_menu_speaker_setup byte=0x935E bit=4 bits=2 element=2 type=2 array=1 enum=0
+root.snd_menu_voice byte=0x935E bit=6 bits=5 element=5 type=2 array=1 enum=0
+root.snd_ps3_encodingformat byte=0x935F bit=3 bits=32 element=32 type=2 array=1 enum=0
+root.snd_speakerconfiguration byte=0x9363 bit=3 bits=32 element=32 type=2 array=1 enum=0
+root.start_in_mp byte=0x9367 bit=3 bits=1 element=1 type=2 array=1 enum=0
+root.statresetnotification byte=0x9367 bit=4 bits=64 element=64 type=3 array=1 enum=0
+root.team_indicator byte=0x936F bit=4 bits=2 element=2 type=2 array=1 enum=0
+root.uploadbandwidth byte=0x936F bit=6 bits=32 element=32 type=2 array=1 enum=0
+root.weaponstats byte=0x9373 bit=6 bits=9152 element=143 type=6 array=64 enum=-1
+root.weaponstats.attachmentbottom byte=0x9373 bit=6 bits=5 element=5 type=2 array=1 enum=0
+root.weaponstats.attachmentcamo byte=0x9374 bit=3 bits=5 element=5 type=2 array=1 enum=0
+root.weaponstats.attachmentlens byte=0x9375 bit=0 bits=5 element=5 type=2 array=1 enum=0
+root.weaponstats.attachmentmuzzle byte=0x9375 bit=5 bits=5 element=5 type=2 array=1 enum=0
+root.weaponstats.attachmentreticle byte=0x9376 bit=2 bits=5 element=5 type=2 array=1 enum=0
+root.weaponstats.attachmenttop byte=0x9376 bit=7 bits=5 element=5 type=2 array=1 enum=0
+root.weaponstats.attachmenttrigger byte=0x9377 bit=4 bits=5 element=5 type=2 array=1 enum=0
+root.weaponstats.purchasedattachments byte=0x9378 bit=1 bits=32 element=1 type=2 array=32 enum=-1
+root.weaponstats.purchasedattachpoints byte=0x937C bit=1 bits=4 element=1 type=2 array=4 enum=10
+root.weaponstats.purchasedoptions byte=0x937C bit=5 bits=72 element=1 type=2 array=72 enum=-1
+root.webtoken byte=0x97EB bit=6 bits=128 element=128 type=5 array=1 enum=0
+enum 0 globalstats_e count=312
+  0 accuracy
+  1 airstrike_used
+  2 artillery_used
+  3 assists
+  4 auto_turret_used
+  5 badhostcount
+  6 basic_complete_matches_played
+  7 basic_crouch_kills
+  8 basic_dtp_glass
+  9 basic_dtp_kills
+  10 basic_fall_die
+  11 basic_fall_live
+  12 basic_multi_kills
+  13 basic_penetration_kills
+  14 basic_prone_kills
+  15 basic_stolen_weapon_kills
+  16 basic_top_3_team
+  17 basic_vandalism
+  18 challenges
+  19 codpoints
+  20 contracts_completed
+  21 contracts_cp_earned
+  22 contracts_cp_spent
+  23 contracts_purchased
+  24 contracts_xp_earned
+  25 counteruav_used
+  26 cur_win_streak
+  27 currencyspent
+  28 deaths
+  29 dogs_used
+  30 final_killcam
+  31 final_killcam_airstrike
+  32 final_killcam_backstabber
+  33 final_killcam_ballistic_knife
+  34 final_killcam_c4
+  35 final_killcam_chopper_gunner
+  36 final_killcam_comlink
+  37 final_killcam_dog
+  38 final_killcam_gas
+  39 final_killcam_gunship
+  40 final_killcam_hatchet
+  41 final_killcam_m202_flash
+  42 final_killcam_minigun
+  43 final_killcam_mortar
+  44 final_killcam_napalm
+  45 final_killcam_rcbomb
+  46 final_killcam_semtex
+  47 final_killcam_sentry
+  48 final_killcam_stuck_bolt
+  49 final_killcam_supplydrop
+  50 gametypeban
+  51 gm_ctf_annihilate
+  52 gm_ctf_crush
+  53 gm_ctf_flag_carrier_kills
+  54 gm_ctf_mvp
+  55 gm_ctf_shut_out
+  56 gm_dem_annihilate
+  57 gm_dem_crush
+  58 gm_dem_defuser_kills
+  59 gm_dem_mvp
+  60 gm_dem_planter_kills
+  61 gm_dem_shut_out
+  62 gm_dm_annihilate
+  63 gm_dm_crush
+  64 gm_dom_annihilate
+  65 gm_dom_crush
+  66 gm_dom_dominate
+  67 gm_hcdm_annihilate
+  68 gm_hcdm_crush
+  69 gm_hcsd_annihilate
+  70 gm_hcsd_bomb_carrier_kills
+  71 gm_hcsd_crush
+  72 gm_hcsd_defuser_kills
+  73 gm_hcsd_last_man_standing
+  74 gm_hcsd_mvp
+  75 gm_hcsd_planter_kills
+  76 gm_hcsd_shut_out
+  77 gm_hctdm_annihilate
+  78 gm_hctdm_crush
+  79 gm_koth_annihilate
+  80 gm_koth_crush
+  81 gm_sab_annihilate
+  82 gm_sab_bomb_carrier_kills
+  83 gm_sab_crush
+  84 gm_sab_defuser_kills
+  85 gm_sab_planter_kills
+  86 gm_sd_annihilate
+  87 gm_sd_bomb_carrier_kills
+  88 gm_sd_crush
+  89 gm_sd_defuser_kills
+  90 gm_sd_last_man_standing
+  91 gm_sd_mvp
+  92 gm_sd_planter_kills
+  93 gm_sd_shut_out
+  94 gm_tdm_annihilate
+  95 gm_tdm_crush
+  96 hasclantag
+  97 hasprestiged
+  98 headshots
+  99 helicopter_comlink_used
+  100 helicopter_gunner_used
+  101 helicopter_player_used
+  102 helicopter_used
+  103 hits
+  104 kdratio
+  105 kills
+  106 kills_ballistic_knife
+  107 kills_bullet_multi
+  108 kills_car
+  109 kills_cooked
+  110 kills_dtp_glass
+  111 kills_entire_team
+  112 kills_hatchet
+  113 kills_killer_tactical_inserted1
+  114 kills_mvp
+  115 kills_no_misses_assault
+  116 kills_no_misses_cqb
+  117 kills_no_misses_lmg
+  118 kills_no_misses_pistol
+  119 kills_no_misses_smg
+  120 kills_no_misses_sniper
+  121 kills_stunned_player
+  122 kills_throwback
+  123 kills_victim_tactical_inserted
+  124 killstreak_earned
+  125 killstreak_earned_airstrike
+  126 killstreak_earned_chopper_gunner
+  127 killstreak_earned_comlink
+  128 killstreak_earned_counter_u2
+  129 killstreak_earned_dogs
+  130 killstreak_earned_gunship
+  131 killstreak_earned_m202
+  132 killstreak_earned_m220
+  133 killstreak_earned_mortar
+  134 killstreak_earned_napalm
+  135 killstreak_earned_rcbomb
+  136 killstreak_earned_sam_turret
+  137 killstreak_earned_satellite
+  138 killstreak_earned_sentry_gun
+  139 killstreak_earned_supply_drop
+  140 killstreak_earned_u2
+  141 killstreak_kills_counter_u2
+  142 killstreak_kills_satellite
+  143 killstreak_kills_u2
+  144 last_escrow
+  145 laststatsbackup
+  146 lastxp
+  147 leaderboardfailures
+  148 lifetime_buyin
+  149 lifetime_earnings
+  150 losses
+  151 m220_tow_used
+  152 mappackmask
+  153 match_bonus
+  154 matches_hosted
+  155 matches_hosted_completed
+  156 matches_hosted_completed_streak
+  157 matches_played
+  158 matches_played_completed
+  159 matches_played_completed_streak
+  160 maxxp
+  161 medal_afterlife
+  162 medal_aircraft_assist
+  163 medal_anti_bomber
+  164 medal_assisted_suicide
+  165 medal_assists
+  166 medal_avenger
+  167 medal_back_stabber
+  168 medal_bank_shot
+  169 medal_bomber
+  170 medal_bulls_eye
+  171 medal_buzz_kill
+  172 medal_comeback
+  173 medal_defense_medal
+  174 medal_destroyer_counteruav
+  175 medal_destroyer_helicopter
+  176 medal_destroyer_helicopter_player
+  177 medal_destroyer_m220_tow
+  178 medal_destroyer_rcbomb
+  179 medal_destroyer_turret
+  180 medal_destroyer_uav
+  181 medal_double_kill
+  182 medal_execution
+  183 medal_first_blood
+  184 medal_flag_capture
+  185 medal_flag_return
+  186 medal_flag_runner
+  187 medal_head_shot
+  188 medal_head_shot
+  189 medal_hero
+  190 medal_heroic
+  191 medal_hijacker
+  192 medal_long_shot
+  193 medal_multi_kill
+  194 medal_offense_medal
+  195 medal_one_shot_kill
+  196 medal_payback
+  197 medal_position_secure
+  198 medal_rescuer
+  199 medal_revives
+  200 medal_saboteur
+  201 medal_share_package
+  202 medal_share_package_airstrike
+  203 medal_share_package_ammo
+  204 medal_share_package_artillery
+  205 medal_share_package_auto_turret
+  206 medal_share_package_counteru2
+  207 medal_share_package_dogs
+  208 medal_share_package_flash
+  209 medal_share_package_helicopter
+  210 medal_share_package_helicopter_comlink
+  211 medal_share_package_helicopter_gunner
+  212 medal_share_package_helicopter_player
+  213 medal_share_package_minigun
+  214 medal_share_package_mortar
+  215 medal_share_package_napalm
+  216 medal_share_package_rcbomb
+  217 medal_share_package_recon
+  218 medal_share_package_satellite
+  219 medal_share_package_supply_drop
+  220 medal_share_package_tow
+  221 medal_share_package_tow_turret
+  222 medal_skewer
+  223 medal_stuck_to_player
+  224 medal_triple_kill
+  225 medals
+  226 minigun_used
+  227 minxp
+  228 misc_bonus
+  229 misses
+  230 monthly_timestamp
+  231 mortar_used
+  232 napalm_used
+  233 perks_deep_impact_kill
+  234 perks_deep_impact_shot_equipment
+  235 perks_deep_impact_shot_plane
+  236 perks_flak_jacket_demolished
+  237 perks_flak_jacket_protected
+  238 perks_flak_jacket_threwback
+  239 perks_ghost_destroy_aircraft
+  240 perks_ghost_destroy_turret
+  241 perks_ghost_radar_kill
+  242 perks_hacker_destroy
+  243 perks_hacker_explosive_kill
+  244 perks_hacker_near_equipt_kill
+  245 perks_hardline_dogs_killstreak
+  246 perks_hardline_killstreak
+  247 perks_hardline_share_package
+  248 perks_lightweight_escape_death
+  249 perks_lightweight_melee
+  250 perks_lightweight_offense_medal
+  251 perks_marathon_capture_medal
+  252 perks_marathon_first_blood_medal
+  253 perks_marathon_mile
+  254 perks_ninja_back_stabber
+  255 perks_ninja_plants
+  256 perks_ninja_silenced
+  257 perks_professional_grenade_kills
+  258 perks_professional_multi_grenade_kills
+  259 perks_professional_two_attach_kills
+  260 perks_scavenger_kill_count
+  261 perks_scavenger_nade_kill
+  262 perks_scavenger_resupply
+  263 perks_scout_headshots
+  264 perks_scout_one_shot_kill
+  265 perks_scout_side_arm_kill
+  266 perks_second_chance_headshot
+  267 perks_second_chance_kill
+  268 perks_second_chance_revenge
+  269 perks_sleight_of_hand_ads_kill
+  270 perks_sleight_of_hand_damage_reload_kill
+  271 perks_sleight_of_hand_reload_kill
+  272 perks_steady_aim_kill
+  273 perks_steady_aim_quick_melee
+  274 perks_steady_aim_sprint_kill
+  275 perks_tactical_mask_concussion
+  276 perks_tactical_mask_flash
+  277 perks_tactical_mask_gas
+  278 plevel
+  279 rank
+  280 rankxp
+  281 rcbomb_used
+  282 recon_used
+  283 revives
+  284 satellite_used
+  285 score
+  286 sessionbans
+  287 stats_version
+  288 statsbackupversion
+  289 streaker
+  290 suicides
+  291 supply_drop_used
+  292 teamkills
+  293 teamkills_nostats
+  294 ties
+  295 time_played_alive
+  296 time_played_allies
+  297 time_played_opfor
+  298 time_played_other
+  299 time_played_total
+  300 timewhennexthost
+  301 top3
+  302 top3team
+  303 topplayer
+  304 total_fall_distance_feet
+  305 total_shots
+  306 total_times_dive_to_prone
+  307 tow_turret_used
+  308 version
+  309 weekly_timestamp
+  310 wins
+  311 wlratio
+enum 1 higheststats_e count=6
+  0 death_streak
+  1 highest_accuracy
+  2 highest_kdratio
+  3 highest_score
+  4 kill_streak
+  5 win_streak
+enum 2 gamemodes_e count=20
+  0 ctf
+  1 dem
+  2 dm
+  3 dom
+  4 gun
+  5 hcctf
+  6 hcdem
+  7 hcdm
+  8 hcdom
+  9 hckoth
+  10 hcsab
+  11 hcsd
+  12 hctdm
+  13 hlnd
+  14 koth
+  15 oic
+  16 sab
+  17 sd
+  18 shrp
+  19 tdm
+enum 3 gamemodebests_e count=15
+  0 assists
+  1 captures
+  2 deaths
+  3 defends
+  4 defuses
+  5 destructions
+  6 kills
+  7 offends
+  8 pickups
+  9 plants
+  10 returns
+  11 score
+  12 top3
+  13 topplayer
+  14 wins
+enum 4 maps_e count=30
+  0 mp_area51
+  1 mp_array
+  2 mp_berlinwall2
+  3 mp_cairo
+  4 mp_cosmodrome
+  5 mp_cracked
+  6 mp_crisis
+  7 mp_discovery
+  8 mp_drivein
+  9 mp_duga
+  10 mp_firebase
+  11 mp_firingrange
+  12 mp_golfcourse
+  13 mp_gridlock
+  14 mp_hanoi
+  15 mp_havoc
+  16 mp_hotel
+  17 mp_kowloon
+  18 mp_mountain
+  19 mp_nuked
+  20 mp_outskirts
+  21 mp_radiation
+  22 mp_russianbase
+  23 mp_salvage
+  24 mp_silo
+  25 mp_snowmine
+  26 mp_stadium
+  27 mp_villa
+  28 mp_warmuseum
+  29 mp_zoo
+enum 5 weaponstat_e count=9
+  0 deaths
+  1 deathsduringuse
+  2 destroyed
+  3 headshots
+  4 hits
+  5 kills
+  6 shots
+  7 timeused
+  8 used
+enum 6 weapongroups_e count=21
+  0 body
+  1 feature
+  2 head
+  3 killstreak
+  4 miscweapon
+  5 null_specialty
+  6 specialty
+  7 weapon_assault
+  8 weapon_cqb
+  9 weapon_explosive
+  10 weapon_flamethrower
+  11 weapon_grenade
+  12 weapon_grenadelauncher
+  13 weapon_launcher
+  14 weapon_lmg
+  15 weapon_masterkey
+  16 weapon_pistol
+  17 weapon_projectile
+  18 weapon_smg
+  19 weapon_sniper
+  20 weapon_special
+enum 7 attachments_e count=16
+  0 acog
+  1 auto
+  2 dualclip
+  3 dw
+  4 elbit
+  5 extclip
+  6 grip
+  7 ir
+  8 lps
+  9 reflex
+  10 rf
+  11 silencer
+  12 snub
+  13 speed
+  14 upgradesight
+  15 vzoom
+enum 8 attachmentstat_e count=4
+  0 headshots
+  1 hits
+  2 kills
+  3 shots
+enum 9 challengetypes_e count=2
+  0 expert
+  1 marksman
+enum 10 attachpoints_e count=4
+  0 bottom
+  1 muzzle
+  2 top
+  3 trigger
+enum 11 purchasedattachments_e count=23
+  0 acog
+  1 auto
+  2 bayonet
+  3 dualclip
+  4 dw
+  5 elbit
+  6 extclip
+  7 fmj
+  8 ft
+  9 gl
+  10 grip
+  11 hp
+  12 ir
+  13 lps
+  14 mk
+  15 reflex
+  16 rf
+  17 saddle
+  18 silencer
+  19 snub
+  20 speed
+  21 upgradesight
+  22 vzoom
+enum 12 clantagfeatures_e count=14
+  0 animo
+  1 animplus
+  2 blue
+  3 cyan
+  4 cycle
+  5 cylon
+  6 green
+  7 left
+  8 magenta
+  9 move
+  10 rainbow
+  11 red
+  12 right
+  13 yellow

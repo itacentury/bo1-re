@@ -1,0 +1,167 @@
+{
+ "binary": "EBOOT_SP_ZM.BIN",
+ "build": "online_tu13_sp_",
+ "_sections": "Reconstructed name per section index (names are zeroed in the EBOOT); ? = inferred from content only.",
+ "sections": [
+  "",
+  ".init",
+  ".text",
+  ".fini",
+  ".sceStub.text",
+  ".rodata.sceResident",
+  ".rodata.sceFNID",
+  ".lib.ent.top",
+  ".lib.ent.btm",
+  ".lib.stub.top",
+  ".lib.stub",
+  ".lib.stub.btm",
+  ".rodata",
+  ".rodata.guid?",
+  ".spu_image?",
+  ".sys_proc_param",
+  ".sys_proc_prx_param",
+  ".text.prx_loader?",
+  ".ctors",
+  ".dtors",
+  ".ctors_end?",
+  ".data.rel.ro?",
+  ".data.sceFStub",
+  ".opd",
+  ".toc",
+  ".tdata",
+  ".tbss",
+  ".data",
+  ".bss",
+  ".unk28",
+  ".comment?",
+  ".shstrtab_zeroed"
+ ],
+ "anchors": {
+  "Cmd_AddCommand": "0x397160",
+  "Cmd_AddServerCommand": "0x3957A0",
+  "Cmd_ServerCommandStub": "0x3955C0"
+ },
+ "dvar_register_funcs": {
+  "bool": "0x458578",
+  "float": "0x4584B0",
+  "vec2": "0x458450",
+  "vec3": "0x4583F0",
+  "vec4": "0x458388",
+  "int": "0x458518",
+  "enum": "0x458270",
+  "string": "0x458308",
+  "color": "0x4580B8",
+  "linear_color_rgb": "0x458058",
+  "color_xyz": "0x457FF8"
+ },
+ "builtin_tables": [
+  [
+   "0xA593B8",
+   12,
+   "gsc_functions",
+   "0x2BC3E0"
+  ],
+  [
+   "0xA337EC",
+   12,
+   "gsc_methods_player",
+   "0x25A8E0"
+  ],
+  [
+   "0xA3400C",
+   12,
+   "gsc_methods_hudelem",
+   "0x275190"
+  ],
+  [
+   "0xA3460C",
+   12,
+   "gsc_methods_scriptent",
+   "0x2B3F88"
+  ],
+  [
+   "0xA354A4",
+   12,
+   "gsc_methods_vehicle",
+   "0x2DB828"
+  ],
+  [
+   "0xA32FA8",
+   12,
+   "gsc_methods_actor",
+   "0x236558"
+  ],
+  [
+   "0xA35F08",
+   12,
+   "gsc_methods_sentient",
+   "0x323C08"
+  ],
+  [
+   "0xA56FF8",
+   12,
+   "csc_functions",
+   "0x10E598"
+  ],
+  [
+   "0xA5F69C",
+   12,
+   "csc_functions_sp",
+   "0x54A130"
+  ],
+  [
+   "0xA30BD8",
+   12,
+   "csc_methods",
+   "0x10E3B0"
+  ],
+  [
+   "0xA3E8E8",
+   12,
+   "csc_methods_player",
+   "0x54A130"
+  ],
+  [
+   "0xA35B44",
+   8,
+   "spawn_functions",
+   "0x2FC048"
+  ],
+  [
+   "0xA36A70",
+   8,
+   "weapon_spawn_or_field_parsers",
+   null
+  ],
+  [
+   "0xA3DC48",
+   8,
+   "ui_menu_script_commands",
+   "0x3EC718"
+  ],
+  [
+   "0xA3E0A8",
+   8,
+   "net_msg_handlers_b",
+   "0x4FD958"
+  ],
+  [
+   "0xA3E178",
+   8,
+   "net_msg_handlers_c",
+   "0x511EC8"
+  ],
+  [
+   "0xA3FEF0",
+   12,
+   "remote_inspect_commands",
+   "0x5F3920"
+  ],
+  [
+   "0xA56AD8",
+   8,
+   "terminal_commands",
+   "0xCE720"
+  ]
+ ]
+}

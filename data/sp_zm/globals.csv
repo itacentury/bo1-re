@@ -1,0 +1,12 @@
+addr,name,type,size,subsystem,confidence,notes
+0x00EE7BF2,g_hudelems,game_hudelem_t[],,game,likely,stride 0x84 (MP 0x7C); address of the in-use byte the newhudelem builtins scan (HudElem_Alloc is inlined); the array may start a few bytes lower
+0x00FA2800,level,level_locals_t,,game,confirmed,"level.clients at +0x0 (lwz 0x2800(lis 0xFA)), indexed with sizeof(gclient_t)=0x1D30"
+0x00FA805C,g_entities,gentity_t[],,game,confirmed,stride 0x34C (SP/ZM gentity_t); 930 refs next to mulli 0x34C
+0x011FC92C,cmd_functions,cmd_function_t *,4,cmd,likely,matched from mp 0x014648AC (9/9 code refs agree). client command list head
+0x013DF850,g_dvarCount,int,4,dvar,likely,matched from mp 0x018F01A0 (7/7 code refs agree). compared against 0x1000
+0x013DF854,g_dvarReadLock,volatile int,4,dvar,likely,matched from mp 0x018F01A4 (16/16 code refs agree). lwarx/stwcx reader counter
+0x013DF858,g_dvarWriteLock,volatile int,4,dvar,likely,matched from mp 0x018F01A8 (11/11 code refs agree). lwarx/stwcx writer counter
+0x013DF860,s_dvarPool,dvar_t[4096],0x70000,dvar,guess,matched from mp 0x018F01B0 (2/2 code refs agree). stride 0x70
+0x0144F864,s_dvarHashTable,dvar_t *[1024],0x1000,dvar,likely,"matched from mp 0x019601B4 (6/6 code refs agree). bucket = hash & 0x3FF, chained via dvar_t::hashNext"
+0x01450864,dvar_cheats_ptr,dvar_t *,4,dvar,guess,"matched from mp 0x019611B4 (4/4 code refs agree). when non-null and current.enabled==0, CHEAT dvars are forced to reset value"
+0x01AFE9C0,scr_errorMessage,char[1024],0x400,gsc,likely,matched from mp 0x01EA05C0 (4/4 code refs agree). buffer filled by Scr_Error

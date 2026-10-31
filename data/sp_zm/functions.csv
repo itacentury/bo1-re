@@ -1,0 +1,132 @@
+addr,opd,name,prototype,subsystem,confidence,notes
+0x00041CC0,,sscanf,"int sscanf(const char *s, const char *fmt, ...)",libc,likely,"wraps the vscanf core 0x43414; peek parses ""%x %x"""
+0x00043D74,,atof,double atof(const char *s),libc,guess,matched from mp 0x00043D48 (callee_exact). getdvarfloat converts string value
+0x00044850,,strtol,"long strtol(const char *s, char **end, int base)",libc,likely,"matched from mp 0x00044824 (callee_exact). getdvarint: (str, NULL, 10)"
+0x000463BC,,I_stricmp,"int I_stricmp(const char *s0, const char *s1)",common,likely,matched from mp 0x00046390 (exact). command/builtin/dvar name compares (case-insensitive lookups)
+0x00046E90,,snprintf,"int snprintf(char *buf, size_t n, const char *fmt, ...)",libc,likely,"matched from mp 0x00046E64 (exact). fmt in r5, calls vsnprintf core 0x471A8"
+0x000471D4,,vsnprintf,"int vsnprintf(char *buf, size_t n, const char *fmt, va_list ap)",libc,guess,matched from mp 0x000471A8 (exact). shared formatting core
+0x00048D1C,0x00A4C438,longjmp,"void longjmp(jmp_buf env, int val)",libc,likely,matched from mp 0x00048CF0 (exact). Scr_Error unwinds with val=-1
+0x00073A88,,BG_GetPerkIndexForName,unsigned int BG_GetPerkIndexForName(const char *perkName),bgame,guess,matched from mp 0x0007B720 (callee). forum list
+0x000A4968,,BG_GetWeaponDef,WeaponDef *BG_GetWeaponDef(unsigned int weaponIndex),bgame,guess,matched from mp 0x000C0A98 (exact). forum list
+0x000CE720,,Terminal_GetCommand,void *Terminal_GetCommand(const char *name),ui,likely,"references the main-menu terminal command table 0xA56AD8 (dir, cat, zork, doa, 3arc ...)"
+0x0010E3B0,,CScr_GetMethod,"BuiltinMethod CScr_GetMethod(const char **pName, int *type)",csc,guess,matched from mp 0x001448B0 (callee). scans csc_methods (0xB311D8)
+0x0010E598,,CScr_GetFunction,"BuiltinFunction CScr_GetFunction(const char **pName, int *type)",csc,guess,matched from mp 0x00144AC0 (callee). scans csc_functions (0xB5A2F4)
+0x00236558,,Actor_GetMethod,BuiltinMethod Actor_GetMethod(const char **pName),gsc,confirmed,references the actor method table 0xA32FA8
+0x0025A8E0,,Player_GetMethod,BuiltinMethod Player_GetMethod(const char **pName),gsc,confirmed,references the player method table 0xA337EC
+0x0026CFF8,,ClientCommand,void ClientCommand(int clientNum),game,likely,SP version also handles god/noclip/ufo/notarget inline
+0x0026F588,0x00A46208,player_die,"void player_die(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath, int iWeapon, const float *vDir, int hitLoc, int psTimeOffset)",game,likely,"""player_die"""
+0x00275190,,HudElem_GetMethod,BuiltinMethod HudElem_GetMethod(const char **pName),gsc,confirmed,references the hudelem method table 0xA3400C
+0x00282140,,G_RegisterDvars,void G_RegisterDvars(void),game,likely,102/204 MP dvar names shared (SP registers ai_/player_ dvars here too)
+0x002B3F88,,ScriptEnt_GetMethod,BuiltinMethod ScriptEnt_GetMethod(const char **pName),gsc,confirmed,references the script entity method table 0xA3460C (MP merges vehicle methods into this table)
+0x002B50C8,,Scr_ConstructMessageString,"void Scr_ConstructMessageString(int firstParm, int lastParm, const char *errorContext, char *string, unsigned int stringLimit)",gsc,guess,"matched from mp 0x00316B80 (callee). iprintln*/print builds ""Game Message"" with limit 0x400"
+0x002BC3E0,,Scr_GetFunction,"BuiltinFunction Scr_GetFunction(const char **pName, int *type)",gsc,guess,matched from mp 0x00310FD8 (callee). strcmp over gsc_functions table (0xB5C8AC)
+0x002DB828,,Vehicle_GetMethod,BuiltinMethod Vehicle_GetMethod(const char **pName),gsc,confirmed,references the vehicle method table 0xA354A4 (separate table only in SP/ZM)
+0x002FA5C8,,Scr_GetEntity,gentity_t *Scr_GetEntity(unsigned int index),gsc,likely,'not an entity' + Scr_ParamError; 47 MP caller pairs agree
+0x002FC048,,G_CallSpawnEntity,int G_CallSpawnEntity(gentity_t *ent),game,likely,matched from mp 0x00356BE0 (name). ent->classname (+0x164) looked up in spawn_functions (0xB34BE0); weapon_ prefix check
+0x002FD098,,G_CallSpawn,void G_CallSpawn(void),game,likely,"""classname"" from spawn vars, ""dyn_"", ""node_"" (same shape as mp 0x00356DF0)"
+0x002FD9C8,,G_SpawnEntitiesFromString,void G_SpawnEntitiesFromString(void),game,confirmed,"""SpawnEntities: no entities"""
+0x003047B0,,G_FindConfigstringIndex,"int G_FindConfigstringIndex(const char *name, int start, int max, int create, const char *errormsg)",game,confirmed,"matched from mp 0x00370238 (strings). ""G_FindConfigstringIndex: overflow (%d): '%s'"""
+0x00304B38,,G_MaterialIndex,int G_MaterialIndex(const char *name),game,likely,matched from mp 0x003705D0 (strings). G_FindConfigstringIndex wrapper; forum list
+0x00304BA0,,G_LocalizedStringIndex,int G_LocalizedStringIndex(const char *string),game,guess,matched from mp 0x00370638 (callee). forum list
+0x00304EE8,,G_irand,"int G_irand(int min, int max)",game,guess,matched from mp 0x00370950 (exact). randomint
+0x00304F28,,G_flrand,"float G_flrand(float min, float max)",game,guess,matched from mp 0x00370990 (exact). randomfloat
+0x00305650,,G_ModelIndex,int G_ModelIndex(const char *name),game,confirmed,"matched from mp 0x0036FFA0 (strings). ""G_ModelIndex: overflow"""
+0x00305940,,G_SetModel,"void G_SetModel(gentity_t *ent, const char *modelName)",game,likely,calls G_ModelIndex; matched from mp 0x003701D8
+0x003066E0,,G_Spawn,gentity_t *G_Spawn(void),game,confirmed,"""G_Spawn: no free entities"""
+0x00306E70,0x00A48028,G_FreeEntity,void G_FreeEntity(gentity_t *ent),game,guess,"4 caller pairs agree, similar size"
+0x00309E30,,G_GetWeaponIndexForName,int G_GetWeaponIndexForName(const char *name),game,guess,matched from mp 0x00375548 (exact). forum list
+0x00323C08,,Sentient_GetMethod,BuiltinMethod Sentient_GetMethod(const char **pName),gsc,confirmed,references the sentient/threatbias method table 0xA35F08 (SP/ZM only)
+0x003249A8,,G_SpawnTurret,"void G_SpawnTurret(gentity_t *self, const char *weaponinfoname)",game,confirmed,"""Could not load turret '%s'"""
+0x003955C0,0x00A48598,Cbuf_AddServerText_f,void Cbuf_AddServerText_f(void),cmd,confirmed,empty client-side handler of every server command
+0x003955D0,,SV_Cmd_EndTokenizedString,void SV_Cmd_EndTokenizedString(void),cmd,guess,matched from mp 0x003996E8 (exact). forum list
+0x00395710,,Cmd_RemoveCommand,void Cmd_RemoveCommand(const char *name),cmd,likely,matched from mp 0x00399828 (exact). unlinks from cmd_functions
+0x003957A0,,Cmd_AddServerCommand,"void Cmd_AddServerCommand(const char *name, void (*function)(void), cmd_function_t *allocedCmd)",cmd,confirmed,"40 call sites with server command names (update_sv_savegameavailable, scriptUsage)"
+0x00395BA8,,Cbuf_AddText,"void Cbuf_AddText(int localClientNum, const char *text)",cmd,likely,matched from mp 0x00399CC8 (exact). command strings with trailing newline in r4
+0x00397160,,Cmd_AddCommand,"void Cmd_AddCommand(const char *name, void (*function)(void), cmd_function_t *allocedCmd)",cmd,guess,matched from mp 0x0039B280 (callee). links static cmd_function_t into cmd_functions
+0x003975A0,,SV_Cmd_TokenizeString,void SV_Cmd_TokenizeString(const char *text_in),cmd,guess,matched from mp 0x0039B6C0 (exact). forum list
+0x0039E6A8,,Com_Error,"void Com_Error(errorParm_t code, const char *fmt, ...)",common,guess,"matched from mp 0x003A2B38 (callee). ""Can't create dvar..."" with code 0; 138 call sites with format strings in r4"
+0x003B2B10,,Sys_Sleep,void Sys_Sleep(int msec),sys,guess,matched from mp 0x003D2B20 (exact). spin-wait in dvar locks with 0x32
+0x003B2C30,,Sys_GetValue,void *Sys_GetValue(int valueIndex),common,likely,thread-local value slots via r13 (TLS -0x6E90); index 4 = tokenized command args (argc at +0x21 words)
+0x003C33A8,,SV_GameSendServerCommand,"void SV_GameSendServerCommand(int clientNum, svscmd_type type, const char *text)",server,likely,"matched from mp 0x003E95F0 (exact). iprintlnbold: (-1, 0, va(""%s \""%s\"""", ...))"
+0x003D87E8,,UI_DrawText,"void UI_DrawText(const char *text, int maxChars, Font_s *font, float x, float y, int horzAlign, int vertAlign, float scale, const float *color, int style)",ui,guess,matched from mp 0x0042E2E8 (exact). maxChars=0x7FFFFFFF at 30 sites
+0x003DAC10,,UI_AssetCache,void UI_AssetCache(void),ui,guess,"matched from mp 0x00430770 (callee). registers all UI fonts and ""white"""
+0x00407150,,UI_DrawDebugOverlay,,ui,guess,"""fps: %f"", ""ui_showlist: "" (as mp 0x00465368)"
+0x00448DB8,,FreeString,"void FreeString(const char *s, int unused)",common,likely,matched from mp 0x004BC090 (exact). paired with CopyString
+0x00448DF0,,CopyString,"const char *CopyString(const char *s, int unused)",common,likely,matched from mp 0x004BC0C8 (exact). returns interned copy; freed by 0x4BC090
+0x00451C20,,Dvar_IsValidName,bool Dvar_IsValidName(const char *name),dvar,likely,"matched from mp 0x004C44A0 (exact). setclientdvar/setdvar: ""Dvar %s has an invalid dvar name"""
+0x00451D50,,Dvar_ValueToString,"const char *Dvar_ValueToString(const dvar_t *dvar, DvarValue value)",dvar,likely,matched from mp 0x004C45D0 (exact). result copied via CopyString when converting external dvars
+0x00452280,,Dvar_GetBool,bool Dvar_GetBool(const dvar_t *dvar),dvar,guess,matched from mp 0x004C4FF0 (exact); takes dvar_t*
+0x00453C08,,Dvar_Reregister,"void Dvar_Reregister(dvar_t *dvar, const char *name, dvarType_t type, unsigned short flags, DvarValue value, DvarLimits domain)",dvar,likely,matched from mp 0x004C61C0 (exact). called from Dvar_RegisterNew when an existing dvar changes type/flags
+0x00454DB8,,Dvar_GetString,const char *Dvar_GetString(const char *dvarName),dvar,likely,matched from mp 0x004C7370 (callee); same 0x1505 hash lookup and enum check
+0x00455FB8,,Dvar_SetVariant,"void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)",dvar,likely,matched from mp 0x004C8570 (strings). used to force reset value for cheat/latched dvars
+0x004575D8,,Dvar_RegisterNew,"dvar_t *Dvar_RegisterNew(const char *name, dvarType_t type, unsigned short flags, DvarValue value, DvarLimits domain, const char *description)",dvar,confirmed,"matched from mp 0x004C9B98 (strings). Pool alloc, hash insert, ""Can't create dvar '%s': %i dvars already exist""; value/domain passed by value in GPR pairs"
+0x00457FF8,,Dvar_RegisterColorXYZ,"dvar_t *Dvar_RegisterColorXYZ(const char *name, float x, float y, float z, float min, float max, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CA508 (exact). type 11
+0x00458058,,Dvar_RegisterLinearColorRGB,"dvar_t *Dvar_RegisterLinearColorRGB(const char *name, float r, float g, float b, float min, float max, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CA568 (exact). type 10
+0x004580B8,,Dvar_RegisterColor,"dvar_t *Dvar_RegisterColor(const char *name, float r, float g, float b, float a, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CA5C8 (exact). type 8; floats packed to bytes
+0x00458270,,Dvar_RegisterEnum,"dvar_t *Dvar_RegisterEnum(const char *name, const char **valueList, int defaultIndex, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CA780 (exact). type 6; counts NULL-terminated valueList
+0x00458308,,Dvar_RegisterString,"dvar_t *Dvar_RegisterString(const char *name, const char *value, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CA818 (exact). type 7
+0x00458388,,Dvar_RegisterVec4,"dvar_t *Dvar_RegisterVec4(const char *name, float x, float y, float z, float w, float min, float max, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CA898 (exact). type 4; description passed on the stack
+0x004583F0,,Dvar_RegisterVec3,"dvar_t *Dvar_RegisterVec3(const char *name, float x, float y, float z, float min, float max, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CA900 (exact). type 3
+0x00458450,,Dvar_RegisterVec2,"dvar_t *Dvar_RegisterVec2(const char *name, float x, float y, float min, float max, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CA960 (exact). type 2
+0x004584B0,,Dvar_RegisterFloat,"dvar_t *Dvar_RegisterFloat(const char *name, float value, float min, float max, unsigned short flags, const char *description)",dvar,guess,matched from mp 0x004CA9C0 (callee). type 1; flags in r7 because floats consume GPR slots r4-r6
+0x00458518,,Dvar_RegisterInt,"dvar_t *Dvar_RegisterInt(const char *name, int value, int min, int max, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CAA80 (exact). type 5
+0x00458578,,Dvar_RegisterBool,"dvar_t *Dvar_RegisterBool(const char *name, bool value, unsigned short flags, const char *description)",dvar,likely,matched from mp 0x004CAAE0 (exact). type 0
+0x00465488,,Sys_EnterCriticalSection,void Sys_EnterCriticalSection(int section),sys,guess,matched from mp 0x004D7ED8 (callee). bracketing Cbuf_AddText
+0x00465648,,Com_BeginParseSession,void Com_BeginParseSession(const char *filename),common,guess,"matched from mp 0x004D9478 (callee). ""Com_BeginParseSession: session overflow"""
+0x00467570,,I_strncpyz,"void I_strncpyz(char *dest, const char *src, int destsize)",common,likely,matched from mp 0x004DA5B0 (exact). Scr_Error copies message with size 0x400
+0x00468398,,va,"char *va(const char *fmt, ...)",common,likely,"matched from mp 0x004DB3D8 (exact). 1045 calls with ""%d"" etc. as r3"
+0x0046A0A8,,I_strncat,"void I_strncat(char *dest, int size, const char *src)",common,likely,"matched from mp 0x004DD0E8 (exact). ""I_strncat: already overflowed"""
+0x004BDC78,0x00A49F60,SV_FastRestart_f,void SV_FastRestart_f(void),server,confirmed,matched from mp 0x003E0848 (name). fast_restart command handler
+0x004BEEB0,,SV_GetChallenge,void SV_GetChallenge(netadr_t from),server,likely,"matched from mp 0x003E1F68 (strings). ""challengeResponse %i"""
+0x004C0BC8,,SV_DirectConnect,void SV_DirectConnect(netadr_t from),server,likely,12/17 MP strings shared
+0x004C1E78,,SV_SendClientGameState,void SV_SendClientGameState(client_t *client),server,guess,"""EXE_NEEDSTATS"" (as mp 0x003E5200)"
+0x004C4060,,SV_ClientCommand,"void SV_ClientCommand(client_t *cl, msg_t *msg)",server,likely,"""EXE_LOSTRELIABLECOMMANDS"""
+0x004C5318,,SV_SetConfigstring,"void SV_SetConfigstring(int index, const char *val)",server,confirmed,"""SV_SetConfigstring: bad index %i"""
+0x004C9D38,,SVC_Status,void SVC_Status(netadr_t from),net,likely,statusResponse\n%s\n%s; inlined into SV_ConnectionlessPacket in MP
+0x004C9FE8,,SV_ConnectionlessPacket,"void SV_ConnectionlessPacket(netadr_t from, msg_t *msg)",server,likely,dispatch on getchallenge/connect/getinfo/getstatus; status reply split out into SVC_Status
+0x004CA4C0,,SV_AddServerCommand,"void SV_AddServerCommand(client_t *client, int type, const char *cmd)",server,likely,"matched from mp 0x003EED08 (strings). ""EXE_SERVERCOMMANDOVERFLOW"""
+0x004D2928,,SV_SendClientSnapshot,void SV_SendClientSnapshot(client_t *client),server,likely,"matched from mp 0x003F62A8 (strings). ""EXE_SERVERMESSAGEOVERFLOW""; forum list"
+0x004E3780,,CL_CheckForResend,void CL_CheckForResend(int localClientNum),client,likely,14/15 MP strings shared
+0x004EB330,,CL_ConnectionlessPacket,"bool CL_ConnectionlessPacket(int localClientNum, netadr_t from, msg_t *msg, int time)",client,likely,13/17 MP strings shared
+0x004F18C0,,CL_ParseServerMessage,"void CL_ParseServerMessage(int localClientNum, msg_t *msg)",client,confirmed,"matched from mp 0x001D9640 (strings). ""Compressed msg overflow in CL_ParseServerMessage"""
+0x0053F3B0,,CG_RegisterGraphics,"void CG_RegisterGraphics(int localClientNum, const char *mapname)",cgame,likely,"25/48 MP strings shared, same size"
+0x0054A130,,CScr_GetSPFunctionOrMethod,void *CScr_GetSPFunctionOrMethod(const char **pName),csc,likely,references both SP-only CSC tables 0xA5F69C (functions) and 0xA3E8E8 (player methods)
+0x00557C58,,MSG_WriteBits,"void MSG_WriteBits(msg_t *msg, int value, unsigned int bits)",net,guess,35 caller pairs agree; MP identification itself is pattern-based
+0x00557F78,,MSG_WriteBit0,void MSG_WriteBit0(msg_t *msg),net,guess,"matched from mp 0x003AF9F8 (callee). bit cursor at +0x20, no OR"
+0x00557FD0,,MSG_WriteBit1,void MSG_WriteBit1(msg_t *msg),net,guess,matched from mp 0x003AFA60 (callee). ORs 1<<(bit&7)
+0x00558948,,MSG_ReadBit,int MSG_ReadBit(msg_t *msg),net,likely,matched from mp 0x003AFD58 (exact). readcount/splitSize aware single bit read
+0x005589F8,,MSG_WriteByte,"void MSG_WriteByte(msg_t *msg, int c)",net,likely,"matched from mp 0x003AFE08 (exact). cursize<maxsize check, stb data[cursize++], else overflowed=1"
+0x00558A38,,MSG_WriteShort,"void MSG_WriteShort(msg_t *msg, int c)",net,likely,"matched from mp 0x003AFE48 (exact). sth, cursize+=2"
+0x00558A78,,MSG_WriteLong,"void MSG_WriteLong(msg_t *msg, int c)",net,likely,"matched from mp 0x003AFE88 (exact). stw, cursize+=4"
+0x00558AD0,,MSG_ReadByte,int MSG_ReadByte(msg_t *msg),net,likely,"matched from mp 0x003AFEC8 (exact). returns -1 past end, handles splitData"
+0x00558C10,,MSG_ReadBits,"int MSG_ReadBits(msg_t *msg, unsigned int bits)",net,guess,matched from mp 0x003B0008 (callee). 87 callers from CL_ParseServerMessage
+0x005B5088,,Scr_GetNumParam,unsigned int Scr_GetNumParam(scriptInstance_t inst),gsc,likely,matched from mp 0x005CB210 (exact). arg-count checks in getentarray/spawn/iprintlnbold
+0x005B5CA8,,Scr_AddArray,void Scr_AddArray(scriptInstance_t inst),gsc,likely,matched from mp 0x005CBE30 (exact). after each Scr_AddEntity in getentarray
+0x005B84A8,,Scr_Error,"void Scr_Error(scriptInstance_t inst, const char *error, bool force_terminal)",gsc,likely,"matched from mp 0x005CE3C0 (exact). copies msg (I_strncpyz 0x400), longjmp, Com_Error(""%s"")"
+0x005B8A28,,Scr_ObjectError,void Scr_ObjectError(const char *error),gsc,guess,"matched from mp 0x005CE938 (callee). ""not an entity""/""entity has no model defined"" in method handlers"
+0x005B8C50,,Scr_ParamError,"void Scr_ParamError(unsigned int index, const char *error)",gsc,guess,"matched from mp 0x005D1B10 (callee). ""Parameter number %d ..."" style messages, index first"
+0x005B90A0,,Scr_Error_Server,"void Scr_Error_Server(const char *error, bool force_terminal)",gsc,guess,matched from mp 0x005D1F60 (callee). Scr_Error specialised for instance 0 (server)
+0x005B9238,,Scr_GetPointerType,"int Scr_GetPointerType(unsigned int index, scriptInstance_t inst)",gsc,guess,matched from mp 0x005D20F8 (exact). isdefined/isplayer after Scr_GetType
+0x005B9840,,Scr_GetType,"int Scr_GetType(unsigned int index, scriptInstance_t inst)",gsc,guess,matched from mp 0x005D2700 (callee). isdefined/getdvar branch on result; setclientdvar compares with 3 (istring)
+0x005BA908,,Scr_GetVector,"void Scr_GetVector(unsigned int index, float *out, scriptInstance_t inst)",gsc,confirmed,matched from mp 0x005CF9B0 (strings). distance() reads two vectors
+0x005BB858,,Scr_GetConstString,"scr_string_t Scr_GetConstString(unsigned int index, scriptInstance_t inst)",gsc,guess,matched from mp 0x005D0900 (callee). classname/key args of getent/getentarray/spawn
+0x005BBCC0,,Scr_GetString,"const char *Scr_GetString(unsigned int index, scriptInstance_t inst)",gsc,likely,matched from mp 0x005D0D68 (exact). getdvar/setdvar/setmodel name argument
+0x005BBCF8,,Scr_GetFloat,"float Scr_GetFloat(unsigned int index, scriptInstance_t inst)",gsc,confirmed,matched from mp 0x005D0DA0 (strings). randomfloat/abs
+0x005BCB60,,Scr_GetInt,"int Scr_GetInt(unsigned int index, scriptInstance_t inst)",gsc,confirmed,matched from mp 0x005D16C0 (strings). randomint(max) -> rand -> Scr_AddInt
+0x005BD3D0,,Scr_AddStruct,void Scr_AddStruct(scriptInstance_t inst),gsc,likely,matched from mp 0x005D32E0 (exact). spawnstruct() tail-calls it directly
+0x005C8840,,Scr_AddString,"void Scr_AddString(const char *value, scriptInstance_t inst)",gsc,confirmed,matched from mp 0x005DE750 (exact). tail of getdvar/getweaponmodel
+0x005C8BF0,,Scr_AddInt,"void Scr_AddInt(int value, scriptInstance_t inst)",gsc,likely,matched from mp 0x005DF2A0 (callee_exact). tail of getdvarint/gettime/randomint/getentitynumber
+0x005C8DC0,,Scr_AddFloat,"void Scr_AddFloat(float value, scriptInstance_t inst)",gsc,confirmed,matched from mp 0x005DF630 (exact). tail of getdvarfloat/distance/abs
+0x005C9160,,Scr_MakeArray,void Scr_MakeArray(scriptInstance_t inst),gsc,likely,matched from mp 0x005DE930 (exact). start of getentarray result
+0x005C9548,,Scr_AddVector,"void Scr_AddVector(const float *value, scriptInstance_t inst)",gsc,confirmed,matched from mp 0x005DEB08 (exact). getorigin/getvelocity/vectornormalize
+0x005C98E8,,Scr_AddEntity,void Scr_AddEntity(gentity_t *ent),gsc,confirmed,matched from mp 0x005DF800 (exact). tail of getent; per element in getentarray
+0x005F3920,,InspectCmd_Dispatch,void InspectCmd_Dispatch(int controller),net,guess,looks up remote_inspect_commands by name; called from the per-controller online frame 0x5F8988 next to the ban check
+0x006749E8,,R_RegisterFont,"Font_s *R_RegisterFont(const char *name, int imageTrack)",render,guess,matched from mp 0x00734350 (exact). forum list
+0x00685790,,Material_Register,"Material *Material_Register(const char *name, int imageTrack)",render,likely,"matched from mp 0x00745440 (exact). DB_FindXAssetHeader(ASSET_TYPE_MATERIAL=6, name); imageTrack unused; Material_RegisterHandle adds the empty-name check"
+0x00685C28,,Material_RegisterHandle,"Material *Material_RegisterHandle(const char *name, int imageTrack)",render,guess,"matched from mp 0x007458D8 (callee). ""white"" in UI and CG asset setup; 206 call sites with material names"
+0x00692140,,R_AddCmdDrawStretchPic,"void R_AddCmdDrawStretchPic(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const float *color, Material *material)",render,guess,matched from mp 0x00751940 (exact). forum list
+0x00693BB8,,AddBaseDrawTextCmd,"GfxCmdDrawText2D *AddBaseDrawTextCmd(const char *text, int maxChars, Font_s *font, float x, float y, float w, float xScale, float yScale, float rotation, const float *color, int style, int cursorPos, char cursor)",render,likely,"matched from mp 0x007538E8 (exact). shared by R_AddCmdDrawText (w=1.0, cursorPos=-1, cursor=0) and the *WithEffects variants, which fill the returned command; forum lists it as R_AddCmdDrawText with the wrong prototype"
+0x00693E48,,R_AddCmdDrawTextWithRedactEffects,"void R_AddCmdDrawTextWithRedactEffects(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style, const float *glowColor, Material *fxMaterial, Material *fxMaterialGlow, int fxBirthTime, int fxLetterTime, int fxDecayStartTime, int fxDecayDuration, int fxRedactDecayStartTime, int fxRedactDecayDuration)",render,likely,matched from mp 0x00753CD8 (exact). wraps AddBaseDrawTextCmd; prototype from forum list
+0x00694118,,R_AddCmdDrawTextWithEffects,"void R_AddCmdDrawTextWithEffects(const char *text, int maxChars, Font_s *font, float x, float y, float w, float xScale, float yScale, float rotation, const float *color, int style, const float *glowColor, Material *fxMaterial, Material *fxMaterialGlow, int fxBirthTime, int fxLetterTime, int fxDecayStartTime, int fxDecayDuration)",render,likely,matched from mp 0x00754108 (exact). wraps AddBaseDrawTextCmd; prototype from forum list
+0x00694420,,R_AddCmdDrawText,"void R_AddCmdDrawText(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style)",render,likely,"matched from mp 0x00754410 (exact). r4=0x7FFFFFFF at 26 sites, f3/f4=1.0 scale, f5=0 rotation; color/style on stack"
+0x0078E5C8,,bdLogMessage,"void bdLogMessage(int type, const char *baseChannel, const char *channel, const char *file, const char *function, int line, const char *format, ...)",demonware,likely,"matched from mp 0x008773E8 (exact). (""info/""|""warn/""|""err/"", ""dwNet""...) 650 calls"

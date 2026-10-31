@@ -1,0 +1,152 @@
+addr,opd,name,prototype,subsystem,confidence,notes
+0x00041C94,,sscanf,"int sscanf(const char *s, const char *fmt, ...)",libc,likely,"wraps the vscanf core; used with ""%x"" by the inspect commands"
+0x00043D48,,atof,double atof(const char *s),libc,guess,getdvarfloat converts string value
+0x00044824,,strtol,"long strtol(const char *s, char **end, int base)",libc,likely,"getdvarint: (str, NULL, 10)"
+0x00046390,,I_stricmp,"int I_stricmp(const char *s0, const char *s1)",common,likely,command/builtin/dvar name compares (case-insensitive lookups)
+0x00046E64,,snprintf,"int snprintf(char *buf, size_t n, const char *fmt, ...)",libc,likely,"fmt in r5, calls vsnprintf core 0x471A8"
+0x000471A8,,vsnprintf,"int vsnprintf(char *buf, size_t n, const char *fmt, va_list ap)",libc,guess,shared formatting core
+0x00048CF0,0x00B4F670,longjmp,"void longjmp(jmp_buf env, int val)",libc,likely,Scr_Error unwinds with val=-1
+0x0007B720,,BG_GetPerkIndexForName,unsigned int BG_GetPerkIndexForName(const char *perkName),bgame,guess,forum list
+0x000C0A98,,BG_GetWeaponDef,WeaponDef *BG_GetWeaponDef(unsigned int weaponIndex),bgame,guess,forum list
+0x00113550,,CG_GameMessage,"void CG_GameMessage(int localClientNum, const char *msg)",cgame,guess,forum list
+0x00116D30,0x00B46A60,CG_LocalClientForClientNum,int CG_LocalClientForClientNum(int clientNum),cgame,likely,"compares clientNum with cg_t.clientNum (+0x0) of the 4 local cg_t (stride 0x6B100), returns 0..3 or -1"
+0x0011C6D8,,CG_RegisterGraphics,"void CG_RegisterGraphics(int localClientNum, const char *mapname)",cgame,guess,"registers dev fonts and ""white"""
+0x001448B0,,CScr_GetMethod,"BuiltinMethod CScr_GetMethod(const char **pName, int *type)",csc,likely,scans csc_methods (0xB311D8)
+0x00144AC0,,CScr_GetFunction,"BuiltinFunction CScr_GetFunction(const char **pName, int *type)",csc,likely,scans csc_functions (0xB5A2F4)
+0x001C5FA0,,CL_RegisterFont,"Font_s *CL_RegisterFont(const char *fontName, int imageTrack)",client,confirmed,"""fonts/normalfont"", ""fonts/bigDevFont"" ... from UI/CG asset setup"
+0x001C7748,,CL_CheckForResend,void CL_CheckForResend(int localClientNum),client,guess,"sends ""getchallenge"""
+0x001CC320,,CL_ConnectionlessPacket,"bool CL_ConnectionlessPacket(int localClientNum, netadr_t from, msg_t *msg, int time)",client,likely,handles challengeResponse/connectResponse/connectResponseMigration/disconnect
+0x001D9640,,CL_ParseServerMessage,"void CL_ParseServerMessage(int localClientNum, msg_t *msg)",client,confirmed,"""Compressed msg overflow in CL_ParseServerMessage"""
+0x002C3228,,Player_GetMethod,BuiltinMethod Player_GetMethod(const char **pName),gsc,likely,scans gsc_methods_player (0xB32C2C)
+0x002D2D98,,G_InitializeAmmo,"void G_InitializeAmmo(gentity_t *self, int weaponIndex, char weaponModel, int hadWeapon)",game,guess,forum list
+0x002D4BA0,,G_Say,"void G_Say(gentity_t *ent, gentity_t *target, int mode, const char *chatText)",game,confirmed,"log line ""sayteam;%d;%d;%s;%s""; mode 0 = all, 1 = team"
+0x002D6140,,ClientCommand,void ClientCommand(int clientNum),game,guess,"handles ""callvote"" and other client commands"
+0x002D85E0,0x00B48F00,player_die,"void player_die(gentity_t *self, gentity_t *inflictor, gentity_t *attacker, int damage, int meansOfDeath, int iWeapon, const float *vDir, int hitLoc, int psTimeOffset)",game,likely,"""player_die""; forum list"
+0x002DEE70,,HudElem_GetMethod,BuiltinMethod HudElem_GetMethod(const char **pName),gsc,likely,scans gsc_methods_hudelem (0xB33440)
+0x002ECBF0,,G_RegisterDvars,void G_RegisterDvars(void),game,likely,"registers g_speed, sv_cheats (game copy), g_compassShowEnemies ..."
+0x002EEC80,,G_InitGame,"void G_InitGame(int levelTime, int randomSeed, int restart, int savepersist)",game,likely,assigns level.clients = g_clients
+0x00307668,,ScriptEnt_GetMethod,BuiltinMethod ScriptEnt_GetMethod(const char **pName),gsc,likely,scans scriptent/vehicle methods (0xB33918)
+0x00310FD8,,Scr_GetFunction,"BuiltinFunction Scr_GetFunction(const char **pName, int *type)",gsc,likely,strcmp over gsc_functions table (0xB5C8AC)
+0x00316B80,,Scr_ConstructMessageString,"void Scr_ConstructMessageString(int firstParm, int lastParm, const char *errorContext, char *string, unsigned int stringLimit)",gsc,likely,"iprintln*/print builds ""Game Message"" with limit 0x400"
+0x00354F68,,Scr_GetEntity,gentity_t *Scr_GetEntity(unsigned int index),gsc,likely,isplayer(): type check then entity fetch
+0x00356BE0,,G_CallSpawnEntity,int G_CallSpawnEntity(gentity_t *ent),game,likely,ent->classname (+0x164) looked up in spawn_functions (0xB34BE0); weapon_ prefix check
+0x00356DF0,,G_CallSpawn,void G_CallSpawn(void),game,likely,"""classname"" from level spawn vars, ""destructibledef"", ""dyn_"""
+0x00357500,,G_SpawnEntitiesFromString,void G_SpawnEntitiesFromString(void),game,confirmed,"""SpawnEntities: no entities"""
+0x0036FFA0,,G_ModelIndex,int G_ModelIndex(const char *name),game,confirmed,"""G_ModelIndex: overflow"""
+0x003701D8,,G_SetModel,"void G_SetModel(gentity_t *ent, const char *modelName)",game,likely,calls G_ModelIndex; called by the setmodel builtin
+0x00370238,,G_FindConfigstringIndex,"int G_FindConfigstringIndex(const char *name, int start, int max, int create, const char *errormsg)",game,confirmed,"""G_FindConfigstringIndex: overflow (%d): '%s'"""
+0x003705D0,,G_MaterialIndex,int G_MaterialIndex(const char *name),game,likely,G_FindConfigstringIndex wrapper; forum list
+0x00370638,,G_LocalizedStringIndex,int G_LocalizedStringIndex(const char *string),game,guess,forum list
+0x00370950,,G_irand,"int G_irand(int min, int max)",game,guess,randomint
+0x00370990,,G_flrand,"float G_flrand(float min, float max)",game,guess,randomfloat
+0x00371DB0,0x00B4AA88,G_FreeEntity,void G_FreeEntity(gentity_t *ent),game,likely,tail of delete() method
+0x00373488,,G_Spawn,gentity_t *G_Spawn(void),game,confirmed,"""G_Spawn: no free entities"""
+0x00375548,,G_GetWeaponIndexForName,int G_GetWeaponIndexForName(const char *name),game,guess,forum list
+0x00377208,,G_GivePlayerWeapon,"int G_GivePlayerWeapon(playerState_t *ps, int weaponIndex, char altModelIndex)",game,guess,forum list
+0x0037FE50,,G_SpawnTurret,"void G_SpawnTurret(gentity_t *self, const char *weaponinfoname)",game,confirmed,"""Could not load turret '%s'"""
+0x003996D8,0x00B4AAD0,Cbuf_AddServerText_f,void Cbuf_AddServerText_f(void),cmd,likely,empty stub registered as client handler of every server command
+0x003996E8,,SV_Cmd_EndTokenizedString,void SV_Cmd_EndTokenizedString(void),cmd,guess,forum list
+0x00399828,,Cmd_RemoveCommand,void Cmd_RemoveCommand(const char *name),cmd,confirmed,unlinks from cmd_functions
+0x003998B8,,Cmd_AddServerCommand,"void Cmd_AddServerCommand(const char *name, void (*function)(void), cmd_function_t *allocedCmd)",cmd,confirmed,same pattern on server list 0x14648B0
+0x00399CC8,,Cbuf_AddText,"void Cbuf_AddText(int localClientNum, const char *text)",cmd,likely,command strings with trailing newline in r4
+0x0039B280,,Cmd_AddCommand,"void Cmd_AddCommand(const char *name, void (*function)(void), cmd_function_t *allocedCmd)",cmd,confirmed,links static cmd_function_t into cmd_functions
+0x0039B6C0,,SV_Cmd_TokenizeString,void SV_Cmd_TokenizeString(const char *text_in),cmd,guess,forum list
+0x003A2B38,,Com_Error,"void Com_Error(errorParm_t code, const char *fmt, ...)",common,likely,"""Can't create dvar..."" with code 0; 138 call sites with format strings in r4"
+0x003AF830,,MSG_WriteBits,"void MSG_WriteBits(msg_t *msg, int value, unsigned int bits)",net,guess,"152 callers, bit-writer sized like WriteBit loop"
+0x003AF9F8,,MSG_WriteBit0,void MSG_WriteBit0(msg_t *msg),net,likely,"bit cursor at +0x20, no OR"
+0x003AFA60,,MSG_WriteBit1,void MSG_WriteBit1(msg_t *msg),net,likely,ORs 1<<(bit&7)
+0x003AFD58,,MSG_ReadBit,int MSG_ReadBit(msg_t *msg),net,likely,readcount/splitSize aware single bit read
+0x003AFE08,,MSG_WriteByte,"void MSG_WriteByte(msg_t *msg, int c)",net,confirmed,"cursize<maxsize check, stb data[cursize++], else overflowed=1"
+0x003AFE48,,MSG_WriteShort,"void MSG_WriteShort(msg_t *msg, int c)",net,confirmed,"sth, cursize+=2"
+0x003AFE88,,MSG_WriteLong,"void MSG_WriteLong(msg_t *msg, int c)",net,confirmed,"stw, cursize+=4"
+0x003AFEC8,,MSG_ReadByte,int MSG_ReadByte(msg_t *msg),net,likely,"returns -1 past end, handles splitData"
+0x003B0008,,MSG_ReadBits,"int MSG_ReadBits(msg_t *msg, unsigned int bits)",net,guess,87 callers from CL_ParseServerMessage
+0x003C8660,,Netchan_Transmit,"bool Netchan_Transmit(netchan_t *chan, int length, const char *data)",net,likely,"""Netchan_Transmit: length = %i"""
+0x003D2B20,,Sys_Sleep,void Sys_Sleep(int msec),sys,guess,spin-wait in dvar locks with 0x32
+0x003D2C40,,Sys_GetValue,void *Sys_GetValue(int valueIndex),common,likely,thread-local value slots via r13 (TLS -0x6E94); index 4 = tokenized command args (argc at +0x21 words)
+0x003DFD90,,SV_KickClient,"void SV_KickClient(client_t *cl, char *playerName, int maxPlayerNameLen)",server,likely,"""EXE_CANNOTKICKHOSTPLAYER"""
+0x003E0660,,SV_MapRestart,void SV_MapRestart(int fast_restart),server,guess,forum list
+0x003E0848,0x00B4AD78,SV_FastRestart_f,void SV_FastRestart_f(void),server,confirmed,fast_restart command handler
+0x003E1B60,,SV_ExecuteClientCommand,"void SV_ExecuteClientCommand(client_t *cl, const char *s, int clientOK)",server,guess,forum list
+0x003E1F68,,SV_GetChallenge,void SV_GetChallenge(netadr_t from),server,likely,"""challengeResponse %i"""
+0x003E47B8,,SV_ClientCommand,"void SV_ClientCommand(client_t *cl, msg_t *msg)",server,likely,"""EXE_LOSTRELIABLECOMMANDS"""
+0x003E5200,,SV_SendClientGameState,void SV_SendClientGameState(client_t *client),server,likely,"""EXE_NEEDSTATS"", config string csv; forum list"
+0x003E61F8,,SV_DirectConnect,void SV_DirectConnect(netadr_t from),server,guess,"sends ""connectResponse"""
+0x003E7528,,SV_AddTestClient,gentity_t *SV_AddTestClient(void),server,likely,"bot connect string ""\invited\1...""; forum list"
+0x003E88B8,,SV_GetGuid,int SV_GetGuid(int clientNum),server,guess,getguid() method
+0x003E95F0,,SV_GameSendServerCommand,"void SV_GameSendServerCommand(int clientNum, svscmd_type type, const char *text)",server,confirmed,"iprintlnbold: (-1, 0, va(""%s \""%s\"""", ...))"
+0x003EAD98,,SV_SetConfigstring,"void SV_SetConfigstring(int index, const char *val)",server,confirmed,"""SV_SetConfigstring: bad index %i"""
+0x003EB208,,SV_SetConfigValueForKey,"void SV_SetConfigValueForKey(int start, int max, const char *key, const char *value)",server,likely,"""SV_SetConfigValueForKey: overflow"""
+0x003EE520,,SV_ConnectionlessPacket,"void SV_ConnectionlessPacket(netadr_t from, msg_t *msg)",server,likely,dispatches getchallenge/connect/disconnect...
+0x003EED08,,SV_AddServerCommand,"void SV_AddServerCommand(client_t *client, int type, const char *cmd)",server,confirmed,"""EXE_SERVERCOMMANDOVERFLOW"""
+0x003F62A8,,SV_SendClientSnapshot,void SV_SendClientSnapshot(client_t *client),server,likely,"""EXE_SERVERMESSAGEOVERFLOW""; forum list"
+0x003F64E8,,SV_BuildClientSnapshot,void SV_BuildClientSnapshot(client_t *client),server,confirmed,"""SV_BuildClientSnapshot: bad gEnt"""
+0x0042E2E8,,UI_DrawText,"void UI_DrawText(const char *text, int maxChars, Font_s *font, float x, float y, int horzAlign, int vertAlign, float scale, const float *color, int style)",ui,guess,maxChars=0x7FFFFFFF at 30 sites
+0x00430770,,UI_AssetCache,void UI_AssetCache(void),ui,likely,"registers all UI fonts and ""white"""
+0x00465368,,UI_DrawDebugOverlay,,ui,guess,"""fps: %f"", ""menu: %s"", ""ui_showlist: ""; forum FPS toggle patches the branch at 0x466298; text pos 5.0 @0x91BF38, scale 0.5 @0x91BF34"
+0x004BC090,,FreeString,"void FreeString(const char *s, int unused)",common,likely,paired with CopyString
+0x004BC0C8,,CopyString,"const char *CopyString(const char *s, int unused)",common,likely,returns interned copy; freed by 0x4BC090
+0x004C44A0,,Dvar_IsValidName,bool Dvar_IsValidName(const char *name),dvar,likely,"setclientdvar/setdvar: ""Dvar %s has an invalid dvar name"""
+0x004C45D0,,Dvar_ValueToString,"const char *Dvar_ValueToString(const dvar_t *dvar, DvarValue value)",dvar,likely,result copied via CopyString when converting external dvars
+0x004C4FF0,,Dvar_GetBool,bool Dvar_GetBool(const dvar_t *dvar),dvar,likely,"takes dvar_t* (forum prototype with a name is wrong): bool type -> current.enabled, else strtol(current.string) != 0"
+0x004C61C0,,Dvar_Reregister,"void Dvar_Reregister(dvar_t *dvar, const char *name, dvarType_t type, unsigned short flags, DvarValue value, DvarLimits domain)",dvar,likely,called from Dvar_RegisterNew when an existing dvar changes type/flags
+0x004C7370,,Dvar_GetString,const char *Dvar_GetString(const char *dvarName),dvar,likely,"hash lookup under g_dvarReadLock; enum dvars return the enum string, missing dvar returns """""
+0x004C8570,,Dvar_SetVariant,"void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)",dvar,likely,used to force reset value for cheat/latched dvars
+0x004C9B98,,Dvar_RegisterNew,"dvar_t *Dvar_RegisterNew(const char *name, dvarType_t type, unsigned short flags, DvarValue value, DvarLimits domain, const char *description)",dvar,confirmed,"Pool alloc, hash insert, ""Can't create dvar '%s': %i dvars already exist""; value/domain passed by value in GPR pairs"
+0x004CA508,,Dvar_RegisterColorXYZ,"dvar_t *Dvar_RegisterColorXYZ(const char *name, float x, float y, float z, float min, float max, unsigned short flags, const char *description)",dvar,confirmed,type 11
+0x004CA568,,Dvar_RegisterLinearColorRGB,"dvar_t *Dvar_RegisterLinearColorRGB(const char *name, float r, float g, float b, float min, float max, unsigned short flags, const char *description)",dvar,confirmed,type 10
+0x004CA5C8,,Dvar_RegisterColor,"dvar_t *Dvar_RegisterColor(const char *name, float r, float g, float b, float a, unsigned short flags, const char *description)",dvar,confirmed,type 8; floats packed to bytes
+0x004CA780,,Dvar_RegisterEnum,"dvar_t *Dvar_RegisterEnum(const char *name, const char **valueList, int defaultIndex, unsigned short flags, const char *description)",dvar,confirmed,type 6; counts NULL-terminated valueList
+0x004CA818,,Dvar_RegisterString,"dvar_t *Dvar_RegisterString(const char *name, const char *value, unsigned short flags, const char *description)",dvar,confirmed,type 7
+0x004CA898,,Dvar_RegisterVec4,"dvar_t *Dvar_RegisterVec4(const char *name, float x, float y, float z, float w, float min, float max, unsigned short flags, const char *description)",dvar,confirmed,type 4; description passed on the stack
+0x004CA900,,Dvar_RegisterVec3,"dvar_t *Dvar_RegisterVec3(const char *name, float x, float y, float z, float min, float max, unsigned short flags, const char *description)",dvar,confirmed,type 3
+0x004CA960,,Dvar_RegisterVec2,"dvar_t *Dvar_RegisterVec2(const char *name, float x, float y, float min, float max, unsigned short flags, const char *description)",dvar,confirmed,type 2
+0x004CA9C0,,Dvar_RegisterFloat,"dvar_t *Dvar_RegisterFloat(const char *name, float value, float min, float max, unsigned short flags, const char *description)",dvar,confirmed,type 1; flags in r7 because floats consume GPR slots r4-r6
+0x004CAA20,,Dvar_RegisterInt64,"dvar_t *Dvar_RegisterInt64(const char *name, int64_t value, int64_t min, int64_t max, unsigned short flags, const char *description)",dvar,confirmed,type 9
+0x004CAA80,,Dvar_RegisterInt,"dvar_t *Dvar_RegisterInt(const char *name, int value, int min, int max, unsigned short flags, const char *description)",dvar,confirmed,type 5
+0x004CAAE0,,Dvar_RegisterBool,"dvar_t *Dvar_RegisterBool(const char *name, bool value, unsigned short flags, const char *description)",dvar,confirmed,type 0
+0x004D7ED8,,Sys_EnterCriticalSection,void Sys_EnterCriticalSection(int section),sys,guess,bracketing Cbuf_AddText
+0x004D9478,,Com_BeginParseSession,void Com_BeginParseSession(const char *filename),common,confirmed,"""Com_BeginParseSession: session overflow"""
+0x004DA5B0,,I_strncpyz,"void I_strncpyz(char *dest, const char *src, int destsize)",common,likely,Scr_Error copies message with size 0x400
+0x004DB3D8,,va,"char *va(const char *fmt, ...)",common,likely,"1045 calls with ""%d"" etc. as r3"
+0x004DD0E8,,I_strncat,"void I_strncat(char *dest, int size, const char *src)",common,confirmed,"""I_strncat: already overflowed"""
+0x005CB210,,Scr_GetNumParam,unsigned int Scr_GetNumParam(scriptInstance_t inst),gsc,confirmed,arg-count checks in getentarray/spawn/iprintlnbold
+0x005CBE30,,Scr_AddArray,void Scr_AddArray(scriptInstance_t inst),gsc,likely,after each Scr_AddEntity in getentarray
+0x005CE3C0,,Scr_Error,"void Scr_Error(scriptInstance_t inst, const char *error, bool force_terminal)",gsc,confirmed,"copies msg (I_strncpyz 0x400), longjmp, Com_Error(""%s"")"
+0x005CE938,,Scr_ObjectError,void Scr_ObjectError(const char *error),gsc,likely,"""not an entity""/""entity has no model defined"" in method handlers"
+0x005CF9B0,,Scr_GetVector,"void Scr_GetVector(unsigned int index, float *out, scriptInstance_t inst)",gsc,confirmed,distance() reads two vectors
+0x005D0900,,Scr_GetConstString,"scr_string_t Scr_GetConstString(unsigned int index, scriptInstance_t inst)",gsc,likely,classname/key args of getent/getentarray/spawn
+0x005D0D68,,Scr_GetString,"const char *Scr_GetString(unsigned int index, scriptInstance_t inst)",gsc,confirmed,getdvar/setdvar/setmodel name argument
+0x005D0DA0,,Scr_GetFloat,"float Scr_GetFloat(unsigned int index, scriptInstance_t inst)",gsc,confirmed,randomfloat/abs
+0x005D16C0,,Scr_GetInt,"int Scr_GetInt(unsigned int index, scriptInstance_t inst)",gsc,confirmed,randomint(max) -> rand -> Scr_AddInt
+0x005D1B10,,Scr_ParamError,"void Scr_ParamError(unsigned int index, const char *error)",gsc,likely,"""Parameter number %d ..."" style messages, index first"
+0x005D1F60,,Scr_Error_Server,"void Scr_Error_Server(const char *error, bool force_terminal)",gsc,confirmed,Scr_Error specialised for instance 0 (server)
+0x005D20F8,,Scr_GetPointerType,"int Scr_GetPointerType(unsigned int index, scriptInstance_t inst)",gsc,guess,isdefined/isplayer after Scr_GetType
+0x005D2700,,Scr_GetType,"int Scr_GetType(unsigned int index, scriptInstance_t inst)",gsc,likely,isdefined/getdvar branch on result; setclientdvar compares with 3 (istring)
+0x005D32E0,,Scr_AddStruct,void Scr_AddStruct(scriptInstance_t inst),gsc,likely,spawnstruct() tail-calls it directly
+0x005DE750,,Scr_AddString,"void Scr_AddString(const char *value, scriptInstance_t inst)",gsc,confirmed,tail of getdvar/getweaponmodel
+0x005DE930,,Scr_MakeArray,void Scr_MakeArray(scriptInstance_t inst),gsc,likely,start of getentarray result
+0x005DEB08,,Scr_AddVector,"void Scr_AddVector(const float *value, scriptInstance_t inst)",gsc,confirmed,getorigin/getvelocity/vectornormalize
+0x005DF2A0,,Scr_AddInt,"void Scr_AddInt(int value, scriptInstance_t inst)",gsc,confirmed,tail of getdvarint/gettime/randomint/getentitynumber
+0x005DF630,,Scr_AddFloat,"void Scr_AddFloat(float value, scriptInstance_t inst)",gsc,confirmed,tail of getdvarfloat/distance/abs
+0x005DF800,,Scr_AddEntity,void Scr_AddEntity(gentity_t *ent),gsc,confirmed,tail of getent; per element in getentarray
+0x005E50B8,,DDL_GetRootState,"void DDL_GetRootState(ddlState_t *state, ddlDef_t *def)",ddl,likely,"called once per cached state after DDL_Load in 0x6A0208, before DDL_MoveToName"
+0x005E55C8,,DDL_MoveToPath,"int DDL_MoveToPath(const ddlState_t *from, ddlState_t *to, int depth, const char **path)",ddl,likely,"Cmd_statSetByName_f passes statsDDLRootState, depth 2, {""PlayerStatsList"", name}; loops DDL_MoveToName"
+0x005E5E58,,DDL_Load,ddlDef_t *DDL_Load(const char *name),ddl,likely,"loads asset type 0x2A by name and returns the newest version in the def chain (+0x0 version, +0x18 next); called with ""ddl_mp/stats.ddl"""
+0x005E7330,,DDL_SetInt,"int DDL_SetInt(const ddlState_t *state, unsigned int value, void *buffer)",ddl,likely,"checks member min/max, stores value-min at bit (state->offset + 0x140) little-endian (ldbrx/stdbrx), sets buffer[8] |= 1 (dirty); every DDL accessor adds 0x140 bits = 0x28-byte buffer header"
+0x005E8CF0,,DDL_MoveToName,"int DDL_MoveToName(const ddlState_t *from, const char *name, ddlState_t *to)",ddl,likely,"called with member names (""CacLoadouts"", ""emblemstats""); used per path component by DDL_MoveToPath"
+0x0060EB80,,Actor_GetMethod,BuiltinMethod Actor_GetMethod(const char **pName),gsc,likely,scans actor methods (0xB40390)
+0x00650DC0,,InspectCmd_Dispatch,void InspectCmd_Dispatch(int controller),net,guess,looks up remote_inspect_commands (peek/checksum/procaddr/section/dvar/dir/upload/mount) by name; per-controller online frame
+0x006B1E98,,LiveStats_GetStatsBuffer,"char *LiveStats_GetStatsBuffer(int controller, int kind, int check)",live,likely,switch on kind 0..5 over statsBuffers + controller*0x26694 (kind 4: global 0x2137C40); kind 0 switches to the basic-training copy while xblive_basictraining
+0x006B2400,,LiveStats_GetStatsBufferPtr,"char *LiveStats_GetStatsBufferPtr(int controller, int kind, int check)",live,guess,"thin wrapper of LiveStats_GetStatsBuffer; Cmd_statSetByName_f calls it with (controller, 0, 1)"
+0x00734350,,R_RegisterFont,"Font_s *R_RegisterFont(const char *name, int imageTrack)",render,guess,forum list
+0x00745440,,Material_Register,"Material *Material_Register(const char *name, int imageTrack)",render,likely,"DB_FindXAssetHeader(ASSET_TYPE_MATERIAL=6, name); imageTrack unused; Material_RegisterHandle adds the empty-name check"
+0x007458D8,,Material_RegisterHandle,"Material *Material_RegisterHandle(const char *name, int imageTrack)",render,confirmed,"""white"" in UI and CG asset setup; 206 call sites with material names"
+0x00751940,,R_AddCmdDrawStretchPic,"void R_AddCmdDrawStretchPic(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const float *color, Material *material)",render,guess,forum list
+0x007538E8,,AddBaseDrawTextCmd,"GfxCmdDrawText2D *AddBaseDrawTextCmd(const char *text, int maxChars, Font_s *font, float x, float y, float w, float xScale, float yScale, float rotation, const float *color, int style, int cursorPos, char cursor)",render,likely,"shared by R_AddCmdDrawText (w=1.0, cursorPos=-1, cursor=0) and the *WithEffects variants, which fill the returned command; forum lists it as R_AddCmdDrawText with the wrong prototype"
+0x00753B78,,R_AddCmdDrawTextWithPopInEffects,"void R_AddCmdDrawTextWithPopInEffects(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style, const float *glowColor, Material *fxMaterial, Material *fxMaterialGlow, int fxBirthTime, int fxLetterTime, int fxDecayStartTime, int fxDecayDuration)",render,likely,wraps AddBaseDrawTextCmd; prototype from forum list
+0x00753CD8,,R_AddCmdDrawTextWithRedactEffects,"void R_AddCmdDrawTextWithRedactEffects(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style, const float *glowColor, Material *fxMaterial, Material *fxMaterialGlow, int fxBirthTime, int fxLetterTime, int fxDecayStartTime, int fxDecayDuration, int fxRedactDecayStartTime, int fxRedactDecayDuration)",render,likely,wraps AddBaseDrawTextCmd; prototype from forum list
+0x00753E48,,R_AddCmdDrawTextWithCOD7TypeWriterEffects,"void R_AddCmdDrawTextWithCOD7TypeWriterEffects(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style, const float *glowColor, Material *fxMaterial, Material *fxMaterialGlow, int fxBirthTime, int fxLetterTime, int fxDecayStartTime, int fxDecayDuration)",render,likely,wraps AddBaseDrawTextCmd; prototype from forum list
+0x00754108,,R_AddCmdDrawTextWithEffects,"void R_AddCmdDrawTextWithEffects(const char *text, int maxChars, Font_s *font, float x, float y, float w, float xScale, float yScale, float rotation, const float *color, int style, const float *glowColor, Material *fxMaterial, Material *fxMaterialGlow, int fxBirthTime, int fxLetterTime, int fxDecayStartTime, int fxDecayDuration)",render,likely,wraps AddBaseDrawTextCmd; prototype from forum list
+0x00754410,,R_AddCmdDrawText,"void R_AddCmdDrawText(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style)",render,likely,"r4=0x7FFFFFFF at 26 sites, f3/f4=1.0 scale, f5=0 rotation; color/style on stack"
+0x008773E8,,bdLogMessage,"void bdLogMessage(int type, const char *baseChannel, const char *channel, const char *file, const char *function, int line, const char *format, ...)",demonware,likely,"(""info/""|""warn/""|""err/"", ""dwNet""...) 650 calls"

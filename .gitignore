@@ -1,0 +1,9 @@
+# Copyrighted game binaries and derived images stay local
+*.BIN
+*.bin
+*.elf
+*.self
+build/
+analysis/
+__pycache__/
+.venv/

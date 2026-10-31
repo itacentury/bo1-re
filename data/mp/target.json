@@ -1,0 +1,183 @@
+{
+ "binary": "EBOOT_MP.BIN",
+ "build": "online_tu13_mp_",
+ "_sections": "Reconstructed name per section index (names are zeroed in the EBOOT); ? = inferred from content only.",
+ "sections": [
+  "",
+  ".init",
+  ".text",
+  ".fini",
+  ".sceStub.text",
+  ".rodata.sceResident",
+  ".rodata.sceFNID",
+  ".lib.ent.top",
+  ".lib.ent.btm",
+  ".lib.stub.top",
+  ".lib.stub",
+  ".lib.stub.btm",
+  ".rodata",
+  ".rodata.guid?",
+  ".spu_image?",
+  ".sys_proc_param",
+  ".sys_proc_prx_param",
+  ".ctors",
+  ".dtors",
+  ".ctors_end?",
+  ".data.rel.ro?",
+  ".data.sceFStub",
+  ".opd",
+  ".toc",
+  ".tdata",
+  ".tbss",
+  ".data",
+  ".bss",
+  ".unk28",
+  ".comment?",
+  ".shstrtab_zeroed"
+ ],
+ "anchors": {
+  "Cmd_AddCommand": "0x39B280",
+  "Cmd_AddServerCommand": "0x3998B8",
+  "Cmd_ServerCommandStub": "0x3996D8",
+  "weapon_def_fields": "0xB579C8"
+ },
+ "dvar_register_funcs": {
+  "bool": "0x4CAAE0",
+  "float": "0x4CA9C0",
+  "vec2": "0x4CA960",
+  "vec3": "0x4CA900",
+  "vec4": "0x4CA898",
+  "int": "0x4CAA80",
+  "enum": "0x4CA780",
+  "string": "0x4CA818",
+  "color": "0x4CA5C8",
+  "int64": "0x4CAA20",
+  "linear_color_rgb": "0x4CA568",
+  "color_xyz": "0x4CA508"
+ },
+ "builtin_tables": [
+  [
+   "0xB5C8AC",
+   12,
+   "gsc_functions",
+   "0x310FD8"
+  ],
+  [
+   "0xB32C2C",
+   12,
+   "gsc_methods_player",
+   "0x2C3228"
+  ],
+  [
+   "0xB33440",
+   12,
+   "gsc_methods_hudelem",
+   "0x2DEE70"
+  ],
+  [
+   "0xB33918",
+   12,
+   "gsc_methods_scriptent_vehicle",
+   "0x307668"
+  ],
+  [
+   "0xB40390",
+   12,
+   "gsc_methods_actor",
+   "0x60EB80"
+  ],
+  [
+   "0xB5A2F4",
+   12,
+   "csc_functions",
+   "0x144AC0"
+  ],
+  [
+   "0xB311D8",
+   12,
+   "csc_methods",
+   "0x1448B0"
+  ],
+  [
+   "0xB31728",
+   12,
+   "csc_methods_entity",
+   "0x15C690"
+  ],
+  [
+   "0xB34BE0",
+   8,
+   "spawn_functions",
+   "0x356BE0"
+  ],
+  [
+   "0xB34D38",
+   8,
+   "weapon_spawn_or_field_parsers",
+   null
+  ],
+  [
+   "0xB3EE84",
+   8,
+   "ui_menu_script_commands",
+   "0x44B130"
+  ],
+  [
+   "0xB31910",
+   8,
+   "net_msg_handlers_a",
+   "0x1B44A0"
+  ],
+  [
+   "0xB319F8",
+   8,
+   "net_msg_handlers_b",
+   "0x1E5220"
+  ],
+  [
+   "0xB31AE8",
+   8,
+   "net_msg_handlers_c",
+   "0x203AD8"
+  ],
+  [
+   "0xB31BA0",
+   8,
+   "net_msg_handlers_d",
+   "0x216368"
+  ],
+  [
+   "0xB3ECC4",
+   8,
+   "net_msg_handlers_e",
+   "0x3F1560"
+  ],
+  [
+   "0xB41D50",
+   12,
+   "remote_inspect_commands",
+   "0x650DC0"
+  ]
+ ],
+ "_builtin_prefix_ranges": "sub-blocks of gsc_methods_scriptent_vehicle, confirmed by the Shark builtin dump (data/gsc_csc_function_dump.txt)",
+ "builtin_prefix_ranges": [
+  [
+   "0xB33918",
+   "0xB33A50",
+   "HeliCmd_"
+  ],
+  [
+   "0xB34674",
+   "0xB34A94",
+   "VehicleCmd_"
+  ]
+ ],
+ "_stats": "stats DDL buffers (LiveStats_GetStatsBuffer): statsBuffers + controller*stride; DDL accessors add data_offset (0x140 bits) to every member offset",
+ "stats": {
+  "ddl": "stats_ddl.txt",
+  "buffers": "statsBuffers",
+  "stride": "0x26694",
+  "buffer_size": "0x996D",
+  "data_offset": "0x28"
+ }
+}

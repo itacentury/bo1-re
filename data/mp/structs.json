@@ -1,0 +1,343 @@
+{
+  "_comment": "Struct layouts recovered from MP EBOOT TU13. Offsets in hex. confidence: confirmed|likely|guess. Unknown gaps are omitted.",
+  "dvar_t": {
+    "size": "0x70",
+    "evidence": "Dvar_RegisterNew 0x4C9B98 (pool stride 0x70, field writes)",
+    "fields": [
+      {
+        "offset": "0x00",
+        "type": "const char *",
+        "name": "name",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x04",
+        "type": "const char *",
+        "name": "description",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x08",
+        "type": "unsigned int",
+        "name": "hash",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x0C",
+        "type": "unsigned short",
+        "name": "flags",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x10",
+        "type": "dvarType_t",
+        "name": "type",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x14",
+        "type": "bool",
+        "name": "modified",
+        "confidence": "likely"
+      },
+      {
+        "offset": "0x18",
+        "type": "DvarValue",
+        "name": "current",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x28",
+        "type": "DvarValue",
+        "name": "latched",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x38",
+        "type": "DvarValue",
+        "name": "reset",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x48",
+        "type": "DvarValue",
+        "name": "saved",
+        "confidence": "guess"
+      },
+      {
+        "offset": "0x58",
+        "type": "DvarLimits",
+        "name": "domain",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x68",
+        "type": "dvar_t *",
+        "name": "hashNext",
+        "confidence": "confirmed"
+      }
+    ]
+  },
+  "DvarValue": {
+    "size": "0x10",
+    "union": true,
+    "evidence": "16-byte copies in Dvar_RegisterNew; per-type stores",
+    "fields": [
+      {
+        "offset": "0x00",
+        "type": "bool",
+        "name": "enabled",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x00",
+        "type": "int",
+        "name": "integer",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x00",
+        "type": "float",
+        "name": "value",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x00",
+        "type": "float[4]",
+        "name": "vector",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x00",
+        "type": "const char *",
+        "name": "string",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x00",
+        "type": "unsigned char[4]",
+        "name": "color",
+        "confidence": "likely"
+      },
+      {
+        "offset": "0x00",
+        "type": "int64_t",
+        "name": "integer64",
+        "confidence": "likely"
+      }
+    ]
+  },
+  "cmd_function_t": {
+    "size": "0x14",
+    "evidence": "Cmd_AddCommand 0x39B280 writes +0x0/+0x4/+0x10",
+    "fields": [
+      {
+        "offset": "0x00",
+        "type": "cmd_function_t *",
+        "name": "next",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x04",
+        "type": "const char *",
+        "name": "name",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x08",
+        "type": "const char *",
+        "name": "autoCompleteDir",
+        "confidence": "guess"
+      },
+      {
+        "offset": "0x0C",
+        "type": "const char *",
+        "name": "autoCompleteExt",
+        "confidence": "guess"
+      },
+      {
+        "offset": "0x10",
+        "type": "opd_t *",
+        "name": "function",
+        "confidence": "confirmed"
+      }
+    ]
+  },
+  "gentity_t": {
+    "size": "0x2F8",
+    "evidence": "mulli 0x2F8 against g_entities (954 sites)",
+    "fields": [
+      {
+        "offset": "0x144",
+        "type": "gclient_t *",
+        "name": "client",
+        "confidence": "confirmed"
+      }
+    ]
+  },
+  "gclient_t": {
+    "size": "0x2A38",
+    "evidence": "mulli 0x2A38 against level.clients",
+    "fields": [
+      {
+        "offset": "0x0000",
+        "type": "playerState_t",
+        "name": "ps",
+        "confidence": "likely"
+      },
+      {
+        "offset": "0x0144",
+        "type": "unsigned short",
+        "name": "ps.weapon",
+        "confidence": "likely"
+      },
+      {
+        "offset": "0x0180",
+        "type": "float[3]",
+        "name": "ps.viewangles",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x26F8",
+        "type": "int",
+        "name": "weaponOverride",
+        "confidence": "guess"
+      },
+      {
+        "offset": "0x28FC",
+        "type": "int",
+        "name": "buttonsSinceLastFrame",
+        "confidence": "confirmed",
+        "evidence": "(buttons | buttonsSinceLastFrame) & mask in the *buttonpressed player methods"
+      },
+      {
+        "offset": "0x2900",
+        "type": "int",
+        "name": "buttonsSinceLastFrame2",
+        "confidence": "confirmed",
+        "evidence": "action-slot word; (buttons | buttonsSinceLastFrame) & mask in the *buttonpressed player methods"
+      },
+      {
+        "offset": "0x2914",
+        "type": "int",
+        "name": "buttons",
+        "confidence": "confirmed",
+        "evidence": "(buttons | buttonsSinceLastFrame) & mask in the *buttonpressed player methods"
+      },
+      {
+        "offset": "0x2918",
+        "type": "int",
+        "name": "buttons2",
+        "confidence": "confirmed",
+        "evidence": "action-slot word; (buttons | buttonsSinceLastFrame) & mask in the *buttonpressed player methods"
+      }
+    ]
+  },
+  "level_locals_t": {
+    "evidence": "level at 0x1213800",
+    "fields": [
+      {
+        "offset": "0x00",
+        "type": "gclient_t *",
+        "name": "clients",
+        "confidence": "confirmed"
+      }
+    ]
+  },
+  "scr_entref_t": {
+    "size": "0x4",
+    "evidence": "method handlers split r3 into two u16 halves and reject classnum != 0",
+    "fields": [
+      {
+        "offset": "0x0",
+        "type": "unsigned short",
+        "name": "entnum",
+        "confidence": "likely"
+      },
+      {
+        "offset": "0x2",
+        "type": "unsigned short",
+        "name": "classnum",
+        "confidence": "likely"
+      }
+    ]
+  },
+  "msg_t": {
+    "size": "0x28",
+    "evidence": "MSG_WriteByte/WriteShort/ReadByte 0x3AFE08.. field accesses",
+    "fields": [
+      {
+        "offset": "0x00",
+        "type": "int",
+        "name": "overflowed",
+        "confidence": "likely"
+      },
+      {
+        "offset": "0x04",
+        "type": "int",
+        "name": "readOnly",
+        "confidence": "guess"
+      },
+      {
+        "offset": "0x08",
+        "type": "char *",
+        "name": "data",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x0C",
+        "type": "char *",
+        "name": "splitData",
+        "confidence": "likely"
+      },
+      {
+        "offset": "0x10",
+        "type": "int",
+        "name": "maxsize",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x14",
+        "type": "int",
+        "name": "cursize",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x18",
+        "type": "int",
+        "name": "splitSize",
+        "confidence": "likely"
+      },
+      {
+        "offset": "0x1C",
+        "type": "int",
+        "name": "readcount",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x20",
+        "type": "int",
+        "name": "bit",
+        "confidence": "confirmed"
+      },
+      {
+        "offset": "0x24",
+        "type": "int",
+        "name": "lastEntityRef",
+        "confidence": "guess"
+      }
+    ]
+  },
+  "cg_t": {
+    "size": "0x6B100",
+    "evidence": "0x116D30 walks 4 cg_t at cg_ptr + i*0x6B100 comparing +0x0 to a client num; 0x155F7C/0x46F6C8/0x47032C index the 0x5D0 clientinfo array with +0x0",
+    "fields": [
+      {
+        "offset": "0x00",
+        "type": "int",
+        "name": "clientNum",
+        "confidence": "confirmed"
+      }
+    ]
+  }
+}

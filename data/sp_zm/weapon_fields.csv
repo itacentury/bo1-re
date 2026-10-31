@@ -1,0 +1,863 @@
+key,kind,eboot_offset,eboot_type,files,distinct,values,example
+accuracy,float,,,117,6,0.1|0.125|0.3|0.38|0.5|1,0.38
+activeReticleType,string,,,34,3,Bouncing diamond|None|Pip-On-A-Stick,None
+AdditionalMeleeModel,string,,,85,3,t5_weapon_dw_sog_knife_world|world_dw_knife_bowie,t5_weapon_dw_sog_knife_world
+adsAimPitch,float,,,528,3,-0.1|0|0.2,0
+adsBobFactor,float,,,528,6,0|0.1|0.5|0.7|1|9.95,0.7
+adsCrosshairInFrac,float,,,528,5,0|0.09|0.65|0.9|1,1
+adsCrosshairOutFrac,float,,,528,4,0|0.2|0.5|0.7,0.2
+adsDofEnd,float,,,735,47,,0
+adsDofStart,float,,,735,9,0|1|2|2.3|3|3.3|5|7|8,0
+adsDownAnim,string,,,591,235,,viewmodel_rpg_ads_down
+adsFire,bool,,,528,2,0|1,0
+adsFireAnim,string,,,528,136,,viewmodel_aug_grip_ads_fire
+adsGunKickAccel,int,,,528,12,0|1000|150|250|260|400|500|516|600|700|800|825,800
+adsGunKickPitchMax,int,,,528,13,,15
+adsGunKickPitchMin,int,,,528,13,,5
+adsGunKickReducedKickBullets,int,,,431,4,0|1|3|4,0
+adsGunKickReducedKickPercent,int,,,431,6,0|100|20|55|70|75,75
+adsGunKickSpeedDecay,int,,,528,10,0|10|100|25|30|32|35|50|51|52,32
+adsGunKickSpeedMax,int,,,528,9,0|1000|1476|1500|2000|2986|300|3199|600,2000
+adsGunKickStaticDecay,int,,,528,9,0|1|10|100|14|40|50|63|7,40
+adsGunKickYawMax,int,,,528,11,-10|0|10|14|15|17|18|25|45|50|7,10
+adsGunKickYawMin,int,,,528,10,-15|-17|-25|-3|-5|-50|-7|0|16|30,-5
+adsIdleAmount,int,,,535,12,0|10|15|2|20|21|25|28|30|40|6|60,2
+adsIdleSpeed,float,,,535,11,0|0.8|0.9|0.93|1|1.5|2|3|4|5|6.5,0.8
+adsLastShotAnim,string,,,528,133,,viewmodel_aug_grip_ads_fire
+adsMoveSpeedScale,float,,,528,8,0|0.6|0.7|0.9|1|1.1|2|2.2,1
+adsOverlayAlphaScale,float,,,634,2,1|1.15,1
+adsOverlayHeight,int,,,634,6,1|150|220|240|440|480,480
+adsOverlayInterface,string,,,203,2,Turret Scope|none,none
+adsOverlayReticle,string,,,517,2,crosshair|none,none
+adsOverlayShader,string,,,634,9,scope_overlay_anpvs_ir|scope_overlay_dragunov|scope_overlay_g11|scope_overlay_l96a1|scope_overlay_m40a3|scope_overlay_nsp3a_ir|scope_overlay_psg1|tow_overlay,scope_overlay_anpvs_ir
+adsOverlayShaderLowRes,string,,,431,4,scope_overlay_g11|scope_overlay_m40a3|scope_overlay_m40a3_low_res,scope_overlay_m40a3_low_res
+adsOverlayWidth,int,,,634,8,1|150|220|240|320|480|483|600,480
+adsRechamberAnim,string,,,517,19,,viewmodel_l96a1_ads_rechamber
+adsReloadTransTime,float,,,528,8,0|0.15|0.2|0.3|0.4|0.45|0.5|0.6,0.45
+adsSpread,float,,,562,7,0|0.05|1|1.7|3|4.25|5.5,0
+adsSwayHorizScale,float,,,528,25,,0.1
+adsSwayLerpSpeed,int,,,528,6,1|10|4|5|6|7,6
+adsSwayMaxAngle,float,,,528,11,0|0.7|0.8|0.85|1|2|3|30|4|6|8,2
+adsSwayPitchScale,float,,,528,4,0|0.06|0.1|2,0.1
+adsSwayVertScale,float,,,528,22,,0.1
+adsSwayYawScale,float,,,528,5,0|0.045|0.1|0.2|2,0.1
+adsTransBlendTime,float,,,442,3,0|0.1|0.4,0.1
+adsTransInTime,float,,,679,14,,0.25
+adsTransOutTime,float,,,679,13,,0.25
+adsUpAnim,string,,,591,235,,viewmodel_rpg_ads_up
+adsViewBobMult,float,,,528,6,0|0.1|0.2|0.25|0.3|1,0.2
+adsViewErrorMax,bool,,,528,1,,0
+adsViewErrorMin,bool,,,528,1,,0
+adsViewKickCenterSpeed,int,,,528,25,,1500
+adsViewKickPitchMax,int,,,528,16,,60
+adsViewKickPitchMin,int,,,528,20,,-20
+adsViewKickYawMax,int,,,528,28,,-60
+adsViewKickYawMin,int,,,528,23,,10
+adsZoomFov1,int,,,679,14,,50
+adsZoomFov2,int,,,679,13,,50
+adsZoomFov3,int,,,679,15,,50
+adsZoomInFrac,float,,,679,10,0|0.05|0.18|0.3|0.42|0.5|0.65|0.7|0.75|1,0.5
+adsZoomOutFrac,float,,,679,11,0|0.05|0.08|0.1|0.4|0.42|0.5|0.6|0.65|0.7|1,0.4
+adsZoomSound,string,,,679,4,fly_crossbow_scope_zoom|fly_wa2000_scope_zoom|wpn_M21_dryfire_plr,fly_wa2000_scope_zoom
+aiFuseTime,int,,,142,5,0|1|2|4|5,0
+aimAssistRange,int,,,723,8,0|1000|1500|15000|3200|600|750|8000,3200
+aimAssistRangeAds,int,,,723,10,0|1000|1500|15000|2000|2500|3200|600|750|8000,3200
+aimDownSight,bool,,,679,2,0|1,1
+aimPadding,int,,,151,3,0|1|10,0
+AIOverlayDescription,string,,,584,2,,WEAPON_FLAMETHROWER_GUNNER
+aiSpread,float,,,151,10,0|0.2|0.5|0.75|1|1.5|2|3|4|5,2
+aiVsAiAccuracyGraph,string,,,528,9,assault_rifle.accu|default.accu|pistol.accu|ray_gun.accu|rpg.accu|smg.accu|sniper_rifle.accu|zombie_tesla.accu,assault_rifle.accu
+aiVsPlayerAccuracyGraph,string,,,528,8,assault_rifle.accu|default.accu|mg.accu|pistol.accu|rpg.accu|smg.accu|sniper_rifle.accu,assault_rifle.accu
+altDropAnim,string,,,584,107,,viewmodel_rpg_putaway
+altDropTime,float,,,584,10,0|0.05|0.3|0.4|0.467|0.5|0.7|0.75|0.9|1.25,0
+altRaiseAnim,string,,,584,156,,viewmodel_rpg_pullout
+altRaiseTime,float,,,584,19,,0
+altSwitchSound,string,,,584,2,,wpn_weap_raise_npc
+altSwitchSoundPlayer,string,,,584,2,,wpn_weap_raise_plr
+altWeapon,string,,,584,78,,ft_ak47_sp
+ammoCountClipRelative,bool,,,411,2,0|1,1
+ammoCounterClip,string,,,573,7,AltWeapon|Beltfed|Magazine|None|Rocket|ShortMagazine|Shotgun,Magazine
+ammoCounterIcon,string,,,573,63,,hud_icon_ak47
+ammoCounterIconRatio,string,,,573,2,1:1|4:1,1:1
+ammoName,string,,,701,113,,rpg
+ammoPickupSound,string,,,584,2,,wpn_ammo_pickup_npc
+ammoPickupSoundPlayer,string,,,584,2,,wpn_ammo_pickup_plr
+animHorRotateInc,int,,,117,4,15|20|30|50,15
+armorPiercing,bool,,,668,2,0|1,0
+autoAimRange,int,,,734,12,0|1000|1200|1500|1600|1800|2200|2800|485|500|800|8000,0
+avoidDropCleanup,bool,,,517,1,,0
+bayonet,bool,,,524,2,0|1,0
+blocksProne,bool,,,584,2,0|1,0
+boltAction,bool,,,528,2,0|1,0
+bottomArc,int,,,117,17,,15
+bounceSound,string,,,259,9,c4_bounce|mtl_pipe_hit|wpn_bbetty_plant|wpn_grenade_bounce|wpn_hatchet_bounce|wpn_satchel_plant|wpn_smoke_bounce|zmb_monkey_land,wpn_grenade_bounce
+breakdownAnim,string,,,431,1,,
+breakdownSound,string,,,431,1,,
+breakdownSoundPlayer,string,,,431,1,,
+breakdownTime,float,,,431,2,0|0.5,0.5
+bulletImpactExplode,bool,,,528,2,0|1,0
+cancelAutoHolsterWhenEmpty,bool,,,528,2,0|1,0
+canUseInVehicle,bool,,,142,2,0|1,0
+clipName,string,,,701,365,,rpg
+clipOnly,bool,,,153,2,0|1,0
+clipSize,int,,,701,37,,30
+clipType,string,,,431,1,,bottom
+contFireInAnim,string,,,422,2,,viewmodel_sabertooth_fire_in
+contFireInTime,float,,,422,4,0|0.1|0.25|0.5,0.5
+contFireLoopAnim,string,,,422,2,,viewmodel_sabertooth_fire_loop
+contFireLoopTime,float,,,422,3,0|0.3|0.5,0.5
+contFireOutAnim,string,,,422,2,,viewmodel_sabertooth_fire_out
+contFireOutTime,float,,,422,3,0|0.35|0.5,0.5
+continuousFire,bool,,,422,2,0|1,0
+cookOffHold,bool,,,56,2,0|1,0
+cooldownRate,int,,,539,8,13|15|16|20|25|30|32|50,30
+coolWhileFiring,bool,,,539,1,,0
+crackSound,string,,,431,2,,prj_crack
+crosshairColorChange,bool,,,701,2,0|1,1
+crouchMountedWeapdef,string,,,431,1,,
+damage,int,,,735,59,,100
+damageConeAngle,int,,,704,3,0|180|60,180
+damageDuration,int,,,45,2,300|750,750
+damageInterval,int,,,45,2,100|300,100
+deployAnim,string,,,431,1,,
+deploySound,string,,,431,1,,
+deploySoundPlayer,string,,,431,1,,
+deployTime,float,,,431,2,0|0.5,0.5
+destabilizationCurvatureMax,int,,,237,6,0|10|5|7|70|8,10
+destabilizationRateTime,float,,,237,6,0|0.08|0.1|0.2|0.4|1,0
+destabilizeDistance,int,,,237,18,,30000
+detonateAnim,string,,,56,7,viewmodel_C4_detonator_fire|viewmodel_c4_detonator_fire|viewmodel_claymore_idle|viewmodel_satchel_charge_fire|viewmodel_ussmokegrenade_idle|viewmodel_zombie_perksacola_idle,viewmodel_C4_detonator_fire
+detonateDelay,float,,,56,3,0|0.1|0.23,0.23
+detonateSound,string,,,56,8,dst_equipment_destroy|wpn_c4_click_npc|wpn_c4detpack_trigger_npc|wpn_molotov_impact|wpn_satchel_click|wpn_slingshot_impact|wpn_smoke_grenade_explode,dst_equipment_destroy
+detonateSoundPlayer,string,,,56,8,dst_equipment_destroy|wpn_c4_click_plr|wpn_c4detpack_trigger_plr|wpn_molotov_impact|wpn_satchel_click_plr|wpn_slingshot_impact|wpn_smoke_grenade_explode,dst_equipment_destroy
+detonateTime,float,,,56,4,0|0.1|0.2|0.83,0.83
+dieOnRespawn,bool,,,142,2,0|1,0
+displayName,string,,,591,392,,WEAPON_RPG
+doGibbing,bool,,,528,2,0|1,0
+dpadIcon,string,,,584,26,,hud_icon_mk_generic
+dpadIconRatio,string,,,584,3,1:1|2:1|4:1,1:1
+dropAmmoMax,int,,,584,27,,5
+dropAmmoMin,int,,,584,21,,4
+dropAnim,string,,,584,161,,viewmodel_rpg_putaway
+dropClipAmmoMax,int,,,431,24,,30
+dropClipAmmoMin,int,,,431,27,,0
+dropHintString,string,,,117,2,,PLATFORM_HOLD_TO_DROP
+dropTime,float,,,584,25,,0.6
+dtp_empty_in,string,,,584,11,viewmodel_colt1911_sw_empty_dtp_in|viewmodel_crossbow_empty_d2p_in|viewmodel_mosinnagant_d2p_in|viewmodel_mp40_empty_d2p_in|viewmodel_mp44_empty_d2p_in|viewmodel_panzerschreck_d2p_in|viewmodel_ppsh_empty_d2p_in|viewmodel_sten_d2p_in|viewmodel_thundergun_empty_d2p_in|viewmodel_tokarev_tt30_empty_d2p_in,viewmodel_crossbow_empty_d2p_in
+dtp_empty_loop,string,,,584,11,viewmodel_colt1911_sw_empty_dtp_loop|viewmodel_crossbow_empty_d2p_loop|viewmodel_mosinnagant_d2p_loop|viewmodel_mp40_empty_d2p_loop|viewmodel_mp44_empty_d2p_loop|viewmodel_panzerschreck_d2p_loop|viewmodel_ppsh_empty_d2p_loop|viewmodel_sten_d2p_loop|viewmodel_thundergun_empty_d2p_loop|viewmodel_tokarev_tt30_empty_d2p_loop,viewmodel_crossbow_empty_d2p_loop
+dtp_empty_out,string,,,584,11,viewmodel_colt1911_sw_empty_dtp_out|viewmodel_crossbow_empty_d2p_out|viewmodel_mosinnagant_d2p_out|viewmodel_mp40_empty_d2p_out|viewmodel_mp44_empty_d2p_out|viewmodel_panzerschreck_d2p_out|viewmodel_ppsh_empty_d2p_out|viewmodel_sten_d2p_out|viewmodel_thundergun_empty_d2p_out|viewmodel_tokarev_tt30_empty_d2p_out,viewmodel_crossbow_empty_d2p_out
+dtp_in,string,,,584,137,,viewmodel_ak47_d2p_in
+dtp_loop,string,,,584,137,,viewmodel_ak47_d2p_loop
+dtp_out,string,,,584,137,,viewmodel_ak47_d2p_out
+dtpBobH,int,,,591,3,0|1|40,0
+dtpBobV,int,,,591,3,0|1|40,0
+dtpInCameraAnim,string,,,508,2,,t5_viewmodel_camera_dtp_in
+dtpInTime,float,,,584,9,0|0.08|0.15|0.2|0.25|0.3|0.35|0.45|0.5,0.15
+dtpLoopCameraAnim,string,,,508,2,,t5_viewmodel_camera_dtp_loop
+dtpLoopTime,float,,,584,12,0|0.4|0.5|0.57|0.6|0.65|0.7|0.75|0.8|0.85|0.9|1,0.6
+dtpOfsF,float,,,591,6,0|0.5|0.9|2|3.5|5,0
+dtpOfsR,int,,,591,9,-0|-12|-2|-3|-4|-5|-6|-7|0,0
+dtpOfsU,float,,,591,7,-2.3|-2.6|-3|-5|-5.7|-6|0,0
+dtpOutCameraAnim,string,,,508,2,,t5_viewmodel_camera_dtp_out
+dtpOutTime,float,,,584,10,0|0.1|0.2|0.25|0.3|0.35|0.4|0.45|0.5|0.6,0.25
+dtpRotP,int,,,591,4,-0|-10|-15|0,0
+dtpRotR,int,,,591,6,-0|-10|-15|-20|-40|0,0
+dtpRotY,int,,,591,4,0|30|40|50,0
+dtpScale,bool,,,591,1,,1
+DualMag,bool,,,411,2,0|1,0
+dualWield,bool,,,517,2,0|1,0
+DualWieldWeapon,string,,,517,41,,asplh_sp
+duckedMoveF,int,,,591,2,-1|0,0
+duckedMoveMinSpeed,int,,,591,3,0|20|60,0
+duckedMoveR,float,,,591,5,0|0.5|1|1.2|3,0
+duckedMoveU,float,,,591,6,-1|-1.2|-1.5|-1.7|-3|0,0
+duckedOfsF,float,,,742,25,,-1
+duckedOfsR,float,,,742,20,,0.8
+duckedOfsU,float,,,742,19,,-0.2
+duckedRotMinSpeed,int,,,591,3,0|20|60,0
+duckedRotP,int,,,591,2,0|2,2
+duckedRotR,int,,,591,2,-2|0,-2
+duckedRotY,bool,,,591,1,,0
+duckedSprintBobH,bool,,,27,1,,1
+duckedSprintBobV,bool,,,27,1,,1
+duckedSprintOfsF,int,,,27,1,,-3
+duckedSprintOfsR,int,,,27,1,,-5
+duckedSprintOfsU,int,,,27,1,,-5
+duckedSprintRotP,bool,,,27,1,,0
+duckedSprintRotR,bool,,,27,1,,0
+duckedSprintRotY,bool,,,27,1,,0
+duckedSprintScale,bool,,,27,1,,1
+emptyDropAnim,string,,,584,152,,viewmodel_rpg_putaway
+emptyDropTime,float,,,584,23,,0.6
+emptyFireSound,string,,,528,57,,wpn_ak47_dryfire_npc
+emptyFireSoundPlayer,string,,,528,56,,wpn_rpg_dryfire_plr
+emptyIdleAnim,string,,,563,120,,viewmodel_rpg_idle_empty
+emptyIdleAnimLeft,string,,,21,10,viewmodel_asp_dw_left_idle_loop|viewmodel_colt1911_dw_left_idle_loop|viewmodel_cz75_dw_left_idle_loop_empty|viewmodel_hs10_dw_left_idle_loop|viewmodel_kiparis_dw_leftarm_idle_loop|viewmodel_mac11_dw_leftarm_idle_loop|viewmodel_makarov_dw_left_idle_loop|viewmodel_pm63_dw_left_idle_loop|viewmodel_python_dw_left_idle_loop|viewmodel_skorpion_dw_left_idle_loop,viewmodel_cz75_dw_left_idle_loop_empty
+emptyRaiseAnim,string,,,584,157,,viewmodel_rpg_pullout
+emptyRaiseTime,float,,,584,29,,0.75
+enemyCrosshairRange,int,,,735,19,,1000
+enhanced,bool,,,20,1,,0
+explodeOnGround,bool,,,56,2,0|1,0
+explosionInnerDamage,int,,,704,30,,0
+explosionOuterDamage,int,,,704,26,,0
+explosionRadius,int,,,704,30,,0
+explosionRadiusMin,bool,,,56,1,,0
+explosionTag,string,,,56,2,,tag_explosive
+fightDist,int,,,528,5,1|1200|1500|719|720,1
+finishDeploySound,string,,,431,1,,
+finishDeploySoundPlayer,string,,,431,1,,
+fireAnim,string,,,680,154,,viewmodel_rpg_fire
+fireAnimLeft,string,,,21,10,viewmodel_asp_dw_left_fire|viewmodel_colt1911_dw_left_fire|viewmodel_cz75_dw_left_fire|viewmodel_hs10_dw_left_fire|viewmodel_kiparis_dw_leftarm_fire|viewmodel_mac11_dw_leftarm_fire|viewmodel_makarov_dw_left_fire|viewmodel_pm63_dw_left_fire|viewmodel_python_dw_left_fire|viewmodel_skorpion_dw_left_fire,viewmodel_cz75_dw_left_fire
+fireDelay,float,,,584,8,0|0.005|0.01|0.05|0.1|0.13|0.15|0.16,0
+fireRumble,string,,,679,15,,assault_fire
+fireSound,string,,,735,166,,wpn_ak47_fire_npc
+fireSoundPlayer,string,,,735,171,,wpn_m60e4_fire_plr
+fireTime,float,,,735,50,,0.08
+fireType,string,,,634,5,3-Round Burst|Full Auto|Minigun|Single Shot|Stacked Fire,Full Auto
+firstRaiseAnim,string,,,584,161,,viewmodel_rpg_pullout
+firstRaiseSound,string,,,584,59,,wpn_ak47_1straise_npc
+firstRaiseSoundPlayer,string,,,584,62,,wpn_rpg_1straise_plr
+firstRaiseTime,float,,,584,39,,1.4
+flameCooldownSound,string,,,11,2,,wpn_flamethrower_cooldown_3p
+flameCooldownSoundPlayer,string,,,11,2,,wpn_flamethrower_cooldown
+flameIgniteSound,string,,,11,2,,wpn_flamethrower_start_3p
+flameIgniteSoundPlayer,string,,,11,2,,wpn_flamethrower_start
+flameOffLoopSound,string,,,11,2,,wpn_flamethrower_off_npc
+flameOffLoopSoundPlayer,string,,,11,2,,wpn_flamethrower_off
+flameOnLoopSound,string,,,11,2,,wpn_flamethrower_fireloop_3p
+flameOnLoopSoundPlayer,string,,,11,2,,wpn_flamethrower_fireloop
+flameTableFirstPerson,string,,,162,3,creek1_flame_thirdperson|quinn_flame_firstperson,quinn_flame_firstperson
+flameTableThirdPerson,string,,,162,3,creek1_flame_thirdperson|quinn_flame_thirdperson,quinn_flame_thirdperson
+flipKillIcon,bool,,,735,2,0|1,1
+forceBounce,bool,,,86,2,0|1,0
+freezeMovementWhenFiring,bool,,,56,1,,0
+fuelTankWeapon,bool,,,11,2,0|1,1
+fullMetalJacket,bool,,,431,1,,0
+fuseTime,float,,,142,6,0|1|1.5|3.5|4|8,0
+grabarc,bool,,,117,1,,0
+grenadeWeapon,string,,,86,4,explosive_bolt_sp|explosive_bolt_upgraded_zm|explosive_bolt_zm,explosive_bolt_sp
+guidedMissileType,string,,,237,7,Ballistic|Hellfire|Javelin|None|Sidewinder|TVGuided|WireGuided,None
+gunMaxPitch,int,,,528,6,2|30|4|6|8|80,8
+gunMaxYaw,int,,,528,7,15|25|3|30|4|6|8,25
+gunModel,string,,,591,128,,t5_weapon_ak47_viewmodel
+gunModel10,string,,,517,1,,
+gunModel11,string,,,517,1,,
+gunModel12,string,,,517,1,,
+gunModel13,string,,,517,1,,
+gunModel14,string,,,517,1,,
+gunModel15,string,,,517,1,,
+gunModel16,string,,,517,1,,
+gunModel2,string,,,517,1,,
+gunModel3,string,,,517,1,,
+gunModel4,string,,,517,1,,
+gunModel5,string,,,517,1,,
+gunModel6,string,,,517,1,,
+gunModel7,string,,,517,1,,
+gunModel8,string,,,517,1,,
+gunModel9,string,,,517,1,,
+handModel,string,,,591,5,viewhands_usmc|viewmodel_base_viewhands|viewmodel_hands_cloth|viewmodel_hands_no_model,viewhands_usmc
+hasDetonator,bool,,,56,2,0|1,0
+hideTags,string,,,535,281,,TAG_ext_clip\ntag_suppressor\nTAG_upgraded_sights
+hideThirdPerson,bool,,,56,1,,0
+hipDofEnd,bool,,,11,1,,0
+hipDofStart,bool,,,11,1,,0
+hipGunKickAccel,int,,,528,5,0|1000|250|738|800,1000
+hipGunKickPitchMax,int,,,528,14,,-15
+hipGunKickPitchMin,int,,,528,12,-10|-25|-30|-5|0|25|35|5|50|52|7|80,5
+hipGunKickReducedKickBullets,int,,,431,2,0|4,0
+hipGunKickReducedKickPercent,int,,,431,3,0|100|20,0
+hipGunKickSpeedDecay,int,,,528,6,0|100|15|16|25|73,100
+hipGunKickSpeedMax,int,,,528,7,0|1200|1792|2000|3199|500|886,1200
+hipGunKickStaticDecay,int,,,528,7,0|1|100|2|20|31|73,20
+hipGunKickYawMax,int,,,528,10,-5|-7|0|15|18|25|30|35|37|5,-5
+hipGunKickYawMin,int,,,528,11,-15|-18|-2|-25|-30|-35|-37|-5|0|5|7,5
+hipIdleAmount,int,,,591,13,,15
+hipIdleSpeed,float,,,591,7,0|1|1.2|2|3|4|5,5
+hipReticleSidePos,bool,,,528,1,,0
+hipSpreadDecayRate,float,,,517,9,0|1|1.5|2.25|2.5|3.25|4|5|50,4
+hipSpreadDuckedDecay,float,,,517,6,0|1|1.05|1.25|1.375|1.5,1.05
+hipSpreadDuckedMax,float,,,517,18,,6
+hipSpreadDuckedMin,float,,,517,20,,2.5
+hipSpreadFireAdd,float,,,517,8,0|0.25|0.4|0.5|0.52|0.6|0.7|1,0.6
+hipSpreadMax,float,,,517,15,,7
+hipSpreadMoveAdd,float,,,517,10,0|0.1|0.5|1|2|2.3|4|4.5|4.75|5,5
+hipSpreadProneDecay,float,,,517,7,0|0.9|1|1.1|1.2|1.6|1.65,1.1
+hipSpreadProneMax,int,,,517,15,,5
+hipSpreadProneMin,float,,,517,18,,2
+hipSpreadStandMin,float,,,517,16,,3
+hipSpreadTurnAdd,float,,,517,3,0|0.25|0.5,0
+hipViewKickCenterSpeed,int,,,528,26,,1500
+hipViewKickPitchMax,int,,,528,21,,60
+hipViewKickPitchMin,int,,,528,24,,-20
+hipViewKickYawMax,int,,,528,29,,-60
+hipViewKickYawMin,int,,,528,28,,10
+holdButtonToThrow,bool,,,56,1,,0
+holdFireAnim,string,,,56,14,,viewmodel_C4_hold_fire
+holdFireTime,float,,,56,7,0|0.2|0.25|0.4|0.6|1.4|1.9,0.2
+hollowPoint,bool,,,431,1,,0
+horizViewJitter,float,,,151,7,0|0.01|0.1|0.2|0.4|0.5|1,0.5
+horTurnSpeed,int,,,117,2,100|40,40
+hudIcon,string,,,701,87,,hud_icon_m249saw_mounted
+hudIconRatio,string,,,701,3,1:1|2:1|4:1,2:1
+idleAnim,string,,,687,166,,viewmodel_rpg_idle
+idleAnimLeft,string,,,21,10,viewmodel_asp_dw_left_idle_loop|viewmodel_colt1911_dw_left_idle_loop|viewmodel_cz75_dw_left_idle_loop|viewmodel_hs10_dw_left_idle_loop|viewmodel_kiparis_dw_leftarm_idle_loop|viewmodel_mac11_dw_leftarm_idle_loop|viewmodel_makarov_dw_left_idle_loop|viewmodel_pm63_dw_left_idle_loop|viewmodel_python_dw_left_idle_loop|viewmodel_skorpion_dw_left_idle_loop,viewmodel_cz75_dw_left_idle_loop
+idleCrouchFactor,float,,,591,7,0|0.5|0.55|0.6|0.75|0.8|1,1
+idleProneFactor,float,,,591,7,0|0.15|0.25|0.4|0.5|0.6|1,0.4
+ikLeftHandOffsetF,float,,,584,21,,0
+ikLeftHandOffsetR,float,,,584,14,,0
+ikLeftHandOffsetU,float,,,584,24,,0
+ikLeftHandProneOffsetF,float,,,563,19,,0
+ikLeftHandProneOffsetR,float,,,563,10,-0.05|-0.25764|-1.4|-2|0|0.06198|0.3|0.31694|0.375|1,0
+ikLeftHandProneOffsetU,float,,,563,23,,0
+ikLeftHandProneRotationP,float,,,563,16,,0
+ikLeftHandProneRotationR,float,,,563,6,-22.8824|0|10|20|30|50,0
+ikLeftHandProneRotationY,float,,,563,14,,0
+ikLeftHandRotationP,float,,,584,20,,0
+ikLeftHandRotationR,float,,,584,5,-22.8824|0|10|20|6,0
+ikLeftHandRotationY,float,,,584,13,,0
+ikLeftHandUiViewerOffsetF,float,,,563,10,-1|-2|0|1|2|2.5|3|4|5|6.5,0
+ikLeftHandUiViewerOffsetR,float,,,563,5,-0.25|-0.5|-1|-2|0,0
+ikLeftHandUiViewerOffsetU,float,,,563,11,-0.5|-0.9|-1|-1.5|-2|-2.5|-3|0|0.5|1|2,0
+ikLeftHandUiViewerRotationP,int,,,563,9,-30|-50|-65|-80|0|1|2|20|40,0
+ikLeftHandUiViewerRotationR,int,,,563,3,-20|0|20,0
+ikLeftHandUiViewerRotationY,int,,,563,5,-15|-20|0|10|20,0
+impactType,string,,,724,14,,bullet_large
+indicatorIcon,string,,,56,3,hud_grenadeicon|hud_indicator_arrow,hud_grenadeicon
+indicatorIconRatio,string,,,56,2,1:1|4:1,4:1
+indicatorRadius,int,,,142,2,0|170,0
+inventoryType,string,,,742,5,altmode|item|melee|offhand|primary,primary
+isAcousticSensor,bool,,,142,2,0|1,0
+isCameraSensor,bool,,,142,2,0|1,0
+isCarriedKillstreakWeapon,bool,,,508,2,0|1,0
+isHandModelOverridable,bool,,,153,2,0|1,1
+isRollingGrenade,bool,,,56,2,0|1,1
+jamFireTime,float,,,411,3,0|0.05|0.096,0.05
+keepCrosshairWhenADS,bool,,,613,2,0|1,0
+keepRolling,bool,,,56,2,0|1,0
+killIcon,string,,,735,88,,hud_icon_ak47
+killIconRatio,string,,,735,3,1:1|2:1|4:1,2:1
+laserSightDuringNightvision,bool,,,431,2,0|1,0
+lastFireTime,float,,,553,6,0|0.24|0.25|0.33|0.95|1,0
+lastShotAnim,string,,,563,152,,viewmodel_rpg_fire
+lastShotAnimLeft,string,,,21,10,viewmodel_asp_dw_left_fire|viewmodel_colt1911_dw_left_last_shot|viewmodel_cz75_dw_left_last_shot|viewmodel_hs10_dw_left_fire|viewmodel_kiparis_dw_leftarm_fire|viewmodel_mac11_dw_leftarm_fire|viewmodel_makarov_dw_left_fire|viewmodel_pm63_dw_left_lastshot|viewmodel_python_dw_left_fire|viewmodel_skorpion_dw_left_fire,viewmodel_cz75_dw_left_last_shot
+lastShotEjectEffect,string,,,97,2,,fx/weapon/shellejects/fx_pistol.efx
+lastShotSound,string,,,584,15,,wpn_strela_fire_npc
+lastShotSoundPlayer,string,,,584,14,,wpn_strela_fire_plr
+leftArc,int,,,117,24,,45
+locGun,bool,,,723,2,0|1,0
+locHead,float,,,723,14,,1
+locHelmet,float,,,723,14,,4
+lockonAimRange,int,,,11,2,3200|485,485
+lockonAimRangeAds,int,,,11,2,3200|485,485
+lockOnRadius,int,,,86,3,300|60|65,60
+lockOnSpeed,int,,,86,2,1000|2000,2000
+locLeftArmLower,float,,,723,7,0|0.5|0.6|1|1.25|1.5|2,1
+locLeftArmUpper,float,,,723,9,0|0.6|0.8|0.85|1|1.25|1.5|2|2.5,1
+locLeftFoot,float,,,723,7,0|0.1|0.3|0.35|0.4|1|1.25,1
+locLeftHand,float,,,723,8,0|0.1|0.3|0.35|0.4|1|1.25|1.5,1
+locLeftLegLower,float,,,723,7,0|0.4|0.5|0.6|1|1.25|1.5,1
+locLeftLegUpper,float,,,723,9,0|0.5|0.6|0.8|0.85|1|1.25|1.5|2,1
+locNeck,float,,,723,13,,1
+locNone,float,,,723,3,0|1|1.25,1
+locRightArmLower,float,,,723,7,0|0.5|0.6|1|1.25|1.5|2,1
+locRightArmUpper,float,,,723,9,0|0.6|0.8|0.85|1|1.25|1.5|2|2.5,1
+locRightFoot,float,,,723,7,0|0.1|0.3|0.35|0.4|1|1.25,1
+locRightHand,float,,,723,8,0|0.1|0.3|0.35|0.4|1|1.25|1.5,1
+locRightLegLower,float,,,723,6,0|0.4|0.5|0.6|1|1.25,1
+locRightLegUpper,float,,,723,9,0|0.5|0.6|0.8|0.85|1|1.25|1.5|2,1
+locTorsoLower,float,,,723,9,0|0.9|1|1.1|1.2|1.25|1.5|2|3,1
+locTorsoUpper,float,,,723,7,0|1|1.2|1.25|1.5|2|3,1
+loopFireEndSound,string,,,411,3,wpn_minigun_dist_loop_ring_npc|wpn_minigun_fire_end_zt_npc,wpn_minigun_dist_loop_ring_npc
+loopFireEndSoundPlayer,string,,,411,3,wpn_minigun_fire_end_zt_plr|wpn_minigun_fire_loop_ring_plr,wpn_minigun_fire_loop_ring_plr
+loopFireSound,string,,,528,14,,tank_mg_cal30_loop
+loopFireSoundPlayer,string,,,528,14,,tank_mg_cal30_loop
+lowAmmoWarningThreshold,float,,,573,6,0|0.05|0.15|0.25|0.33|0.5,0.33
+lowReadyInAnim,string,,,564,2,,viewmodel_interrogation_hands_nocam_in
+lowReadyInTime,float,,,564,3,0.2|0.3|0.5,0.5
+lowReadyLoopAnim,string,,,564,2,,viewmodel_interrogation_hands_nocam_loop2
+lowReadyLoopTime,float,,,564,1,,0.5
+lowReadyOfsF,float,,,564,14,,0
+lowReadyOfsR,float,,,564,13,,0
+lowReadyOfsU,float,,,564,21,,0
+lowReadyOutAnim,string,,,564,2,,viewmodel_interrogation_hands_nocam_out
+lowReadyOutTime,float,,,564,4,0|0.2|0.3|0.5,0.5
+lowReadyRotP,float,,,564,12,-48|-50.7|0|1|10|12|15|18|19|20|20.4|25,0
+lowReadyRotR,float,,,564,18,,0
+lowReadyRotY,float,,,564,13,,0
+mantleAnim,string,,,508,4,viewmodel_ex41_mantle|viewmodel_m72_law_mantle|viewmodel_rpk_mantle,viewmodel_rpk_mantle
+mantleCameraAnim,string,,,508,2,,t5_viewmodel_camera_mantle
+mantleOfsF,int,,,508,6,-1|-2|0|1|2|3,0
+mantleOfsR,int,,,508,5,-0|-1|-2|-3|0,0
+mantleOfsU,float,,,508,6,-1|0|0.2|1|2|3,0
+mantleRotP,int,,,515,4,-10|0|10|5,0
+mantleRotR,int,,,515,4,-10|-5|0|10,0
+mantleRotY,int,,,515,3,0|1|5,0
+maxAmmo,int,,,701,46,,10
+maxDamageRange,int,,,582,30,,1024
+maxDist,int,,,528,14,,1500
+maxGibDistance,int,,,528,5,1000|2000|20000|3000|6000,1000
+maxHorTurnSpeed,int,,,648,17,,0
+maxRange,bool,,,117,1,,0
+maxSteeringAccel,string,,,248,15,,3000
+maxVertTurnSpeed,int,,,648,17,,0
+meleeAnim,string,,,503,12,viewmodel_M4m203_knife_melee_1|viewmodel_aug_bayonet_slash|viewmodel_b_knife_melee_swipe|viewmodel_bowie_slash|viewmodel_entrenching_tool_swipe|viewmodel_karambit_knife_melee_swipe|viewmodel_knife_slash|viewmodel_rebirth_hands_swipe|viewmodel_rebirth_hatchet_swipe|viewmodel_sog_knife_melee_swipe|viewmodel_vorkuta_knife_melee_swipe,viewmodel_knife_slash
+meleeChargeAnim,string,,,503,12,viewmodel_M4m203_knife_melee_2|viewmodel_aug_bayonet_stab|viewmodel_b_knife_melee_stick|viewmodel_bowie_stick|viewmodel_entrenching_tool_chop|viewmodel_karambit_knife_melee_stick|viewmodel_knife_stick|viewmodel_rebirth_hands_stick|viewmodel_rebirth_hatchet_stick|viewmodel_sog_knife_melee_stick|viewmodel_vorkuta_knife_melee_stick,viewmodel_knife_stick
+meleeChargeDelay,float,,,503,4,0|0.1|0.15|0.25,0
+meleeChargeRange,int,,,503,3,0|128|150,0
+meleeChargeTime,float,,,503,5,0|1|1.16|1.2|1.3,0
+meleeDamage,int,,,503,10,1000|135|150|1500|200|25|300|350|500|650,25
+meleeDelay,float,,,503,5,0.05|0.08|0.1|0.15|0.25,0.25
+meleeHitSound,string,,,503,5,melee_hit|wpn_melee_hit|wpn_melee_knife_hit_body|zmb_bowie_stab,wpn_melee_hit
+meleeImpactRumble,string,,,7,1,,defaultweapon_melee
+meleeMissSound,string,,,503,2,,wpn_melee_hit_other
+meleeSwipeSound,string,,,503,5,melee_swing|wpn_melee_swing_gear_npc|wpn_melee_whoosh_npc|zmb_bowie_swing,wpn_melee_swing_gear_npc
+meleeSwipeSoundPlayer,string,,,503,4,melee_swing_plr|wpn_melee_whoosh_plr|zmb_bowie_swing,wpn_melee_whoosh_plr
+meleeTime,float,,,503,5,0.5|0.6|0.7|0.8|1,0.7
+minDamage,int,,,582,38,,90
+minDamageRange,int,,,582,29,,2400
+minHorTurnSpeed,int,,,117,9,1|124|180|25|360|40|5|50|720,1
+minPlayerDamage,int,,,117,6,0|1000|150|20|30|75,30
+minVertTurnSpeed,int,,,117,8,1|124|180|30|360|5|50|720,1
+modeIcon,string,,,11,2,,hud_icon_m2_flamethrower
+modeIconRatio,string,,,11,2,2:1|4:1,2:1
+modeName,string,,,584,1,,
+mountableWeapon,bool,,,431,1,,0
+mountedModel,string,,,431,1,,
+moveSpeedScale,float,,,584,9,0.2|0.7|0.75|0.8|0.875|0.9|0.95|1|1.1,1
+nightVisionRemoveAnim,string,,,584,4,viewmodel_C4_NVG_takeoff|viewmodel_rpg_NVG_takeoff|viewmodel_stinger_NVG_takeoff,viewmodel_rpg_NVG_takeoff
+nightVisionRemoveSound,string,,,584,1,,
+nightVisionRemoveSoundPlayer,string,,,584,1,,
+nightVisionRemoveTime,float,,,584,3,0|0.5|1.5,0
+nightVisionRemoveTimeFadeInStart,float,,,573,2,0|0.45,0
+nightVisionRemoveTimePowerDown,float,,,573,2,0|0.3,0
+nightVisionWearAnim,string,,,584,4,viewmodel_C4_NVG_puton|viewmodel_rpg_NVG_puton|viewmodel_stinger_NVG_puton,viewmodel_rpg_NVG_puton
+nightVisionWearSound,string,,,584,1,,
+nightVisionWearSoundPlayer,string,,,584,1,,
+nightVisionWearTime,float,,,584,4,0|0.5|1.5|4.33,0
+nightVisionWearTimeFadeOutEnd,float,,,573,4,0|0.05|0.6|1.5,0
+nightVisionWearTimePowerUp,float,,,573,3,0|1|1.7,0
+noADSAutoReload,bool,,,517,1,,0
+noAdsWhenMagEmpty,bool,,,517,2,0|1,0
+noCrumpleMissile,bool,,,86,2,0|1,0
+noDropsOrRaises,bool,,,56,2,0|1,0
+noPartialReload,bool,,,528,2,0|1,0
+noPing,bool,,,258,2,0|1,1
+noQuickDropWhenEmpty,bool,,,496,2,0|1,0
+noteTrackSoundA,string,,,11,1,,
+noteTrackSoundB,string,,,11,1,,
+noteTrackSoundC,string,,,11,1,,
+noteTrackSoundD,string,,,11,1,,
+notetrackSoundMap,string,,,580,11,"
+
+ |gr_mosin_bolt_up_plr gr_mosin_bolt_up_plr 
+gr_mosin_bolt_back_plr gr_mosin_bolt_back_plr 
+gr_mosin_futz_plr gr_mosin_futz_plr 
+gr_mosin_clip_in_plr gr_mosin_clip_in_plr 
+gr_mosin_bolt_front_plr gr_mosin_bolt_front_plr 
+gr_mosin_bolt_down_plr gr_mosin_bolt_down_plr 
+gr_mosin_clip_eject_plr gr_mosin_clip_eject_plr 
+gr_mosin_clip_land_plr gr_mosin_clip_land_plr 
+gr_mosin_shell_in_plr gr_mosin_shell_in_plr
+knife_stab_plr knife_stab_plr
+knife_pull_plr knife_pull_plr
+Knife_slash_plr Knife_slash_plr|gr_ppsh_mag_out_plr gr_ppsh_mag_out_plr 
+gr_ppsh_mag_in_plr gr_ppsh_mag_in_plr 
+gr_ppsh_tap_plr gr_ppsh_tap_plr 
+gr_ppsh_slide_back_plr gr_ppsh_slide_back_plr 
+knife_stab_plr knife_stab_plr
+knife_pull_plr knife_pull_plr
+Knife_slash_plr Knife_slash_plr|knife_stab_plr knife_stab_plr
+knife_pull_plr knife_pull_plr
+Knife_slash_plr Knife_slash_plr
+bottle_open bottle_open
+swallow swallow
+bottle_break bottle_break
+belch belch
+bowie_swing bowie_swing
+bowie_stab bowie_stab
+bowie_pull bowie_pull|knife_stab_plr knife_stab_plr
+knife_pull_plr knife_pull_plr
+Knife_slash_plr Knife_slash_plr
+bottle_open bottle_open
+swallow swallow
+bottle_break bottle_break
+belch belch
+bowie_swing bowie_swing
+bowie_stab bowie_stab
+bowie_pull bowie_pull
+bowie_start bowie_start
+bowie_turn bowie_turn
+bowie_toss bowie_toss
+bowie_catch bowie_catch|knife_stab_plr knife_stab_plr
+knife_pull_plr knife_pull_plr
+Knife_slash_plr Knife_slash_plr
+bottle_open bottle_open
+swallow swallow
+bottle_break bottle_break
+belch belch
+bowie_swing bowie_swing
+bowie_stab bowie_stab
+bowie_pull bowie_pull
+knuckle_start knuckle_start
+knuckle_left knuckle_left
+knuckle_right knuckle_right|knife_stab_plr knife_stab_plr
+knife_pull_plr knife_pull_plr
+Knife_slash_plr Knife_slash_plr
+gr_mp44_mag_out_plr gr_mp44_mag_out_plr 
+gr_mp44_futz_plr gr_mp44_futz_plr 
+gr_mp44_mag_in_plr gr_mp44_mag_in_plr 
+gr_mp44_charge_plr gr_mp44_charge_plr |knife_stab_plr knife_stab_plr
+knife_pull_plr knife_pull_plr
+Knife_slash_plr Knife_slash_plr
+gr_tt33_mag_in_plr gr_tt33_mag_in_plr 
+gr_tt33_mag_out_plr gr_tt33_mag_out_plr 
+gr_tt33_slide_forward_plr gr_tt33_slide_forward_plr 
+gr_tt33_futz_plr gr_tt33_futz_plr |ray_reload_open ray_reload_open
+ray_reload_battery_out ray_reload_battery_out
+ray_reload_battery_in ray_reload_battery_in
+ray_reload_close ray_reload_close
+knife_stab_plr knife_stab_plr
+knife_pull_plr knife_pull_plr
+Knife_slash_plr Knife_slash_plr
+bowie_swing bowie_swing
+bowie_stab bowie_stab
+bowie_pull bowie_pull|tesla_foley tesla_foley
+tesla_switch_flip_off tesla_switch_flip_off
+tesla_handle_pullback tesla_handle_pullback
+tesla_clip_in tesla_clip_in
+tesla_handle_release tesla_handle_release
+tesla_switch_flip_on tesla_switch_flip_on
+tesla_to_idle tesla_to_idle
+bowie_swing bowie_swing
+bowie_stab bowie_stab
+bowie_pull bowie_pull
+knife_stab_plr knife_stab_plr
+knife_pull_plr knife_pull_plr
+Knife_slash_plr Knife_slash_plr",knife_stab_plr knife_stab_plr\nknife_pull_plr knife_pull_plr\n
+noThirdPersonDropsOrRaises,bool,,,553,1,,0
+offhandClass,string,,,56,5,Flash Grenade|Frag Grenade|Gear|None|Smoke Grenade,None
+offhandHoldIsCancelable,bool,,,56,2,0|1,0
+offhandSlot,string,,,56,5,Equipment|Lethal grenade|None|Specific use|Tactical grenade,None
+overheatEndVal,int,,,539,4,10|25|50|60,25
+overheatRate,int,,,539,9,1|10|15|22|30|38|7|8|9,1
+overheatSound,string,,,117,2,,hmg_overheat
+overheatSoundPlayer,string,,,117,2,,hmg_overheat_plr
+overheatWeapon,bool,,,539,2,0|1,0
+parallelAsphaltBounce,float,,,153,5,0.3|0.5|0.6|0.7|1,0.6
+parallelBarkBounce,float,,,153,5,0.3|0.5|0.6|0.7|1,0.5
+parallelBrickBounce,float,,,153,5,0.3|0.5|0.6|0.7|1,0.5
+parallelCarpetBounce,float,,,153,5,0.3|0.5|0.6|0.7|1,0.5
+parallelCeramicBounce,float,,,153,4,0.3|0.5|0.7|1,0.5
+parallelClothBounce,float,,,153,6,0.1|0.2|0.3|0.5|0.7|1,0.5
+parallelConcreteBounce,float,,,153,5,0.3|0.5|0.6|0.7|1,0.6
+parallelCushionBounce,float,,,153,4,0.25|0.5|0.7|1,0.5
+parallelDefaultBounce,float,,,153,4,0.25|0.5|0.7|1,0.5
+parallelDirtBounce,float,,,153,5,0.2|0.45|0.5|0.7|1,0.45
+parallelFleshBounce,float,,,153,5,0.1|0.2|0.5|0.7|1,0.2
+parallelFoliageBounce,float,,,153,4,0.05|0.5|0.7|1,0.05
+parallelFruitBounce,float,,,153,4,0.15|0.5|0.7|1,0.5
+parallelGlassBounce,float,,,153,5,0.2|0.4|0.5|0.7|1,0.4
+parallelGrassBounce,float,,,153,5,0.15|0.35|0.5|0.7|1,0.35
+parallelGravelBounce,float,,,153,4,0.25|0.5|0.7|1,0.5
+parallelIceBounce,float,,,153,5,0.3|0.5|0.6|0.7|1,0.6
+parallelMetalBounce,float,,,153,5,0.3|0.5|0.6|0.7|1,0.6
+parallelMudBounce,float,,,153,5,0.1|0.2|0.5|0.7|1,0.2
+parallelPaintedMetalBounce,float,,,153,4,0.3|0.5|0.7|1,0.5
+parallelPaperBounce,float,,,153,5,0.1|0.2|0.5|0.7|1,0.2
+parallelPlasterBounce,float,,,153,4,0.25|0.5|0.7|1,0.5
+parallelPlasticBounce,float,,,153,4,0.25|0.5|0.7|1,0.5
+parallelRockBounce,float,,,153,5,0.3|0.5|0.6|0.7|1,0.6
+parallelRubberBounce,float,,,153,4,0.3|0.5|0.7|1,0.5
+parallelSandBounce,float,,,153,5,0.15|0.3|0.5|0.7|1,0.3
+parallelSnowBounce,float,,,153,5,0.1|0.2|0.5|0.7|1,0.2
+parallelWaterBounce,float,,,153,5,0.1|0.2|0.5|0.7|1,0.2
+parallelWoodBounce,float,,,153,5,0.3|0.5|0.6|0.7|1,0.6
+parentWeaponName,string,,,742,58,,ak47
+penetrateType,string,,,582,4,large|medium|none|small,large
+perpendicularAsphaltBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularBarkBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularBrickBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularCarpetBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularCeramicBounce,float,,,153,5,0.2|0.25|0.5|0.65|1,0.5
+perpendicularClothBounce,float,,,153,4,0.2|0.35|0.5|1,0.2
+perpendicularConcreteBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularCushionBounce,float,,,153,5,0.2|0.3|0.5|0.65|1,0.5
+perpendicularDefaultBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularDirtBounce,float,,,153,6,0.2|0.225|0.25|0.375|0.5|1,0.225
+perpendicularFleshBounce,float,,,153,4,0.2|0.35|0.5|1,0.2
+perpendicularFoliageBounce,float,,,153,4,0.05|0.2|0.5|1,0.05
+perpendicularFruitBounce,float,,,153,5,0.2|0.3|0.5|0.65|1,0.5
+perpendicularGlassBounce,float,,,153,4,0.035|0.2|0.5|1,0.2
+perpendicularGrassBounce,float,,,153,5,0.15|0.2|0.3|0.5|1,0.15
+perpendicularGravelBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularIceBounce,float,,,153,5,0.2|0.3|0.45|0.5|1,0.3
+perpendicularMetalBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularMudBounce,float,,,153,5,0.1|0.2|0.25|0.5|1,0.1
+perpendicularPaintedMetalBounce,float,,,153,5,0.2|0.25|0.5|0.65|1,0.5
+perpendicularPaperBounce,float,,,153,4,0.2|0.35|0.5|1,0.2
+perpendicularPlasterBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularPlasticBounce,float,,,153,5,0.2|0.25|0.5|0.65|1,0.5
+perpendicularRockBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+perpendicularRubberBounce,float,,,153,5,0.2|0.35|0.5|0.65|1,0.5
+perpendicularSandBounce,float,,,153,5,0.1|0.2|0.25|0.5|1,0.1
+perpendicularSnowBounce,float,,,153,5,0.1|0.2|0.25|0.5|1,0.1
+perpendicularWaterBounce,float,,,153,4,0.2|0.35|0.5|1,0.2
+perpendicularWoodBounce,float,,,153,5,0.2|0.25|0.4|0.5|1,0.25
+pickupSound,string,,,584,16,,wpn_weap_pickup_npc
+pickupSoundPlayer,string,,,584,17,,wpn_weap_pickup_plr
+pitchConvergenceTime,float,,,117,2,0.3|5,0.3
+plantable,bool,,,56,2,0|1,0
+playerAnimType,string,,,584,20,,default
+playerDamage,int,,,674,17,,50
+playerPositionDist,int,,,117,2,1|46,46
+playerSpread,float,,,151,11,0|0.2|0.3|0.5|0.75|1|1.5|1.55|2|2.5|3.15,0.5
+posMoveRate,int,,,591,6,0|10|4|5|6|8,6
+posProneMoveRate,int,,,591,6,0|10|15|20|25|8,25
+posProneRotRate,int,,,591,5,0|10|20|30|8,30
+posRotRate,float,,,591,8,0|10|4|5|5.9|6|7.5|8,6
+projDudEffect,string,,,237,4,explosions/fx_grenadeexp_water|impacts/fx_dud_javelin|impacts/fx_dud_m203,impacts/fx_dud_m203
+projDudSound,string,,,237,3,mtl_pipe_hit|wpn_grenade_bounce_flesh,wpn_grenade_bounce_flesh
+projectileActivateDist,int,,,293,9,0|10|100|120|25|256|36|375|64,0
+projectileBlue,bool,,,237,2,0|1,0
+projectileCurvature,int,,,34,3,0|10|50,0
+projectileDLight,int,,,237,2,0|200,200
+projectileGreen,float,,,237,2,0.3|1,0.3
+projectileLifetime,float,,,237,15,,30
+projectileModel,string,,,293,37,,projectile_m203grenade
+projectileRed,float,,,237,3,0|0.75|1,0.75
+projectileSound,string,,,237,19,,wpn_rpg_loop
+projectileSpeed,int,,,293,34,,0
+projectileSpeedForward,int,,,56,2,0|4000,0
+projectileSpeedRelativeUp,int,,,142,3,0|120|50,0
+projectileSpeedUp,int,,,293,11,-10000|0|10|100|1000|120|200|40|50|500|90,0
+projectileTrail,string,,,117,1,,none
+projExplosionEffect,string,,,304,23,,explosions/fx_airlift_explosion_large
+projExplosionEffect2,string,,,56,2,,weapon/grenade/fx_smoke_grenade_red
+projExplosionEffect2ForceNormalUp,bool,,,56,1,,0
+projExplosionEffect3,string,,,56,2,,weapon/grenade/fx_smoke_grenade_green
+projExplosionEffect3ForceNormalUp,bool,,,56,1,,0
+projExplosionEffect4,string,,,56,2,,weapon/grenade/fx_smoke_grenade_blue
+projExplosionEffect4ForceNormalUp,bool,,,56,1,,0
+projExplosionEffect5,string,,,56,2,,weapon/grenade/fx_smoke_grenade_yellow
+projExplosionEffect5ForceNormalUp,bool,,,56,1,,0
+projExplosionEffectForceNormalUp,bool,,,293,2,0|1,0
+projExplosionSound,string,,,293,29,,wpn_grenade_explode
+projExplosionType,string,,,293,9,bolt|fire|flashbang|grenade|heavy explosive|napalmblob|none|rocket|smoke,grenade
+projIgnitionDelay,int,,,203,2,0|500,0
+projIgnitionEffect,string,,,203,2,,maps/sandbox_modules/module_4/fx_sub_torpedo_flash_1
+projIgnitionSound,string,,,203,2,,mpl_kls_artillery_launch
+projImpactExplode,bool,,,293,2,0|1,0
+projTrailEffect,string,,,304,33,,weapon/grenade/fx_trail_grenade
+proneMountedWeapdef,string,,,431,1,,
+proneMoveF,int,,,591,9,-100|-160|-20|-50|-55|-65|0|160|70,-160
+proneMoveMinSpeed,int,,,591,2,0|5,0
+proneMoveR,int,,,591,6,-25|-75|0|1|25|3,3
+proneMoveU,float,,,591,9,-1.5|-100|-105|-110|-120|-145|-90|-95|0,-120
+proneOfsF,float,,,742,33,,-2
+proneOfsR,float,,,742,22,,0
+proneOfsU,float,,,742,35,,0
+proneRotMinSpeed,int,,,591,2,0|5,0
+proneRotP,int,,,591,2,0|50,0
+proneRotR,int,,,591,6,-165|-200|-300|0|300|40,-300
+proneRotY,int,,,591,7,0|150|220|270|280|290|300,300
+pullbackSound,string,,,56,3,weap_fraggrenade_pin|wpn_molotov_light,weap_fraggrenade_pin
+pullbackSoundPlayer,string,,,56,2,,wpn_molotov_light
+putawaySound,string,,,584,4,weap_putaway|wpn_c4detpack_safety_npc|wpn_rpg_1straise_npc,weap_putaway
+putawaySoundPlayer,string,,,584,4,tesla_foley|wpn_c4detpack_safety_plr|wpn_weap_putaway_plr,tesla_foley
+quickDropAnim,string,,,584,154,,viewmodel_rpg_putaway
+quickDropTime,float,,,584,14,,0.25
+quickRaiseAnim,string,,,584,157,,viewmodel_rpg_pullout
+quickRaiseTime,float,,,584,20,,0.75
+raiseAnim,string,,,584,165,,viewmodel_rpg_pullout
+raiseSound,string,,,584,57,,wpn_rpg_raise_npc
+raiseSoundPlayer,string,,,584,59,,wpn_rpg_raise_plr
+raiseTime,float,,,584,32,,0.75
+rapidFire,bool,,,431,1,,0
+rechamberAnim,string,,,517,19,,viewmodel_l96a1_rechamber
+rechamberBoltTime,float,,,679,7,0|0.45|0.55|0.6|0.65|10|100,0
+rechamberSound,string,,,528,1,,
+rechamberSoundPlayer,string,,,528,1,,
+rechamberTime,float,,,517,11,0|0.1|0.467|0.55|0.65|0.85|1|1.4|2.05|2.5|3,0.1
+rechamberWhileAds,bool,,,517,2,0|1,1
+reloadAddTime,float,,,528,44,,1.75
+reloadAmmoAdd,int,,,528,6,0|1|2|24|4|5,0
+reloadAnim,string,,,507,176,,viewmodel_rpg_reload
+reloadAnimLeft,string,,,21,11,viewmodel_asp_dw_left_reload|viewmodel_colt1911_dw_left_reload|viewmodel_colt1911_dw_left_reload_empty|viewmodel_cz75_dw_left_reload|viewmodel_hs10_dw_left_reload|viewmodel_kiparis_dw_leftarm_reload|viewmodel_mac11_dw_leftarm_reload|viewmodel_makarov_dw_left_reload|viewmodel_pm63_dw_left_reload|viewmodel_python_dw_left_reload|viewmodel_skorpion_dw_left_reload,viewmodel_cz75_dw_left_reload
+reloadAnimRight,string,,,496,12,viewmodel_asp_dw_right_reload|viewmodel_colt1911_dw_right_reload|viewmodel_colt1911_dw_right_reload_empty|viewmodel_cz75_dw_right_reload|viewmodel_hs10_dw_right_reload|viewmodel_kiparis_dw_rightarm_reload|viewmodel_mac11_dw_rightarm_reload|viewmodel_makarov_dw_right_reload|viewmodel_pm63_dw_right_reload|viewmodel_python_dw_right_reload|viewmodel_skorpion_dw_right_reload,viewmodel_cz75_dw_right_reload
+reloadEmptyAddTime,float,,,517,27,,0
+reloadEmptyAnim,string,,,411,132,,viewmodel_aug_grip_reload_empty
+reloadEmptyAnimLeft,string,,,20,10,viewmodel_asp_dw_left_reload_empty|viewmodel_colt1911_dw_left_reload_empty|viewmodel_cz75_dw_left_reload_empty|viewmodel_hs10_dw_left_reload_empty|viewmodel_kiparis_dw_leftarm_reload_empty|viewmodel_mac11_dw_leftarm_reload_empty|viewmodel_makarov_dw_left_reload_empty|viewmodel_pm63_dw_left_reload_empty|viewmodel_python_dw_left_reload|viewmodel_skorpion_dw_left_reload_empty,viewmodel_cz75_dw_left_reload_empty
+reloadEmptySound,string,,,528,4,gr_raygun_reload|gr_smg_reload_empty_3p|weap_m203_reload_npc,weap_m203_reload_npc
+reloadEmptySoundPlayer,string,,,528,2,,gear_player
+reloadEmptyTime,float,,,517,47,,2
+reloadEndAnim,string,,,517,21,,viewmodel_spas12_reload_outro
+reloadEndSound,string,,,645,1,,
+reloadEndSoundPlayer,string,,,645,1,,
+reloadEndTime,float,,,517,9,0|0.36|0.767|0.77|0.85|0.9|0.95|1|1.1,0
+reloadQuickAddTime,float,,,497,7,0|0.9|0.95|1|1.1|1.25|1.65,0
+reloadQuickAnim,string,,,496,13,viewmodel_ak47_dualclip_reload_quick|viewmodel_ak74u_dualclip_grip_reload_quick|viewmodel_ak74u_dualclip_reload_quick|viewmodel_aug_dualclip_reload_quick|viewmodel_commando_dualclip_reload_quick|viewmodel_enfield_dualclip_reload_quick|viewmodel_famas_dualclip_reload_quick|viewmodel_fn_fal_dualclip_reload_quick|viewmodel_galil_dualclip_reload_quick|viewmodel_m16a1_dualclip_reload_quick|viewmodel_mpl_extclip_reload_quick|viewmodel_rpk_dualclip_reload_quick,viewmodel_commando_dualclip_reload_quick
+reloadQuickEmptyAddTime,float,,,411,7,0|0.9|0.95|1|1.1|1.5|1.65,0
+reloadQuickEmptyAnim,string,,,411,13,viewmodel_ak47_dualclip_reload_empty_quick|viewmodel_ak74u_dualclip_grip_reload_empty_quick|viewmodel_ak74u_dualclip_reload_empty_quick|viewmodel_aug_dualclip_reload_empty_quick|viewmodel_commando_dualclip_reload_empty_quick|viewmodel_enfield_dualclip_reload_empty_quick|viewmodel_famas_dualclip_reload_empty_quick|viewmodel_fn_fal_dualclip_reload_empty_quick|viewmodel_galil_dualclip_reload_empty_quick|viewmodel_m16a1_dualclip_reload_empty_quick|viewmodel_mpl_extclip_reload_empty_quick|viewmodel_rpk_dualclip_reload_empty_quick,viewmodel_commando_dualclip_reload_empty_quick
+reloadQuickEmptyTime,float,,,411,10,0|1.7|2|2.1|2.2|2.3|2.35|2.55|2.7|3.5,0
+reloadQuickTime,float,,,497,7,0|1.4|1.6|1.7|1.75|1.9|2.5,0
+reloadRumble,string,,,497,1,,
+reloadShowRocketTime,float,,,86,3,0|0.1|1,0
+reloadSound,string,,,584,5,gr_raygun_reload|gr_smg_reload_notempty_3p|weap_fraggrenade_reload|weap_m203_reload_npc,weap_fraggrenade_reload
+reloadSoundPlayer,string,,,584,2,,gear_player
+reloadStartAdd,int,,,517,5,0|1|2|24|5,0
+reloadStartAddTime,float,,,517,11,0|0.5|0.6|0.7|0.75|0.85|1|1.25|1.3|1.4|2.6,0
+reloadStartAnim,string,,,517,20,,viewmodel_spas12_reload_intro
+reloadStartSound,string,,,645,1,,
+reloadStartSoundPlayer,string,,,645,1,,
+reloadStartTime,float,,,517,10,0|0.7|0.8|1|1.25|1.35|1.5|1.6|1.8|2,0
+reloadTime,float,,,701,48,,0.05
+reloadWhileAds,bool,,,85,2,0|1,0
+requireLockonToFire,bool,,,86,2,0|1,0
+reticleCenter,string,,,735,11,hatchet_reticle|hind_reticle|hud_flamethrower_reticle|knife_ballistic_reticle|reticle_center_cross|reticle_center_cross_mg42|reticle_flechette|reticle_m203|reticle_minigun|tactical_gren_reticle,reticle_center_cross_mg42
+reticleCenterSize,int,,,735,13,,4
+reticleMinOfs,int,,,584,4,0|15|17|4,0
+reticleSide,string,,,584,2,,reticle_side_small
+reticleSideSize,int,,,584,8,1|10|128|16|24|25|27|8,8
+retrievable,bool,,,142,2,0|1,0
+rifleBullet,bool,,,548,2,0|1,1
+rightArc,int,,,117,26,,45
+rocketModel,string,,,86,4,t5_weapon_ballistic_knife_blade|t5_weapon_m202_rockets|viewmodel_rpg7_rocket,viewmodel_rpg7_rocket
+rotate,bool,,,56,2,0|1,1
+rotateLoopSound,string,,,117,1,,
+rotateLoopSoundPlayer,string,,,117,1,,
+rotateType,string,,,56,2,"Rotate both axis, grenade style|Rotate one axis, blade style","Rotate both axis, grenade style"
+scanAccel,int,,,117,1,,40
+scanPauseTime,bool,,,117,1,,0
+scanSpeed,int,,,117,1,,60
+script,string,,,117,5,saw/crouch|saw/prone|saw/stand|technical/stand,saw/stand
+segmentedReload,bool,,,517,2,0|1,0
+semiAuto,bool,,,11,1,,0
+sharedAmmo,bool,,,431,2,0|1,1
+sharedAmmoCap,int,,,56,7,0|1|10|2|3|4|5,1
+sharedAmmoCapName,string,,,56,22,,WEAPON_ZOMBIE_PERK_BOTTLE
+shellEjectEffect,string,,,97,2,,fx/weapon/shellejects/fx_pistol.efx
+shotCount,int,,,431,6,1|10|12|16|3|8,1
+showIndicator,bool,,,142,2,0|1,0
+silenced,bool,,,431,2,0|1,0
+slide_in,string,,,564,1,,
+slideInTime,float,,,564,3,0|0.32|0.5,0.5
+slideOfsF,int,,,571,2,-2|0,0
+slideOfsR,float,,,571,2,-0.5|0,0
+slideOfsU,float,,,571,2,-3.5|0,0
+slideRotP,int,,,571,2,-15|0,0
+slideRotR,int,,,571,2,-25|0,0
+slideRotY,int,,,571,2,0|10,0
+slowdownAimRange,int,,,11,2,3200|485,485
+slowdownAimRangeAds,int,,,11,2,3200|485,485
+spinDownTime,float,,,528,3,0|0.5|1,1
+spinLoopSound,string,,,528,3,wpn_minigun_loop_npc|wpn_sabertooth_cut_loop_npc,wpn_minigun_loop_npc
+spinLoopSoundPlayer,string,,,528,2,,wpn_minigun_loop_plr
+spinRate,int,,,528,3,0|1|55,1
+spinUpTime,float,,,528,3,0|0.25|1,1
+sprintBobH,float,,,591,10,0|1|10|2|2.5|3|6|8|8.7|9.3,0
+sprintBobV,float,,,591,11,0|1|2|3.75|4|5|5.5|5.6|5.8|7|8,0
+sprintCameraAnim,string,,,508,1,,
+sprintDurationScale,float,,,591,6,0|0.75|0.9|1|1.1|1.75,1
+sprintInAnim,string,,,584,139,,viewmodel_rpg_sprint_in
+sprintInEmptyAnim,string,,,584,11,viewmodel_colt1911_sw_empty_putaway|viewmodel_crossbow_empty_sprint_in|viewmodel_mosinnagant_sprint_in|viewmodel_mp40_empty_sprint_in|viewmodel_mp44_empty_sprint_in|viewmodel_panzerschreck_sprint_in|viewmodel_ppsh_empty_sprint_in|viewmodel_sten_sprint_in|viewmodel_thundergun_sprint_empty_intro|viewmodel_tokarev_tt30_putaway_empty,viewmodel_crossbow_empty_sprint_in
+sprintInTime,float,,,584,8,0|0.08|0.2|0.25|0.3|0.33|0.4|0.5,0.3
+sprintLoopAnim,string,,,584,139,,viewmodel_rpg_sprint_loop
+sprintLoopEmptyAnim,string,,,584,11,viewmodel_colt1911_sw_empty_sprint_loop|viewmodel_crossbow_empty_sprint_loop|viewmodel_mosinnagant_sprint_loop|viewmodel_mp40_empty_sprint_loop|viewmodel_mp44_empty_sprint_loop|viewmodel_panzerschreck_sprint_loop|viewmodel_ppsh_empty_sprint_loop|viewmodel_sten_sprint_loop|viewmodel_thundergun_sprint_empty_loop|viewmodel_tokarev_tt30_empty_sprint_loop,viewmodel_crossbow_empty_sprint_loop
+sprintLoopTime,float,,,584,10,0|0.5|0.55|0.6|0.65|0.7|0.75|0.8|0.85|1,0.7
+sprintOfsF,float,,,591,9,-2|-4|-5|0|0.5|2|3|3.1|5,0
+sprintOfsR,float,,,591,13,,0
+sprintOfsU,float,,,591,12,-0.5|-1|-1.1|-3.05|-4|-5|-8|0|0.35|1|1.3|2,0
+sprintOutAnim,string,,,584,138,,viewmodel_rpg_sprint_out
+sprintOutEmptyAnim,string,,,584,11,viewmodel_colt1911_sw_empty_pullout|viewmodel_crossbow_empty_sprint_out|viewmodel_mosinnagant_sprint_out|viewmodel_mp40_empty_sprint_out|viewmodel_mp44_empty_sprint_out|viewmodel_panzerschreck_sprint_out|viewmodel_ppsh_empty_sprint_out|viewmodel_sten_sprint_out|viewmodel_thundergun_sprint_empty_outro|viewmodel_tokarev_tt30_pullout_empty,viewmodel_crossbow_empty_sprint_out
+sprintOutTime,float,,,584,11,0|0.08|0.2|0.25|0.3|0.33|0.35|0.4|0.45|0.5|0.6,0.3
+sprintRotP,float,,,591,9,-15|0|10|12.9|15|17.3|20|5|9.95,0
+sprintRotR,float,,,591,7,-20|-24.7|-28|-30|0|4|5,0
+sprintRotY,float,,,591,9,0|10|15|20|28.7|34.4|35|45|60,0
+sprintScale,float,,,591,11,0.01|0.53|0.59|0.6|0.65|0.7|0.75|0.8|0.85|0.9|1,0.8
+stackFire,int,,,85,3,0|1|4,0
+stackFireAccuracyDecay,float,,,85,2,0|1.25,0
+stackFireSpread,int,,,85,2,0|15,15
+stackSound,string,,,85,2,,wpn_m202_select
+stance,string,,,117,3,duck|prone|stand,stand
+standMountedWeapdef,string,,,431,1,,
+standMoveF,float,,,591,3,-0.3|-1|0,0
+standMoveMinSpeed,int,,,591,3,0|110|80,0
+standMoveR,float,,,591,5,0|0.5|0.7|1|2.5,0
+standMoveU,float,,,591,7,-0.8|-1|-1.5|-2|-2.2|-2.5|0,0
+standRotMinSpeed,int,,,591,3,0|110|80,0
+standRotP,int,,,591,2,0|2,2
+standRotR,int,,,591,2,-2|0,-2
+standRotY,bool,,,591,1,,0
+startAmmo,int,,,701,43,,10
+startSpinSound,string,,,528,3,wpn_minigun_start_npc|wpn_sabertooth_cut_start_npc,wpn_minigun_start_npc
+startSpinSoundPlayer,string,,,528,2,,wpn_minigun_start_plr
+stickiness,string,,,142,5,"Don't stick|Stick to all|Stick to all, except ai and clients|Stick to flesh|Stick to ground, maintain yaw",Don't stick
+stopFireSound,string,,,117,4,hind_gatling_cooldown|minigun_gatling_cooldown|tank_mg_cal30_cooldown,tank_mg_cal30_cooldown
+stopFireSoundPlayer,string,,,117,5,hind_gatling_cooldown|minigun_gatling_cooldown|tank_mg_cal30_cooldown|turret_scope_zoom,tank_mg_cal30_cooldown
+stopSpinSound,string,,,528,3,wpn_minigun_stop_npc|wpn_sabertooth_cut_stop_npc,wpn_minigun_stop_npc
+stopSpinSoundPlayer,string,,,528,2,,wpn_minigun_stop_plr
+strafeMoveF,bool,,,591,1,,0
+strafeMoveR,float,,,591,3,-0.25|0|0.5,0.5
+strafeMoveU,bool,,,591,1,,0
+strafeRotP,bool,,,591,1,,0
+strafeRotR,float,,,591,3,0|1.5|3,3
+strafeRotY,bool,,,591,1,,0
+suppressAmmoReserveDisplay,bool,,,517,2,0|1,0
+suppressionTime,int,,,117,3,2|3|4,3
+swayHorizScale,float,,,701,11,-0.1|-0.3|0|0.05|0.06|0.1|0.15|0.16|0.3|0.5|1,0.1
+swayLerpSpeed,int,,,701,8,1|10|3|4|5|6|7|8,4
+swayMaxAngle,float,,,701,11,0|10|15|19.7|2|20|3|30|4|5|6,30
+swayPitchScale,float,,,701,7,-0.5|-1|0|0.1|0.2|0.5|2,-1
+swayShellShockScale,int,,,584,3,0|2|5,5
+swayVertScale,float,,,701,10,-0.3|0|0.1|0.15|0.18|0.2|0.3|0.35|0.5|1,0.1
+swayYawScale,float,,,701,7,-0.35|-1|0|0.1|0.25|0.5|2,-1
+tagFlash_preparationEffect,string,,,56,2,,weapon/molotov/fx_molotov_wick_phase1
+tagFx_preparationEffect,string,,,56,2,,weapon/molotov/fx_molotov_lighter
+tankLifeTime,float,,,11,3,0.1|1.5|3,1.5
+throwBack,bool,,,56,2,0|1,0
+timedDetonation,bool,,,142,2,0|1,0
+timeToAccelerate,bool,,,34,1,,0
+topArc,int,,,117,17,,15
+tracerFrequency,int,,,548,6,0|1|2|3|4|6,2
+tracerLength,int,,,548,16,,0
+tracerWidth,int,,,548,13,,10
+twoHanded,bool,,,431,2,0|1,1
+unlimitedAmmo,bool,,,539,2,0|1,0
+useAltTagFlash,bool,,,508,2,0|1,0
+useAntiLagRewind,bool,,,141,2,0|1,0
+useAsMelee,bool,,,496,2,0|1,0
+useDroppedModelAsStowed,bool,,,497,2,0|1,0
+useHintString,string,,,151,2,,PLATFORM_HOLD_TO_USE
+useOnlyAltWeaoponHideTagsInAltMode,bool,,,85,2,0|1,0
+vertTurnSpeed,int,,,117,2,100|40,40
+vertViewJitter,float,,,151,6,0|0.2|0.4|0.5|0.55|1,0.5
+viewFlashEffect,string,,,645,53,,weapon/muzzleflashes/fx_rifle1_flash_base
+viewLastShotEjectEffect,string,,,548,2,,weapon/muzzleflashes/fx_overheat_mg
+viewShellEjectEffect,string,,,548,13,maps/rebirth/fx_shellejects_weaver_steiner|weapon/shellejects/fx_20mm_mp|weapon/shellejects/fx_heavy_link_view|weapon/shellejects/fx_huey_minigun|weapon/shellejects/fx_m60_dual|weapon/shellejects/fx_minigun|weapon/shellejects/fx_minigun_sp|weapon/shellejects/fx_pistol|weapon/shellejects/fx_revolver|weapon/shellejects/fx_rifle|weapon/shellejects/fx_saw|weapon/shellejects/fx_shotgun,weapon/shellejects/fx_rifle
+weaponClass,string,,,742,12,gas|grenade|item|melee|mg|non-player|pistol|rifle|rocketlauncher|smg|spread|turret,rifle
+weaponType,string,,,742,7,binoculars|bomb|bullet|gas|grenade|melee|projectile,bullet
+whizbySound,string,,,431,1,,
+wideKillIcon,bool,,,11,1,,1
+wideListIcon,bool,,,11,1,,1
+worldClipDropEffect,string,,,528,1,,
+worldClipModel,string,,,528,1,,
+worldFlashEffect,string,,,679,56,,weapon/muzzleflashes/fx_rifle1_flash_base
+worldLastShotEjectEffect,string,,,548,2,,weapon/muzzleflashes/fx_overheat_mg
+worldModel,string,,,591,125,,t5_weapon_ak47_world
+worldModel10,string,,,517,1,,
+worldModel11,string,,,517,1,,
+worldModel12,string,,,517,1,,
+worldModel13,string,,,517,1,,
+worldModel14,string,,,517,1,,
+worldModel15,string,,,517,1,,
+worldModel16,string,,,517,1,,
+worldModel2,string,,,690,8,t5_weapon_law_stow|t5_weapon_mp_crossbow_stow|t5_weapon_strela_stow|weapon_c4_mp_detect|weapon_claymore_detect|weapon_rpg7_stow|weapon_satchel_charge_detect,weapon_rpg7_stow
+worldModel3,string,,,573,2,,t5_weapon_hatchet_retrieve
+worldModel4,string,,,517,1,,
+worldModel5,string,,,517,1,,
+worldModel6,string,,,517,1,,
+worldModel7,string,,,517,1,,
+worldModel8,string,,,517,1,,
+worldModel9,string,,,517,1,,
+worldShellEjectEffect,string,,,582,12,maps/rebirth/fx_shellejects_weaver_steiner|weapon/shellejects/fx_heavy|weapon/shellejects/fx_huey_minigun|weapon/shellejects/fx_m60_dual|weapon/shellejects/fx_minigun|weapon/shellejects/fx_minigun_sp|weapon/shellejects/fx_pistol|weapon/shellejects/fx_revolver|weapon/shellejects/fx_rifle|weapon/shellejects/fx_saw|weapon/shellejects/fx_shotgun,weapon/shellejects/fx_rifle
+yawConvergenceTime,float,,,117,3,1|1.5|2,1.5
