@@ -84,7 +84,8 @@ client/server); `handler` is empty for the stub rows.
 | `0x3A2B38` | `Com_Error(code, fmt, ...)` — codes 0/1/3/6 observed (fatal/drop/disconnect/localization) |
 | `0x4DB3D8` | `va(fmt, ...)` |
 | `0x4BC0C8` / `0x4BC090` | `CopyString` / `FreeString` |
-| `0x46390` | `I_stricmp` |
+| `0x46390` | `strcmp` — case-sensitive, 8 bytes at a time (the builtin table lookups) |
+| `0x4DD8C0` | `I_stricmp` — folds only `A`–`Z`; ClientCommand matches the command names with it |
 | `0x4DA5B0` | `I_strncpyz(dst, src, size)` |
 | `0x4DD0E8` | `I_strncat` |
 | `0x46E64` / `0x471A8` | `snprintf` / `vsnprintf` core |

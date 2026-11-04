@@ -18,10 +18,10 @@ static const opd_t bo1_opd_atof = { 0x00043D48u, BO1_TOC };
 typedef long (*strtol_t)(const char *s, char **end, int base);
 static const opd_t bo1_opd_strtol = { 0x00044824u, BO1_TOC };
 
-/* likely: command/builtin/dvar name compares (case-insensitive lookups) */
-#define BO1_ADDR_I_stricmp 0x00046390u
-typedef int (*I_stricmp_t)(const char *s0, const char *s1);
-static const opd_t bo1_opd_I_stricmp = { 0x00046390u, BO1_TOC };
+/* likely: case-sensitive, compares 8 bytes at a time with no case folding (was labeled I_stricmp); the builtin table lookups (Scr_GetFunction etc.) use it */
+#define BO1_ADDR_strcmp 0x00046390u
+typedef int (*strcmp_t)(const char *s0, const char *s1);
+static const opd_t bo1_opd_strcmp = { 0x00046390u, BO1_TOC };
 
 /* likely: fmt in r5, calls vsnprintf core 0x471A8 */
 #define BO1_ADDR_snprintf 0x00046E64u
@@ -586,6 +586,11 @@ static const opd_t bo1_opd_va = { 0x004DB3D8u, BO1_TOC };
 #define BO1_ADDR_I_strncat 0x004DD0E8u
 typedef void (*I_strncat_t)(char *dest, int size, const char *src);
 static const opd_t bo1_opd_I_strncat = { 0x004DD0E8u, BO1_TOC };
+
+/* confirmed: folds only 'A'..'Z' (+0x20) before comparing, returns early on a NULL argument; ClientCommand matches say/say_team/mr/callvote/... with it */
+#define BO1_ADDR_I_stricmp 0x004DD8C0u
+typedef int (*I_stricmp_t)(const char *s0, const char *s1);
+static const opd_t bo1_opd_I_stricmp = { 0x004DD8C0u, BO1_TOC };
 
 /* confirmed: arg-count checks in getentarray/spawn/iprintlnbold */
 #define BO1_ADDR_Scr_GetNumParam 0x005CB210u

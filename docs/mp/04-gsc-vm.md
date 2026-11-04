@@ -44,7 +44,7 @@ the error message buffer `0x01EA05C0` (1024 bytes), and a `jmp_buf` stack for th
 
 All in `data/mp/builtins.csv` (1519 rows). Entry layout for script builtins:
 `{ const char *name; opd_t *handler; int developer; }` (12 bytes). Name→handler lookup
-functions scan these with `I_stricmp`.
+functions scan these with `strcmp` (`0x46390`), so the names are case-sensitive.
 
 | Table | Address | Entries | Lookup |
 |---|---|---|---|

@@ -127,6 +127,11 @@ what to do about it.
     EBOOT) are generated into `include/bo1_mp/stats.h`
     (`BO1_STATS_ADDR(ctrl, BO1_STATS_playerstatslist_kills)`). The DDL (`0x9824` bytes incl.
     header) fits the `0x996D` buffer.
+34. **`0x46390` is `strcmp`, not `I_stricmp`.** It compares 8 bytes at a time with the
+    `0x7F7F…` zero-byte trick and never folds case. The builtin lookups (`Scr_GetFunction`,
+    `Player_GetMethod`, …) call it. The real `I_stricmp` is `0x4DD8C0`: it adds `0x20` to each byte
+    in `'A'..'Z'` (`addi -0x41; cmplwi 0x19`) before comparing. `ClientCommand` (`0x2D6140`)
+    matches `say`/`say_team`/`mr`/`callvote`/… with it, so `SAY` is chat as well.
 
 ## Open questions
 

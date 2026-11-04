@@ -2,7 +2,7 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x00041CC0,,sscanf,"int sscanf(const char *s, const char *fmt, ...)",libc,likely,"wraps the vscanf core 0x43414; peek parses ""%x %x"""
 0x00043D74,,atof,double atof(const char *s),libc,guess,matched from mp 0x00043D48 (callee_exact). getdvarfloat converts string value
 0x00044850,,strtol,"long strtol(const char *s, char **end, int base)",libc,likely,"matched from mp 0x00044824 (callee_exact). getdvarint: (str, NULL, 10)"
-0x000463BC,,I_stricmp,"int I_stricmp(const char *s0, const char *s1)",common,likely,matched from mp 0x00046390 (exact). command/builtin/dvar name compares (case-insensitive lookups)
+0x000463BC,,strcmp,"int strcmp(const char *s0, const char *s1)",libc,likely,"matched from mp 0x00046390 (exact). case-sensitive, compares 8 bytes at a time with no case folding (was labeled I_stricmp)"
 0x00046E90,,snprintf,"int snprintf(char *buf, size_t n, const char *fmt, ...)",libc,likely,"matched from mp 0x00046E64 (exact). fmt in r5, calls vsnprintf core 0x471A8"
 0x000471D4,,vsnprintf,"int vsnprintf(char *buf, size_t n, const char *fmt, va_list ap)",libc,guess,matched from mp 0x000471A8 (exact). shared formatting core
 0x00048D1C,0x00A4C438,longjmp,"void longjmp(jmp_buf env, int val)",libc,likely,matched from mp 0x00048CF0 (exact). Scr_Error unwinds with val=-1
@@ -76,6 +76,7 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x00467570,,I_strncpyz,"void I_strncpyz(char *dest, const char *src, int destsize)",common,likely,matched from mp 0x004DA5B0 (exact). Scr_Error copies message with size 0x400
 0x00468398,,va,"char *va(const char *fmt, ...)",common,likely,"matched from mp 0x004DB3D8 (exact). 1045 calls with ""%d"" etc. as r3"
 0x0046A0A8,,I_strncat,"void I_strncat(char *dest, int size, const char *src)",common,likely,"matched from mp 0x004DD0E8 (exact). ""I_strncat: already overflowed"""
+0x0046A890,,I_stricmp,"int I_stricmp(const char *s0, const char *s1)",common,likely,matched from mp 0x004DD8C0 (exact). folds only 'A'..'Z' before comparing
 0x004BDC78,0x00A49F60,SV_FastRestart_f,void SV_FastRestart_f(void),server,confirmed,matched from mp 0x003E0848 (name). fast_restart command handler
 0x004BEEB0,,SV_GetChallenge,void SV_GetChallenge(netadr_t from),server,likely,"matched from mp 0x003E1F68 (strings). ""challengeResponse %i"""
 0x004C0BC8,,SV_DirectConnect,void SV_DirectConnect(netadr_t from),server,likely,12/17 MP strings shared

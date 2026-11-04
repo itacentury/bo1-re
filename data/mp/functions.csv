@@ -2,7 +2,7 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x00041C94,,sscanf,"int sscanf(const char *s, const char *fmt, ...)",libc,likely,"wraps the vscanf core; used with ""%x"" by the inspect commands"
 0x00043D48,,atof,double atof(const char *s),libc,guess,getdvarfloat converts string value
 0x00044824,,strtol,"long strtol(const char *s, char **end, int base)",libc,likely,"getdvarint: (str, NULL, 10)"
-0x00046390,,I_stricmp,"int I_stricmp(const char *s0, const char *s1)",common,likely,command/builtin/dvar name compares (case-insensitive lookups)
+0x00046390,,strcmp,"int strcmp(const char *s0, const char *s1)",libc,likely,"case-sensitive, compares 8 bytes at a time with no case folding (was labeled I_stricmp); the builtin table lookups (Scr_GetFunction etc.) use it"
 0x00046E64,,snprintf,"int snprintf(char *buf, size_t n, const char *fmt, ...)",libc,likely,"fmt in r5, calls vsnprintf core 0x471A8"
 0x000471A8,,vsnprintf,"int vsnprintf(char *buf, size_t n, const char *fmt, va_list ap)",libc,guess,shared formatting core
 0x00048CF0,0x00B4F670,longjmp,"void longjmp(jmp_buf env, int val)",libc,likely,Scr_Error unwinds with val=-1
@@ -115,6 +115,7 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x004DA5B0,,I_strncpyz,"void I_strncpyz(char *dest, const char *src, int destsize)",common,likely,Scr_Error copies message with size 0x400
 0x004DB3D8,,va,"char *va(const char *fmt, ...)",common,likely,"1045 calls with ""%d"" etc. as r3"
 0x004DD0E8,,I_strncat,"void I_strncat(char *dest, int size, const char *src)",common,confirmed,"""I_strncat: already overflowed"""
+0x004DD8C0,,I_stricmp,"int I_stricmp(const char *s0, const char *s1)",common,confirmed,"folds only 'A'..'Z' (+0x20) before comparing, returns early on a NULL argument; ClientCommand matches say/say_team/mr/callvote/... with it"
 0x005CB210,,Scr_GetNumParam,unsigned int Scr_GetNumParam(scriptInstance_t inst),gsc,confirmed,arg-count checks in getentarray/spawn/iprintlnbold
 0x005CBE30,,Scr_AddArray,void Scr_AddArray(scriptInstance_t inst),gsc,likely,after each Scr_AddEntity in getentarray
 0x005CE3C0,,Scr_Error,"void Scr_Error(scriptInstance_t inst, const char *error, bool force_terminal)",gsc,confirmed,"copies msg (I_strncpyz 0x400), longjmp, Com_Error(""%s"")"
