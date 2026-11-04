@@ -3,6 +3,7 @@
 *.bin
 *.elf
 *.self
+*.ff
 build/
 analysis/
 __pycache__/
