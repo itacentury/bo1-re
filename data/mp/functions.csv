@@ -7,15 +7,20 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x000471A8,,vsnprintf,"int vsnprintf(char *buf, size_t n, const char *fmt, va_list ap)",libc,guess,shared formatting core
 0x00048CF0,0x00B4F670,longjmp,"void longjmp(jmp_buf env, int val)",libc,likely,Scr_Error unwinds with val=-1
 0x0007B720,,BG_GetPerkIndexForName,unsigned int BG_GetPerkIndexForName(const char *perkName),bgame,guess,forum list
-0x000C0A98,,BG_GetWeaponDef,WeaponDef *BG_GetWeaponDef(unsigned int weaponIndex),bgame,guess,forum list
+0x000C0A68,,BG_GetNumWeapons,int BG_GetNumWeapons(void),bgame,likely,"*(int*)0xBD8778 + 1, 51 callers; bound of the table BG_GetWeaponDef reads"
+0x000C0A98,,BG_GetWeaponDef,WeaponDef *BG_GetWeaponDef(unsigned int weaponIndex),bgame,likely,"forum list; ((int**)0xBD877C)[weaponIndex][2], no bounds check (CG_ServerCommand 'C' passes strtol(argv1))"
 0x00113550,,CG_GameMessage,"void CG_GameMessage(int localClientNum, const char *msg)",cgame,guess,forum list
 0x00116D30,0x00B46A60,CG_LocalClientForClientNum,int CG_LocalClientForClientNum(int clientNum),cgame,likely,"compares clientNum with cg_t.clientNum (+0x0) of the 4 local cg_t (stride 0x6B100), returns 0..3 or -1"
 0x0011C6D8,,CG_RegisterGraphics,"void CG_RegisterGraphics(int localClientNum, const char *mapname)",cgame,guess,"registers dev fonts and ""white"""
 0x001448B0,,CScr_GetMethod,"BuiltinMethod CScr_GetMethod(const char **pName, int *type)",csc,likely,scans csc_methods (0xB311D8)
 0x00144AC0,,CScr_GetFunction,"BuiltinFunction CScr_GetFunction(const char **pName, int *type)",csc,likely,scans csc_functions (0xB5A2F4)
+0x00164BB8,,CG_ServerCommand,void CG_ServerCommand(int localClientNum),cgame,likely,"called by CG_ExecuteNewServerCommands after the command is tokenized; switch on argv(0)[0] (table 0x164C7C), 'C' -> BG_GetWeaponDef(strtol(argv1))"
+0x00166DF0,,CG_ExecuteNewServerCommands,"void CG_ExecuteNewServerCommands(int localClientNum, int latestSequence)",cgame,likely,"only caller of CL_CGameNeedsServerCommand; runs CG_ServerCommand when it returns non-zero, then 0x39A150"
+0x001A6F00,,CL_CGameNeedsServerCommand,"int CL_CGameNeedsServerCommand(int localClientNum, int serverCommandNumber)",client,confirmed,"""CL_CGameNeedsServerCommand: EXE_ERR_RELIABLE_CYCLED_OUT""; text at clc + 0x4350 + (n & 0x7F) * 0x400 (clc = *(int*)0xD223C8 + lc * 0x35890, sequence at +0x4348); handles 'd' configstrings (index <= 0xAC1)"
 0x001C5FA0,,CL_RegisterFont,"Font_s *CL_RegisterFont(const char *fontName, int imageTrack)",client,confirmed,"""fonts/normalfont"", ""fonts/bigDevFont"" ... from UI/CG asset setup"
 0x001C7748,,CL_CheckForResend,void CL_CheckForResend(int localClientNum),client,guess,"sends ""getchallenge"""
 0x001CC320,,CL_ConnectionlessPacket,"bool CL_ConnectionlessPacket(int localClientNum, netadr_t from, msg_t *msg, int time)",client,likely,handles challengeResponse/connectResponse/connectResponseMigration/disconnect
+0x001D8D08,,CL_ParseGamestate,"void CL_ParseGamestate(int localClientNum, msg_t *msg)",client,likely,"called by CL_ParseServerMessage; ""configstring > MAX_CONFIGSTRINGS"""
 0x001D9640,,CL_ParseServerMessage,"void CL_ParseServerMessage(int localClientNum, msg_t *msg)",client,confirmed,"""Compressed msg overflow in CL_ParseServerMessage"""
 0x002C3228,,Player_GetMethod,BuiltinMethod Player_GetMethod(const char **pName),gsc,likely,scans gsc_methods_player (0xB32C2C)
 0x002D2D98,,G_InitializeAmmo,"void G_InitializeAmmo(gentity_t *self, int weaponIndex, char weaponModel, int hadWeapon)",game,guess,forum list

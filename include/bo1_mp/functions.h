@@ -44,7 +44,12 @@ static const opd_t bo1_opd_longjmp = { 0x00048CF0u, BO1_TOC };
 typedef unsigned int (*BG_GetPerkIndexForName_t)(const char *perkName);
 static const opd_t bo1_opd_BG_GetPerkIndexForName = { 0x0007B720u, BO1_TOC };
 
-/* guess: forum list */
+/* likely: *(int*)0xBD8778 + 1, 51 callers; bound of the table BG_GetWeaponDef reads */
+#define BO1_ADDR_BG_GetNumWeapons 0x000C0A68u
+typedef int (*BG_GetNumWeapons_t)(void);
+static const opd_t bo1_opd_BG_GetNumWeapons = { 0x000C0A68u, BO1_TOC };
+
+/* likely: forum list; ((int**)0xBD877C)[weaponIndex][2], no bounds check (CG_ServerCommand 'C' passes strtol(argv1)) */
 #define BO1_ADDR_BG_GetWeaponDef 0x000C0A98u
 typedef WeaponDef * (*BG_GetWeaponDef_t)(unsigned int weaponIndex);
 static const opd_t bo1_opd_BG_GetWeaponDef = { 0x000C0A98u, BO1_TOC };
@@ -75,6 +80,21 @@ static const opd_t bo1_opd_CScr_GetMethod = { 0x001448B0u, BO1_TOC };
 typedef BuiltinFunction (*CScr_GetFunction_t)(const char **pName, int *type);
 static const opd_t bo1_opd_CScr_GetFunction = { 0x00144AC0u, BO1_TOC };
 
+/* likely: called by CG_ExecuteNewServerCommands after the command is tokenized; switch on argv(0)[0] (table 0x164C7C), 'C' -> BG_GetWeaponDef(strtol(argv1)) */
+#define BO1_ADDR_CG_ServerCommand 0x00164BB8u
+typedef void (*CG_ServerCommand_t)(int localClientNum);
+static const opd_t bo1_opd_CG_ServerCommand = { 0x00164BB8u, BO1_TOC };
+
+/* likely: only caller of CL_CGameNeedsServerCommand; runs CG_ServerCommand when it returns non-zero, then 0x39A150 */
+#define BO1_ADDR_CG_ExecuteNewServerCommands 0x00166DF0u
+typedef void (*CG_ExecuteNewServerCommands_t)(int localClientNum, int latestSequence);
+static const opd_t bo1_opd_CG_ExecuteNewServerCommands = { 0x00166DF0u, BO1_TOC };
+
+/* confirmed: "CL_CGameNeedsServerCommand: EXE_ERR_RELIABLE_CYCLED_OUT"; text at clc + 0x4350 + (n & 0x7F) * 0x400 (clc = *(int*)0xD223C8 + lc * 0x35890, sequence at +0x4348); handles 'd' configstrings (index <= 0xAC1) */
+#define BO1_ADDR_CL_CGameNeedsServerCommand 0x001A6F00u
+typedef int (*CL_CGameNeedsServerCommand_t)(int localClientNum, int serverCommandNumber);
+static const opd_t bo1_opd_CL_CGameNeedsServerCommand = { 0x001A6F00u, BO1_TOC };
+
 /* confirmed: "fonts/normalfont", "fonts/bigDevFont" ... from UI/CG asset setup */
 #define BO1_ADDR_CL_RegisterFont 0x001C5FA0u
 typedef Font_s * (*CL_RegisterFont_t)(const char *fontName, int imageTrack);
@@ -89,6 +109,11 @@ static const opd_t bo1_opd_CL_CheckForResend = { 0x001C7748u, BO1_TOC };
 #define BO1_ADDR_CL_ConnectionlessPacket 0x001CC320u
 typedef bool (*CL_ConnectionlessPacket_t)(int localClientNum, netadr_t from, msg_t *msg, int time);
 static const opd_t bo1_opd_CL_ConnectionlessPacket = { 0x001CC320u, BO1_TOC };
+
+/* likely: called by CL_ParseServerMessage; "configstring > MAX_CONFIGSTRINGS" */
+#define BO1_ADDR_CL_ParseGamestate 0x001D8D08u
+typedef void (*CL_ParseGamestate_t)(int localClientNum, msg_t *msg);
+static const opd_t bo1_opd_CL_ParseGamestate = { 0x001D8D08u, BO1_TOC };
 
 /* confirmed: "Compressed msg overflow in CL_ParseServerMessage" */
 #define BO1_ADDR_CL_ParseServerMessage 0x001D9640u
