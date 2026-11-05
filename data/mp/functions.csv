@@ -22,6 +22,8 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x001CC320,,CL_ConnectionlessPacket,"bool CL_ConnectionlessPacket(int localClientNum, netadr_t from, msg_t *msg, int time)",client,likely,handles challengeResponse/connectResponse/connectResponseMigration/disconnect
 0x001D8D08,,CL_ParseGamestate,"void CL_ParseGamestate(int localClientNum, msg_t *msg)",client,likely,"called by CL_ParseServerMessage; ""configstring > MAX_CONFIGSTRINGS"""
 0x001D9640,,CL_ParseServerMessage,"void CL_ParseServerMessage(int localClientNum, msg_t *msg)",client,confirmed,"""Compressed msg overflow in CL_ParseServerMessage"""
+0x001E7338,,Party_BanName,void Party_BanName(const char *name),party,likely,"adds to the ban list at LobbyParty (0xD53910) + 0x53CC, 16 x 0x24; only game caller is SV_BanClient"
+0x001E7830,,Party_IsBanned,int Party_IsBanned(const char *name),party,likely,"checks the Party_BanName list; callers: NetMsg_memberJoin (0x2134CC, skipped for party id 1) and SV_BanClient"
 0x002C3228,,Player_GetMethod,BuiltinMethod Player_GetMethod(const char **pName),gsc,likely,scans gsc_methods_player (0xB32C2C)
 0x002D2D98,,G_InitializeAmmo,"void G_InitializeAmmo(gentity_t *self, int weaponIndex, char weaponModel, int hadWeapon)",game,guess,forum list
 0x002D4BA0,,G_Say,"void G_Say(gentity_t *ent, gentity_t *target, int mode, const char *chatText)",game,confirmed,"log line ""sayteam;%d;%d;%s;%s""; mode 0 = all, 1 = team"
@@ -56,7 +58,10 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x00399CC8,,Cbuf_AddText,"void Cbuf_AddText(int localClientNum, const char *text)",cmd,likely,command strings with trailing newline in r4
 0x0039B280,,Cmd_AddCommand,"void Cmd_AddCommand(const char *name, void (*function)(void), cmd_function_t *allocedCmd)",cmd,confirmed,links static cmd_function_t into cmd_functions
 0x0039B6C0,,SV_Cmd_TokenizeString,void SV_Cmd_TokenizeString(const char *text_in),cmd,guess,forum list
+0x0039C258,,Cmd_ExecuteSingleCommand,"void Cmd_ExecuteSingleCommand(int localClientNum, int controller, const char *text)",cmd,likely,"looks up cmd_functions; a handler equal to the Cbuf_AddServerText_f OPD (0xB4AAD0, cmp at 0x39C5DC) is a server command: calls 0x3F0650 (wait for the server thread) and runs it inline on the calling thread (0x39B9A0). Prototype guessed"
+0x0039C890,,Cbuf_Execute,"void Cbuf_Execute(int localClientNum, int controller)",cmd,guess,only caller path into 0x39C258 from the main loop (0x3A3A50)
 0x003A2B38,,Com_Error,"void Com_Error(errorParm_t code, const char *fmt, ...)",common,likely,"""Can't create dvar..."" with code 0; 138 call sites with format strings in r4"
+0x003A3A50,,Com_Frame,void Com_Frame(void),common,guess,"called from the main loop 0x565B30; runs Cbuf_Execute, packet handling (0x3A2F08 -> CL_ConnectionlessPacket), the UI draw (0x1DC850 -> Menu_PaintAll 0x465368) and kicks the server frame (0x3F0708)"
 0x003AF830,,MSG_WriteBits,"void MSG_WriteBits(msg_t *msg, int value, unsigned int bits)",net,guess,"152 callers, bit-writer sized like WriteBit loop"
 0x003AF9F8,,MSG_WriteBit0,void MSG_WriteBit0(msg_t *msg),net,likely,"bit cursor at +0x20, no OR"
 0x003AFA60,,MSG_WriteBit1,void MSG_WriteBit1(msg_t *msg),net,likely,ORs 1<<(bit&7)
@@ -74,16 +79,22 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x003E0848,0x00B4AD78,SV_FastRestart_f,void SV_FastRestart_f(void),server,confirmed,fast_restart command handler
 0x003E1B60,,SV_ExecuteClientCommand,"void SV_ExecuteClientCommand(client_t *cl, const char *s, int clientOK)",server,guess,forum list
 0x003E1F68,,SV_GetChallenge,void SV_GetChallenge(netadr_t from),server,likely,"""challengeResponse %i"""
+0x003E4160,,SV_DropClient,"void SV_DropClient(client_t *cl, const char *reason)",sv,likely,"'EXE_DISCONNECTED', 'EXE_LEFTGAME', 'disconnect %s'; prototype guessed"
 0x003E47B8,,SV_ClientCommand,"void SV_ClientCommand(client_t *cl, msg_t *msg)",server,likely,"""EXE_LOSTRELIABLECOMMANDS"""
 0x003E5200,,SV_SendClientGameState,void SV_SendClientGameState(client_t *client),server,likely,"""EXE_NEEDSTATS"", config string csv; forum list"
 0x003E61F8,,SV_DirectConnect,void SV_DirectConnect(netadr_t from),server,guess,"sends ""connectResponse"""
 0x003E7528,,SV_AddTestClient,gentity_t *SV_AddTestClient(void),server,likely,"bot connect string ""\invited\1...""; forum list"
+0x003E7B58,,SV_BanClient,void SV_BanClient(client_t *cl),sv,likely,"tail-called by SV_Cmd_banClient_f; only caller of Party_BanName (0x1E7338), checks Party_IsBanned, then drops via 0x3E4160"
 0x003E88B8,,SV_GetGuid,int SV_GetGuid(int clientNum),server,guess,getguid() method
 0x003E95F0,,SV_GameSendServerCommand,"void SV_GameSendServerCommand(int clientNum, svscmd_type type, const char *text)",server,confirmed,"iprintlnbold: (-1, 0, va(""%s \""%s\"""", ...))"
 0x003EAD98,,SV_SetConfigstring,"void SV_SetConfigstring(int index, const char *val)",server,confirmed,"""SV_SetConfigstring: bad index %i"""
 0x003EB208,,SV_SetConfigValueForKey,"void SV_SetConfigValueForKey(int start, int max, const char *key, const char *value)",server,likely,"""SV_SetConfigValueForKey: overflow"""
+0x003ED9A8,,Sys_SpawnServerThread,void Sys_SpawnServerThread(void),sv,likely,creates the server thread (entry OPD 0xB4ADE8 -> 0x3EFD68) via 0x3D7248; 'Failed to create server thread'
 0x003EE520,,SV_ConnectionlessPacket,"void SV_ConnectionlessPacket(netadr_t from, msg_t *msg)",server,likely,dispatches getchallenge/connect/disconnect...
 0x003EED08,,SV_AddServerCommand,"void SV_AddServerCommand(client_t *client, int type, const char *cmd)",server,confirmed,"""EXE_SERVERCOMMANDOVERFLOW"""
+0x003EFD68,0x00B4ADE8,SV_ServerThread,void SV_ServerThread(unsigned long long arg),sv,likely,server thread entry; reaches ClientEndFrame (0x2BE130) via 0x3EDA10 -> 0x2F0458
+0x003F0650,,SV_WaitServer,void SV_WaitServer(void),sv,guess,"if 0x170ECEC is set, clears it and spins until the server thread is done; called before every server command (0x39C258) and from Cmd_quit_f"
+0x003F0708,,SV_WakeServer,void SV_WakeServer(void),sv,guess,main thread: sets 0x170ECEC = 1 and signals the server thread (0x3D6440)
 0x003F62A8,,SV_SendClientSnapshot,void SV_SendClientSnapshot(client_t *client),server,likely,"""EXE_SERVERMESSAGEOVERFLOW""; forum list"
 0x003F64E8,,SV_BuildClientSnapshot,void SV_BuildClientSnapshot(client_t *client),server,confirmed,"""SV_BuildClientSnapshot: bad gEnt"""
 0x0042E2E8,,UI_DrawText,"void UI_DrawText(const char *text, int maxChars, Font_s *font, float x, float y, int horzAlign, int vertAlign, float scale, const float *color, int style)",ui,guess,maxChars=0x7FFFFFFF at 30 sites

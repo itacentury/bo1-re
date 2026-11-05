@@ -120,6 +120,16 @@ static const opd_t bo1_opd_CL_ParseGamestate = { 0x001D8D08u, BO1_TOC };
 typedef void (*CL_ParseServerMessage_t)(int localClientNum, msg_t *msg);
 static const opd_t bo1_opd_CL_ParseServerMessage = { 0x001D9640u, BO1_TOC };
 
+/* likely: adds to the ban list at LobbyParty (0xD53910) + 0x53CC, 16 x 0x24; only game caller is SV_BanClient */
+#define BO1_ADDR_Party_BanName 0x001E7338u
+typedef void (*Party_BanName_t)(const char *name);
+static const opd_t bo1_opd_Party_BanName = { 0x001E7338u, BO1_TOC };
+
+/* likely: checks the Party_BanName list; callers: NetMsg_memberJoin (0x2134CC, skipped for party id 1) and SV_BanClient */
+#define BO1_ADDR_Party_IsBanned 0x001E7830u
+typedef int (*Party_IsBanned_t)(const char *name);
+static const opd_t bo1_opd_Party_IsBanned = { 0x001E7830u, BO1_TOC };
+
 /* likely: scans gsc_methods_player (0xB32C2C) */
 #define BO1_ADDR_Player_GetMethod 0x002C3228u
 typedef BuiltinMethod (*Player_GetMethod_t)(const char **pName);
@@ -293,10 +303,25 @@ static const opd_t bo1_opd_Cmd_AddCommand = { 0x0039B280u, BO1_TOC };
 typedef void (*SV_Cmd_TokenizeString_t)(const char *text_in);
 static const opd_t bo1_opd_SV_Cmd_TokenizeString = { 0x0039B6C0u, BO1_TOC };
 
+/* likely: looks up cmd_functions; a handler equal to the Cbuf_AddServerText_f OPD (0xB4AAD0, cmp at 0x39C5DC) is a server command: calls 0x3F0650 (wait for the server thread) and runs it inline on the calling thread (0x39B9A0). Prototype guessed */
+#define BO1_ADDR_Cmd_ExecuteSingleCommand 0x0039C258u
+typedef void (*Cmd_ExecuteSingleCommand_t)(int localClientNum, int controller, const char *text);
+static const opd_t bo1_opd_Cmd_ExecuteSingleCommand = { 0x0039C258u, BO1_TOC };
+
+/* guess: only caller path into 0x39C258 from the main loop (0x3A3A50) */
+#define BO1_ADDR_Cbuf_Execute 0x0039C890u
+typedef void (*Cbuf_Execute_t)(int localClientNum, int controller);
+static const opd_t bo1_opd_Cbuf_Execute = { 0x0039C890u, BO1_TOC };
+
 /* likely: "Can't create dvar..." with code 0; 138 call sites with format strings in r4 */
 #define BO1_ADDR_Com_Error 0x003A2B38u
 typedef void (*Com_Error_t)(errorParm_t code, const char *fmt, ...);
 static const opd_t bo1_opd_Com_Error = { 0x003A2B38u, BO1_TOC };
+
+/* guess: called from the main loop 0x565B30; runs Cbuf_Execute, packet handling (0x3A2F08 -> CL_ConnectionlessPacket), the UI draw (0x1DC850 -> Menu_PaintAll 0x465368) and kicks the server frame (0x3F0708) */
+#define BO1_ADDR_Com_Frame 0x003A3A50u
+typedef void (*Com_Frame_t)(void);
+static const opd_t bo1_opd_Com_Frame = { 0x003A3A50u, BO1_TOC };
 
 /* guess: 152 callers, bit-writer sized like WriteBit loop */
 #define BO1_ADDR_MSG_WriteBits 0x003AF830u
@@ -384,6 +409,11 @@ static const opd_t bo1_opd_SV_ExecuteClientCommand = { 0x003E1B60u, BO1_TOC };
 typedef void (*SV_GetChallenge_t)(netadr_t from);
 static const opd_t bo1_opd_SV_GetChallenge = { 0x003E1F68u, BO1_TOC };
 
+/* likely: 'EXE_DISCONNECTED', 'EXE_LEFTGAME', 'disconnect %s'; prototype guessed */
+#define BO1_ADDR_SV_DropClient 0x003E4160u
+typedef void (*SV_DropClient_t)(client_t *cl, const char *reason);
+static const opd_t bo1_opd_SV_DropClient = { 0x003E4160u, BO1_TOC };
+
 /* likely: "EXE_LOSTRELIABLECOMMANDS" */
 #define BO1_ADDR_SV_ClientCommand 0x003E47B8u
 typedef void (*SV_ClientCommand_t)(client_t *cl, msg_t *msg);
@@ -403,6 +433,11 @@ static const opd_t bo1_opd_SV_DirectConnect = { 0x003E61F8u, BO1_TOC };
 #define BO1_ADDR_SV_AddTestClient 0x003E7528u
 typedef gentity_t * (*SV_AddTestClient_t)(void);
 static const opd_t bo1_opd_SV_AddTestClient = { 0x003E7528u, BO1_TOC };
+
+/* likely: tail-called by SV_Cmd_banClient_f; only caller of Party_BanName (0x1E7338), checks Party_IsBanned, then drops via 0x3E4160 */
+#define BO1_ADDR_SV_BanClient 0x003E7B58u
+typedef void (*SV_BanClient_t)(client_t *cl);
+static const opd_t bo1_opd_SV_BanClient = { 0x003E7B58u, BO1_TOC };
 
 /* guess: getguid() method */
 #define BO1_ADDR_SV_GetGuid 0x003E88B8u
@@ -424,6 +459,11 @@ static const opd_t bo1_opd_SV_SetConfigstring = { 0x003EAD98u, BO1_TOC };
 typedef void (*SV_SetConfigValueForKey_t)(int start, int max, const char *key, const char *value);
 static const opd_t bo1_opd_SV_SetConfigValueForKey = { 0x003EB208u, BO1_TOC };
 
+/* likely: creates the server thread (entry OPD 0xB4ADE8 -> 0x3EFD68) via 0x3D7248; 'Failed to create server thread' */
+#define BO1_ADDR_Sys_SpawnServerThread 0x003ED9A8u
+typedef void (*Sys_SpawnServerThread_t)(void);
+static const opd_t bo1_opd_Sys_SpawnServerThread = { 0x003ED9A8u, BO1_TOC };
+
 /* likely: dispatches getchallenge/connect/disconnect... */
 #define BO1_ADDR_SV_ConnectionlessPacket 0x003EE520u
 typedef void (*SV_ConnectionlessPacket_t)(netadr_t from, msg_t *msg);
@@ -433,6 +473,22 @@ static const opd_t bo1_opd_SV_ConnectionlessPacket = { 0x003EE520u, BO1_TOC };
 #define BO1_ADDR_SV_AddServerCommand 0x003EED08u
 typedef void (*SV_AddServerCommand_t)(client_t *client, int type, const char *cmd);
 static const opd_t bo1_opd_SV_AddServerCommand = { 0x003EED08u, BO1_TOC };
+
+/* likely: server thread entry; reaches ClientEndFrame (0x2BE130) via 0x3EDA10 -> 0x2F0458 */
+#define BO1_ADDR_SV_ServerThread 0x003EFD68u
+#define BO1_GAME_OPD_SV_ServerThread 0x00B4ADE8u /* the game's own descriptor */
+typedef void (*SV_ServerThread_t)(unsigned long long arg);
+static const opd_t bo1_opd_SV_ServerThread = { 0x003EFD68u, BO1_TOC };
+
+/* guess: if 0x170ECEC is set, clears it and spins until the server thread is done; called before every server command (0x39C258) and from Cmd_quit_f */
+#define BO1_ADDR_SV_WaitServer 0x003F0650u
+typedef void (*SV_WaitServer_t)(void);
+static const opd_t bo1_opd_SV_WaitServer = { 0x003F0650u, BO1_TOC };
+
+/* guess: main thread: sets 0x170ECEC = 1 and signals the server thread (0x3D6440) */
+#define BO1_ADDR_SV_WakeServer 0x003F0708u
+typedef void (*SV_WakeServer_t)(void);
+static const opd_t bo1_opd_SV_WakeServer = { 0x003F0708u, BO1_TOC };
 
 /* likely: "EXE_SERVERMESSAGEOVERFLOW"; forum list */
 #define BO1_ADDR_SV_SendClientSnapshot 0x003F62A8u

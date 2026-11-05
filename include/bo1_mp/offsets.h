@@ -11,6 +11,7 @@
 #define BO1_g_clients 0x013950C8u /* gclient_t[18] (likely) */
 #define BO1_cmd_functions 0x014648ACu /* cmd_function_t * (confirmed) */
 #define BO1_sv_cmd_functions 0x014648B0u /* cmd_function_t * (confirmed) */
+#define BO1_sv_serverFrameRunning 0x0170ECECu /* int (guess) */
 #define BO1_g_dvarCount 0x018F01A0u /* int (confirmed) */
 #define BO1_g_dvarReadLock 0x018F01A4u /* volatile int (likely) */
 #define BO1_g_dvarWriteLock 0x018F01A8u /* volatile int (likely) */

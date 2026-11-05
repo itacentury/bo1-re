@@ -77,6 +77,27 @@ Server commands are registered twice: in the client list with the empty stub, an
 server list (`0x14648B0`) with the real handler. `commands.csv` has both rows (`kind`
 client/server); `handler` is empty for the stub rows.
 
+### Threads: where server commands and party state run
+
+Traced over the direct call graph (indirect calls are not covered):
+
+- **Main thread**: main loop `0x565B30` → `Com_Frame` (`0x3A3A50`, guess). It runs
+  `Cbuf_Execute` (`0x39C890`), packet handling (`0x3A2F08` → `CL_ConnectionlessPacket` →
+  net message table → `NetMsg_memberJoin`) and the UI draw (`0x1DC850` → `Menu_PaintAll`
+  `0x465368`), and starts the server frame with `SV_WakeServer` (`0x3F0708`).
+- **Server thread**: created by `Sys_SpawnServerThread` (`0x3ED9A8`, "Failed to create
+  server thread"), entry `0x3EFD68`. It runs the game frame, e.g. `ClientEndFrame`
+  (`0x2BE130`).
+- A **server command** (`banClient`, ...) does not run on the server thread.
+  `Cmd_ExecuteSingleCommand` (`0x39C258`) sees the `Cbuf_AddServerText_f` stub, calls
+  `SV_WaitServer` (`0x3F0650`: waits until `0x170ECEC` is cleared, i.e. the server frame
+  is done) and then runs the handler inline, so on the main thread.
+- The party **ban list** (`0xD53910 + 0x53CC`) is only referenced by `Party_BanName`
+  (`0x1E7338`, game caller only `SV_BanClient`), `Party_IsBanned` (`0x1E7830`, callers
+  `NetMsg_memberJoin` and `SV_BanClient`) and the party reset `0x1F98B0` (reached from
+  net message handlers). All of these run on the main thread. `SV_DropClient` on the
+  server thread reads `LobbyParty` (`0x3F0E08`) but not the ban list.
+
 ## Common
 
 | Address | Function |
