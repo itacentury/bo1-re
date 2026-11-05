@@ -24,6 +24,8 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x001D9640,,CL_ParseServerMessage,"void CL_ParseServerMessage(int localClientNum, msg_t *msg)",client,confirmed,"""Compressed msg overflow in CL_ParseServerMessage"""
 0x001E7338,,Party_BanName,void Party_BanName(const char *name),party,likely,"adds to the ban list at LobbyParty (0xD53910) + 0x53CC, 16 x 0x24; only game caller is SV_BanClient"
 0x001E7830,,Party_IsBanned,int Party_IsBanned(const char *name),party,likely,"checks the Party_BanName list; callers: NetMsg_memberJoin (0x2134CC, skipped for party id 1) and SV_BanClient"
+0x00203AD8,,NetMsg_Dispatch,"int NetMsg_Dispatch(int chan, const char *name, int srcMember, ...)",net,likely,"Lobby NetMsg dispatcher. Walks descriptor array at 0xB31AF0 ({name_ptr, slot_ptr} pairs, null-terminated), matches arg name+1 against each with I_stricmp (case-insensitive), then calls [slot_ptr][0] via bctrl. Name-keyed, no numeric packet index -> no index-OOB/fn-ptr hijack; unknown name returns 0. Handler table slots at 0xB47xxx hold {code_ptr, 0xB576E8}."
+0x00213270,0x00B47E50,NetMsg_memberJoin,"void NetMsg_memberJoin(party_t *party, const char *name, ...)",party,likely,"Runs only when local is party host (party+0x570C). Reads member name via MSG_ReadString (0x3B1008, cap 0x400) then I_strncpyz into 0x20 buf before Party_IsBanned; clan tag I_strncpyz into 5; fixed structs via MSG_ReadData (0x3B0230) with constant lengths 8/0x24. All reads bounded (audited 2026-11-05)."
 0x002C3228,,Player_GetMethod,BuiltinMethod Player_GetMethod(const char **pName),gsc,likely,scans gsc_methods_player (0xB32C2C)
 0x002D2D98,,G_InitializeAmmo,"void G_InitializeAmmo(gentity_t *self, int weaponIndex, char weaponModel, int hadWeapon)",game,guess,forum list
 0x002D4BA0,,G_Say,"void G_Say(gentity_t *ent, gentity_t *target, int mode, const char *chatText)",game,confirmed,"log line ""sayteam;%d;%d;%s;%s""; mode 0 = all, 1 = team"
@@ -71,16 +73,18 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x003AFE88,,MSG_WriteLong,"void MSG_WriteLong(msg_t *msg, int c)",net,confirmed,"stw, cursize+=4"
 0x003AFEC8,,MSG_ReadByte,int MSG_ReadByte(msg_t *msg),net,likely,"returns -1 past end, handles splitData"
 0x003B0008,,MSG_ReadBits,"int MSG_ReadBits(msg_t *msg, unsigned int bits)",net,guess,87 callers from CL_ParseServerMessage
+0x003B0230,,MSG_ReadData,"void MSG_ReadData(msg_t *msg, void *dest, int len)",net,likely,Fixed-length reader: checks msg->readcount + len <= msg->cursize (uses splitSize +0x18 for split messages) before copying len bytes into dest. Source-bounded only; dest size is the callers responsibility (audited NetMsg callers pass constant len 8/0x24).
+0x003B1008,,MSG_ReadString,"char *MSG_ReadString(msg_t *msg, char *out, int size)",net,likely,"Bounded string reader: consumes bytes from the message (advancing msg->readcount, limited by msg->cursize) and stores into out only while the written count < size, then NUL-terminates. Used by SV_ClientCommand and the NetMsg_* string fields (size 0x400). Stops at a NUL or an end-of-message -1 byte."
 0x003C8660,,Netchan_Transmit,"bool Netchan_Transmit(netchan_t *chan, int length, const char *data)",net,likely,"""Netchan_Transmit: length = %i"""
 0x003D2B20,,Sys_Sleep,void Sys_Sleep(int msec),sys,guess,spin-wait in dvar locks with 0x32
 0x003D2C40,,Sys_GetValue,void *Sys_GetValue(int valueIndex),common,likely,thread-local value slots via r13 (TLS -0x6E94); index 4 = tokenized command args (argc at +0x21 words)
 0x003DFD90,,SV_KickClient,"void SV_KickClient(client_t *cl, char *playerName, int maxPlayerNameLen)",server,likely,"""EXE_CANNOTKICKHOSTPLAYER"""
 0x003E0660,,SV_MapRestart,void SV_MapRestart(int fast_restart),server,guess,forum list
 0x003E0848,0x00B4AD78,SV_FastRestart_f,void SV_FastRestart_f(void),server,confirmed,fast_restart command handler
-0x003E1B60,,SV_ExecuteClientCommand,"void SV_ExecuteClientCommand(client_t *cl, const char *s, int clientOK)",server,guess,forum list
+0x003E1B60,,SV_ExecuteClientCommand,"void SV_ExecuteClientCommand(client_t *cl, const char *s, int clientOK)",server,likely,"SV_Cmd_TokenizeString(s), then a linear strcmp walk of the svcmds table (0xB5DDA4, {name, Cmd_Function_s*}; first entry ""userinfo""); a matched command is called through its function pointer, else (when clientOK) falls through to game ClientCommand (0x2D6140)."
 0x003E1F68,,SV_GetChallenge,void SV_GetChallenge(netadr_t from),server,likely,"""challengeResponse %i"""
 0x003E4160,,SV_DropClient,"void SV_DropClient(client_t *cl, const char *reason)",sv,likely,"'EXE_DISCONNECTED', 'EXE_LEFTGAME', 'disconnect %s'; prototype guessed"
-0x003E47B8,,SV_ClientCommand,"void SV_ClientCommand(client_t *cl, msg_t *msg)",server,likely,"""EXE_LOSTRELIABLECOMMANDS"""
+0x003E47B8,,SV_ClientCommand,"int SV_ClientCommand(client_t *cl, msg_t *msg, int unused)",server,likely,"Reads the reliable sequence (MSG_ReadBits) and the command string (MSG_ReadString into a 0x400 stack buffer). Drops if seq <= cl->reliableSequence (+0x5170) or on a gap (EXE_LOSTRELIABLECOMMANDS). Special-cases a leading ""team "", calls SV_ExecuteClientCommand, then stores the new sequence."
 0x003E5200,,SV_SendClientGameState,void SV_SendClientGameState(client_t *client),server,likely,"""EXE_NEEDSTATS"", config string csv; forum list"
 0x003E61F8,,SV_DirectConnect,void SV_DirectConnect(netadr_t from),server,guess,"sends ""connectResponse"""
 0x003E7528,,SV_AddTestClient,gentity_t *SV_AddTestClient(void),server,likely,"bot connect string ""\invited\1...""; forum list"
@@ -90,7 +94,7 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x003EAD98,,SV_SetConfigstring,"void SV_SetConfigstring(int index, const char *val)",server,confirmed,"""SV_SetConfigstring: bad index %i"""
 0x003EB208,,SV_SetConfigValueForKey,"void SV_SetConfigValueForKey(int start, int max, const char *key, const char *value)",server,likely,"""SV_SetConfigValueForKey: overflow"""
 0x003ED9A8,,Sys_SpawnServerThread,void Sys_SpawnServerThread(void),sv,likely,creates the server thread (entry OPD 0xB4ADE8 -> 0x3EFD68) via 0x3D7248; 'Failed to create server thread'
-0x003EE520,,SV_ConnectionlessPacket,"void SV_ConnectionlessPacket(netadr_t from, msg_t *msg)",server,likely,dispatches getchallenge/connect/disconnect...
+0x003EE520,,SV_ConnectionlessPacket,"void SV_ConnectionlessPacket(netadr_t from, msg_t *msg)",server,likely,"Parses out-of-band packets by command string: challenge, mdata, getstatus, getinfo, getchallenge, connect, stats, disconnect."
 0x003EED08,,SV_AddServerCommand,"void SV_AddServerCommand(client_t *client, int type, const char *cmd)",server,confirmed,"""EXE_SERVERCOMMANDOVERFLOW"""
 0x003EFD68,0x00B4ADE8,SV_ServerThread,void SV_ServerThread(unsigned long long arg),sv,likely,server thread entry; reaches ClientEndFrame (0x2BE130) via 0x3EDA10 -> 0x2F0458
 0x003F0650,,SV_WaitServer,void SV_WaitServer(void),sv,guess,"if 0x170ECEC is set, clears it and spins until the server thread is done; called before every server command (0x39C258) and from Cmd_quit_f"

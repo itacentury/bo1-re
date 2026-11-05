@@ -1,4 +1,6 @@
 addr,name,type,size,subsystem,confidence,notes
+0x00B31AF0,netMsgHandlerList,struct { const char *name; void **opd; }[],,net,likely,"NetMsg dispatch descriptor array, NUL-terminated (name==0). Each entry pairs a message name with the OPD pointer of its handler; walked by NetMsg_Dispatch (0x203AD8), which matches name+1 with I_stricmp and calls the handler via its descriptor. Names come from builtins.csv (NetMsg_ prefix)."
+0x00B5DDA4,svcmds,struct { const char *name; Cmd_Function_s *fn; }[],,server,likely,"Server command table walked by SV_ExecuteClientCommand (strcmp). First entry name ""userinfo"". Entries are {name, OPD/Cmd_Function_s*} pairs."
 0x00C3DFB8,cg_ptr,cg_t *,,cgame,confirmed,pointer to cg_t[4] (stride 0x6B100); +0x0 clientNum; client name at + i*0x5D0 + 0x5DB04
 0x011F2738,g_hudelems,game_hudelem_t[],,game,likely,stride 0x7C; address of the in-use byte the newhudelem builtins scan (HudElem_Alloc is inlined); the array may start a few bytes lower
 0x01213800,level,level_locals_t,,game,confirmed,level.clients at +0x0 (indexed with sizeof(gclient_t)=0x2A38)

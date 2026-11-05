@@ -140,6 +140,39 @@ what to do about it.
     decrypted EBOOT differs from the CFW one only in `sys_process_param.sdk_version`, and the SPRX code is
     identical (see [00-self-format.md](00-self-format.md#cfw-and-hen-builds)).
 
+## Networking (MP)
+
+36. **NetMsg lobby dispatch is name-keyed.** `NetMsg_Dispatch` (`0x203AD8`) walks
+    `netMsgHandlerList` (`0xB31AF0`), a NUL-terminated array of `{const char *name,
+    void **opd}` pairs, comparing the incoming message name (from `name+1`) against
+    each with `I_stricmp` (case-insensitive), then calls the matched handler through
+    its OPD descriptor via `bctrl`; an unregistered name is ignored (returns 0).
+    There is **no numeric packet index** into the table, so no index-OOB /
+    function-pointer hijack at the dispatch level. The handler names come from
+    `builtins.csv` (the `NetMsg_` prefix default). The `opd` pointers land in the
+    `.opd`-style descriptor region around `0xB47…`, where each descriptor is
+    `{code_ptr, toc}` and `toc == 0xB576E8` (= `elf.toc`) for every entry — so the
+    shared second word in those descriptors is just the module TOC, not a flag.
+
+37. **`MSG_ReadString` (`0x3B1008`) and `MSG_ReadData` (`0x3B0230`) are bounded.**
+    `MSG_ReadString(msg, out, size)` consumes bytes (advancing `msg->readcount`,
+    limited by `msg->cursize`) and stores into `out` only while the written count is
+    `< size`, then NUL-terminates. `MSG_ReadData(msg, dest, len)` checks
+    `msg->readcount + len <= msg->cursize` (split messages use `splitSize` +0x18)
+    before copying `len` bytes; it is source-bounded only, so dest safety rests on
+    the caller's `len` (the NetMsg callers all pass constants, e.g. `8`/`0x24`).
+    These are the readers behind the reliable-command and `NetMsg_*` string fields;
+    they resolve part of the "MSG reads under-identified" open question (bit-level
+    `MSG_ReadBits`/`MSG_WriteBits` are still pattern-based).
+
+38. **Reliable client-command path.** `SV_ClientCommand` (`0x3E47B8`) reads the
+    reliable sequence (`MSG_ReadBits`) and the command string (`MSG_ReadString` into
+    a `0x400` stack buffer), drops stale/gapped sequences against
+    `cl->reliableSequence` (`+0x5170`, `EXE_LOSTRELIABLECOMMANDS`), then
+    `SV_ExecuteClientCommand` (`0x3E1B60`) tokenizes and walks the `svcmds` table
+    (`0xB5DDA4`, first entry `"userinfo"`); a match is called via its function
+    pointer, otherwise it falls through to game `ClientCommand` (`0x2D6140`).
+
 ## Open questions
 
 - Meaning of dvar flags `0x100`, `0x1000`, `0x2000`; field at `dvar_t+0x48`.
