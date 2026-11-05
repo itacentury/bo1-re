@@ -38,8 +38,29 @@ Reads support a split buffer (`data` + `splitData`, `readcount` across both).
 | `0x3E61F8` | `SV_DirectConnect` (guess) | sends `connectResponse` |
 | `0x3F64E8` | `SV_BuildClientSnapshot` | "bad gEnt" |
 | `0x3E95F0` | `SV_GameSendServerCommand` | `iprintlnbold` |
+| `0x3E2828` | `SV_ReceiveStats` | OOB `stats`, answers `statresponse %lld` |
+| `0x3E2700` | `SV_GetClientStatInt` | called by `getdstat`, "DDL: Could not get stat. Buffer error." |
 
 Host migration has its own `connectResponseMigration` path on the client.
+
+## Client stats on the host
+
+A client sends its stats buffer to the host as OOB `stats` packets: chunk index byte, chunk
+count byte, then the data. `SV_ReceiveStats` looks the client up by address
+(`SV_FindClientByAddress` `0x3EEAF8`) and copies each chunk into the client's own buffer.
+
+| Field (`client_t`, stride `0x651C8`, array at `*(svs + 0x1C)`, `svs` = `0x1695280`) | Content |
+|---|---|
+| `+0x5A4F8` | stats buffer, `0x9968` bytes, same layout as the local one (DDL data at `+0x28`) |
+| `+0x651B8` | `uint64` mask of the received chunks, complete = `0x1FFFFFFFF` (33 chunks) |
+| `+0x651C0` | int, set once the buffer passed `DDL_ValidateBuffer` (`0x5E53B0`) |
+
+- Chunk `i` lands at buffer `+ i * 0x4C6` with `min(0x4C6, 0x9968 - i * 0x4C6)` bytes. Packets
+  with an index above `0x20`, or after the mask is complete, are ignored.
+- `getdstat` on a player reads this buffer via `SV_GetClientStatInt` (also `0x3E2500` uint64,
+  `0x3E2600` string). It returns 0 until the mask is complete and `client->state > 1`.
+- `DDL_ValidateBuffer` only checks the buffer size and the DDL version in the header, there is
+  no checksum over the data, so the host can change fields in place (re-journal entry 39).
 
 ## Party / lobby message handler tables
 

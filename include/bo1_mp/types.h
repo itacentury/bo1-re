@@ -22,5 +22,7 @@ typedef struct ddlDef_t ddlDef_t; /* opaque */
 typedef struct ddlState_t ddlState_t; /* opaque */
 typedef struct netadr_t netadr_t; /* opaque */
 typedef struct netchan_t netchan_t; /* opaque */
+typedef struct party_t party_t; /* opaque */
 typedef struct playerState_t playerState_t; /* opaque */
+typedef struct uint64_t uint64_t; /* opaque */
 typedef void (*BuiltinMethod)(scr_entref_t);

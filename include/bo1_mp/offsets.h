@@ -4,6 +4,8 @@
 
 #define BO1_TOC 0x00B576E8u
 
+#define BO1_netMsgHandlerList 0x00B31AF0u /* struct { const char *name; void **opd; }[] (likely) */
+#define BO1_svcmds 0x00B5DDA4u /* struct { const char *name; Cmd_Function_s *fn; }[] (likely) */
 #define BO1_cg_ptr 0x00C3DFB8u /* cg_t * (confirmed) */
 #define BO1_g_hudelems 0x011F2738u /* game_hudelem_t[] (likely) */
 #define BO1_level 0x01213800u /* level_locals_t (confirmed) */
@@ -11,6 +13,8 @@
 #define BO1_g_clients 0x013950C8u /* gclient_t[18] (likely) */
 #define BO1_cmd_functions 0x014648ACu /* cmd_function_t * (confirmed) */
 #define BO1_sv_cmd_functions 0x014648B0u /* cmd_function_t * (confirmed) */
+#define BO1_sv_maxclients 0x014B4A88u /* dvar_t * (guess) */
+#define BO1_svs 0x01695280u /* serverStatic_t (likely) */
 #define BO1_sv_serverFrameRunning 0x0170ECECu /* int (guess) */
 #define BO1_g_dvarCount 0x018F01A0u /* int (confirmed) */
 #define BO1_g_dvarReadLock 0x018F01A4u /* volatile int (likely) */

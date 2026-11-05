@@ -8,6 +8,8 @@ addr,name,type,size,subsystem,confidence,notes
 0x013950C8,g_clients,gclient_t[18],0x2F9F0,game,likely,assigned to level.clients in G_InitGame; count 18 inferred from party_maxplayers max
 0x014648AC,cmd_functions,cmd_function_t *,4,cmd,confirmed,client command list head
 0x014648B0,sv_cmd_functions,cmd_function_t *,4,cmd,confirmed,server command list head
+0x014B4A88,sv_maxclients,dvar_t *,,server,guess,SV_FindClientByAddress loops svs.clients up to ->current.integer (+0x18)
+0x01695280,svs,serverStatic_t,,server,likely,"+0x1C clients (client_t *, stride 0x651C8), read by SV_GetClientStatInt / SV_FindClientByAddress"
 0x0170ECEC,sv_serverFrameRunning,int,,sv,guess,"set by SV_WakeServer, cleared by the server thread when its frame is done and by SV_WaitServer"
 0x018F01A0,g_dvarCount,int,4,dvar,confirmed,compared against 0x1000
 0x018F01A4,g_dvarReadLock,volatile int,4,dvar,likely,lwarx/stwcx reader counter

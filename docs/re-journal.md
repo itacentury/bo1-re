@@ -132,6 +132,36 @@ what to do about it.
     `Player_GetMethod`, …) call it. The real `I_stricmp` is `0x4DD8C0`: it adds `0x20` to each byte
     in `'A'..'Z'` (`addi -0x41; cmplwi 0x19`) before comparing. `ClientCommand` (`0x2D6140`)
     matches `say`/`say_team`/`mr`/`callvote`/… with it, so `SAY` is chat as well.
+39. **God mode / invisible custom classes are an invalid `body`.** Decoded from the
+    unpacked IL of the CCAPI tool *Sakura Class Editor PS3* (`Class_Editor::button5_Click`).
+    The button writes the single byte `0xC7` to `0x208B8F2 + n * 0x23` (MP custom class
+    `n`, 0-based). `cacloadouts.customclass1.body` is DDL byte `0x2C9` bit 4 (DDL bit
+    `0x164C`), 8 bits, so it straddles the high nibble of `0x208B8F1` and the low nibble of
+    `0x208B8F2`. `head` follows 40 bits later (`0x1674`), and classes are 280 bits apart
+    (`0x23` bytes). `prestigeclass1.body` is DDL byte `0x37C` bit 5 (`0x1BE5`), so the
+    prestige classes are no longer nibble-aligned. In all 11 class dumps that ship with the
+    tool, byte `0x208B8F2` is `0xC6` (body `0x62`); the tool's "Character" box writes body
+    `0x62`–`0x66`. `0xC7` turns the low nibble 6 into 7, so body becomes **`0x72`**, which
+    is not one of the body/head items. head is `0x61`, except `0x01` in class 3 of five
+    dumps: the tool writes the primary as two whole bytes and clears the head's high nibble.
+    That has no effect, because custom classes get `cac_head_type = get_default_head()`
+    instead of the stats head.
+    Stock `_class.gsc` (PC raw) reads it in `getCacDataGroup` with
+    `getdstat("CacLoadouts", class, "body")`. The range is only checked by `assert`, then
+    `level.tbl_armor[body]` (filled from the statsTable rows of group `body`/`head`) is
+    undefined. `self.cac_body_type` is set from it when the loadout is given, and every
+    `_armor.gsc` lookup (`armor_bullet`, `mobility`, `set_player_model`) indexes
+    `level.cac_attributes[...][cac_body_type]`. The god mode (no damage) or invisible
+    (no model) effect follows from that **(inferred from the scripts, not traced on a
+    console)**. The host reads the *client's* stats it got over the network
+    (`SV_ReceiveStats` → `client + 0x5A4F8`, read back by `getdstat`, see
+    [mp/05-network.md](mp/05-network.md#client-stats-on-the-host)). The buffer has no data
+    checksum, so the host can check and fix the value there: `body` of custom class `n`
+    is at buffer bit `0x140 + 0x164C + n * 280`.
+    Other writes of the same tool: Save/Load Classes reads or writes `0xC0` bytes at
+    `0x208B8E0` (the 5 MP custom classes start at offset `0x11` of that block). "FFA TAC"
+    writes `C4 04` at `0x208B8F7` (primary = `0x4C`, the tactical insertion). Its Combat
+    Training addresses (`0x20A8538 + n * 0x23`) are unverified.
 
 ## HEN
 
@@ -185,5 +215,8 @@ what to do about it.
 - Stats: meaning of stats buffer kinds 2–4 (`stats_archive.ddl`? other-player stats?). The
   address chain (`0x2094429` = `kills`) is static only — confirm once at runtime with
   `statSetByName kills 1234` (expect bytes `D2 04 00 00`).
+- Exact `body`/`head` item ids (statsTable rows of group `body`/`head`, i.e.
+  `level.armor_index_start..end`). Only `0x61` (head) and `0x62`–`0x66` (body) have been
+  seen so far. Also whether the prestige classes of a player who never prestiged are zero.
 - Inspect commands: who sends them (Demonware task, server command?) and what `handler2` does.
 - SP/ZM `level_locals_t` ends where `g_entities` begins (`level + 0x585C`) — verify.

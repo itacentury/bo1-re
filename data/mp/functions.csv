@@ -37,6 +37,7 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x00307668,,ScriptEnt_GetMethod,BuiltinMethod ScriptEnt_GetMethod(const char **pName),gsc,likely,scans scriptent/vehicle methods (0xB33918)
 0x00310FD8,,Scr_GetFunction,"BuiltinFunction Scr_GetFunction(const char **pName, int *type)",gsc,likely,strcmp over gsc_functions table (0xB5C8AC)
 0x00316B80,,Scr_ConstructMessageString,"void Scr_ConstructMessageString(int firstParm, int lastParm, const char *errorContext, char *string, unsigned int stringLimit)",gsc,likely,"iprintln*/print builds ""Game Message"" with limit 0x400"
+0x003247F8,0x00B4A010,ScrCmd_getdstat,void ScrCmd_getdstat(scr_entref_t entref),gscr,likely,"player method getdstat; walks the path with DDL_MoveToName from statsDDLRootState, then reads the entity's client stats via SV_GetClientStatInt / SV_GetClientStatUInt64 / SV_GetClientStatString by DDL type (int, 3 = uint64 as %llu, 5 = string)"
 0x00354F68,,Scr_GetEntity,gentity_t *Scr_GetEntity(unsigned int index),gsc,likely,isplayer(): type check then entity fetch
 0x00356BE0,,G_CallSpawnEntity,int G_CallSpawnEntity(gentity_t *ent),game,likely,ent->classname (+0x164) looked up in spawn_functions (0xB34BE0); weapon_ prefix check
 0x00356DF0,,G_CallSpawn,void G_CallSpawn(void),game,likely,"""classname"" from level spawn vars, ""destructibledef"", ""dyn_"""
@@ -83,6 +84,10 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x003E0848,0x00B4AD78,SV_FastRestart_f,void SV_FastRestart_f(void),server,confirmed,fast_restart command handler
 0x003E1B60,,SV_ExecuteClientCommand,"void SV_ExecuteClientCommand(client_t *cl, const char *s, int clientOK)",server,likely,"SV_Cmd_TokenizeString(s), then a linear strcmp walk of the svcmds table (0xB5DDA4, {name, Cmd_Function_s*}; first entry ""userinfo""); a matched command is called through its function pointer, else (when clientOK) falls through to game ClientCommand (0x2D6140)."
 0x003E1F68,,SV_GetChallenge,void SV_GetChallenge(netadr_t from),server,likely,"""challengeResponse %i"""
+0x003E2500,,SV_GetClientStatUInt64,"uint64_t SV_GetClientStatUInt64(int clientNum, const ddlState_t *state)",server,guess,"same checks as SV_GetClientStatInt, getdstat uses it for DDL type 3"
+0x003E2600,,SV_GetClientStatString,"const char *SV_GetClientStatString(int clientNum, const ddlState_t *state)",server,guess,"same checks as SV_GetClientStatInt, getdstat uses it for DDL type 5"
+0x003E2700,,SV_GetClientStatInt,"int SV_GetClientStatInt(int clientNum, const ddlState_t *state)",server,likely,"client = svs.clients + clientNum * 0x651C8; returns 0 unless the stats chunk mask (client + 0x651B8) is 0x1FFFFFFFF and client->state > 1; validates the 0x9968-byte buffer at client + 0x5A4F8 once (flag client + 0x651C0), then tail-calls DDL_GetInt(state, buffer)"
+0x003E2828,,SV_ReceiveStats,"void SV_ReceiveStats(netadr_t from, msg_t *msg)",server,likely,"OOB ""stats"" handler of SV_ConnectionlessPacket; client = SV_FindClientByAddress(from); reads chunk index and chunk count bytes, ignores the packet if all chunks are in or index > 0x20, copies min(0x4C6, 0x9968 - index * 0x4C6) bytes to client + 0x5A4F8 + index * 0x4C6 (MSG_ReadData) and sets bit index of the 64-bit mask at client + 0x651B8; answers ""statresponse %lld"" with the missing chunks"
 0x003E4160,,SV_DropClient,"void SV_DropClient(client_t *cl, const char *reason)",sv,likely,"'EXE_DISCONNECTED', 'EXE_LEFTGAME', 'disconnect %s'; prototype guessed"
 0x003E47B8,,SV_ClientCommand,"int SV_ClientCommand(client_t *cl, msg_t *msg, int unused)",server,likely,"Reads the reliable sequence (MSG_ReadBits) and the command string (MSG_ReadString into a 0x400 stack buffer). Drops if seq <= cl->reliableSequence (+0x5170) or on a gap (EXE_LOSTRELIABLECOMMANDS). Special-cases a leading ""team "", calls SV_ExecuteClientCommand, then stores the new sequence."
 0x003E5200,,SV_SendClientGameState,void SV_SendClientGameState(client_t *client),server,likely,"""EXE_NEEDSTATS"", config string csv; forum list"
@@ -95,6 +100,7 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x003EB208,,SV_SetConfigValueForKey,"void SV_SetConfigValueForKey(int start, int max, const char *key, const char *value)",server,likely,"""SV_SetConfigValueForKey: overflow"""
 0x003ED9A8,,Sys_SpawnServerThread,void Sys_SpawnServerThread(void),sv,likely,creates the server thread (entry OPD 0xB4ADE8 -> 0x3EFD68) via 0x3D7248; 'Failed to create server thread'
 0x003EE520,,SV_ConnectionlessPacket,"void SV_ConnectionlessPacket(netadr_t from, msg_t *msg)",server,likely,"Parses out-of-band packets by command string: challenge, mdata, getstatus, getinfo, getchallenge, connect, stats, disconnect."
+0x003EEAF8,,SV_FindClientByAddress,"client_t *SV_FindClientByAddress(netadr_t from, ...)",server,guess,"loops svs.clients (stride 0x651C8) up to sv_maxclients, skips clients with state 0, compares the address"
 0x003EED08,,SV_AddServerCommand,"void SV_AddServerCommand(client_t *client, int type, const char *cmd)",server,confirmed,"""EXE_SERVERCOMMANDOVERFLOW"""
 0x003EFD68,0x00B4ADE8,SV_ServerThread,void SV_ServerThread(unsigned long long arg),sv,likely,server thread entry; reaches ClientEndFrame (0x2BE130) via 0x3EDA10 -> 0x2F0458
 0x003F0650,,SV_WaitServer,void SV_WaitServer(void),sv,guess,"if 0x170ECEC is set, clears it and spins until the server thread is done; called before every server command (0x39C258) and from Cmd_quit_f"
@@ -152,8 +158,10 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x005DF630,,Scr_AddFloat,"void Scr_AddFloat(float value, scriptInstance_t inst)",gsc,confirmed,tail of getdvarfloat/distance/abs
 0x005DF800,,Scr_AddEntity,void Scr_AddEntity(gentity_t *ent),gsc,confirmed,tail of getent; per element in getentarray
 0x005E50B8,,DDL_GetRootState,"void DDL_GetRootState(ddlState_t *state, ddlDef_t *def)",ddl,likely,"called once per cached state after DDL_Load in 0x6A0208, before DDL_MoveToName"
+0x005E53B0,,DDL_ValidateBuffer,"int DDL_ValidateBuffer(void *buffer, int size, const ddlDef_t *def)",ddl,likely,checks the buffer size against the DDL and the version in the buffer header against def->version (no checksum over the data); an unversioned buffer is zeroed and gets the version
 0x005E55C8,,DDL_MoveToPath,"int DDL_MoveToPath(const ddlState_t *from, ddlState_t *to, int depth, const char **path)",ddl,likely,"Cmd_statSetByName_f passes statsDDLRootState, depth 2, {""PlayerStatsList"", name}; loops DDL_MoveToName"
 0x005E5E58,,DDL_Load,ddlDef_t *DDL_Load(const char *name),ddl,likely,"loads asset type 0x2A by name and returns the newest version in the def chain (+0x0 version, +0x18 next); called with ""ddl_mp/stats.ddl"""
+0x005E6D30,,DDL_GetInt,"int DDL_GetInt(const ddlState_t *state, const void *buffer)",ddl,guess,tail call of SV_GetClientStatInt with the client stats buffer
 0x005E7330,,DDL_SetInt,"int DDL_SetInt(const ddlState_t *state, unsigned int value, void *buffer)",ddl,likely,"checks member min/max, stores value-min at bit (state->offset + 0x140) little-endian (ldbrx/stdbrx), sets buffer[8] |= 1 (dirty); every DDL accessor adds 0x140 bits = 0x28-byte buffer header"
 0x005E8CF0,,DDL_MoveToName,"int DDL_MoveToName(const ddlState_t *from, const char *name, ddlState_t *to)",ddl,likely,"called with member names (""CacLoadouts"", ""emblemstats""); used per path component by DDL_MoveToPath"
 0x0060EB80,,Actor_GetMethod,BuiltinMethod Actor_GetMethod(const char **pName),gsc,likely,scans actor methods (0xB40390)

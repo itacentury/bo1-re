@@ -130,6 +130,17 @@ static const opd_t bo1_opd_Party_BanName = { 0x001E7338u, BO1_TOC };
 typedef int (*Party_IsBanned_t)(const char *name);
 static const opd_t bo1_opd_Party_IsBanned = { 0x001E7830u, BO1_TOC };
 
+/* likely: Lobby NetMsg dispatcher. Walks descriptor array at 0xB31AF0 ({name_ptr, slot_ptr} pairs, null-terminated), matches arg name+1 against each with I_stricmp (case-insensitive), then calls [slot_ptr][0] via bctrl. Name-keyed, no numeric packet index -> no index-OOB/fn-ptr hijack; unknown name returns 0. Handler table slots at 0xB47xxx hold {code_ptr, 0xB576E8}. */
+#define BO1_ADDR_NetMsg_Dispatch 0x00203AD8u
+typedef int (*NetMsg_Dispatch_t)(int chan, const char *name, int srcMember, ...);
+static const opd_t bo1_opd_NetMsg_Dispatch = { 0x00203AD8u, BO1_TOC };
+
+/* likely: Runs only when local is party host (party+0x570C). Reads member name via MSG_ReadString (0x3B1008, cap 0x400) then I_strncpyz into 0x20 buf before Party_IsBanned; clan tag I_strncpyz into 5; fixed structs via MSG_ReadData (0x3B0230) with constant lengths 8/0x24. All reads bounded (audited 2026-11-05). */
+#define BO1_ADDR_NetMsg_memberJoin 0x00213270u
+#define BO1_GAME_OPD_NetMsg_memberJoin 0x00B47E50u /* the game's own descriptor */
+typedef void (*NetMsg_memberJoin_t)(party_t *party, const char *name, ...);
+static const opd_t bo1_opd_NetMsg_memberJoin = { 0x00213270u, BO1_TOC };
+
 /* likely: scans gsc_methods_player (0xB32C2C) */
 #define BO1_ADDR_Player_GetMethod 0x002C3228u
 typedef BuiltinMethod (*Player_GetMethod_t)(const char **pName);
@@ -185,6 +196,12 @@ static const opd_t bo1_opd_Scr_GetFunction = { 0x00310FD8u, BO1_TOC };
 #define BO1_ADDR_Scr_ConstructMessageString 0x00316B80u
 typedef void (*Scr_ConstructMessageString_t)(int firstParm, int lastParm, const char *errorContext, char *string, unsigned int stringLimit);
 static const opd_t bo1_opd_Scr_ConstructMessageString = { 0x00316B80u, BO1_TOC };
+
+/* likely: player method getdstat; walks the path with DDL_MoveToName from statsDDLRootState, then reads the entity's client stats via SV_GetClientStatInt / SV_GetClientStatUInt64 / SV_GetClientStatString by DDL type (int, 3 = uint64 as %llu, 5 = string) */
+#define BO1_ADDR_ScrCmd_getdstat 0x003247F8u
+#define BO1_GAME_OPD_ScrCmd_getdstat 0x00B4A010u /* the game's own descriptor */
+typedef void (*ScrCmd_getdstat_t)(scr_entref_t entref);
+static const opd_t bo1_opd_ScrCmd_getdstat = { 0x003247F8u, BO1_TOC };
 
 /* likely: isplayer(): type check then entity fetch */
 #define BO1_ADDR_Scr_GetEntity 0x00354F68u
@@ -368,6 +385,16 @@ static const opd_t bo1_opd_MSG_ReadByte = { 0x003AFEC8u, BO1_TOC };
 typedef int (*MSG_ReadBits_t)(msg_t *msg, unsigned int bits);
 static const opd_t bo1_opd_MSG_ReadBits = { 0x003B0008u, BO1_TOC };
 
+/* likely: Fixed-length reader: checks msg->readcount + len <= msg->cursize (uses splitSize +0x18 for split messages) before copying len bytes into dest. Source-bounded only; dest size is the callers responsibility (audited NetMsg callers pass constant len 8/0x24). */
+#define BO1_ADDR_MSG_ReadData 0x003B0230u
+typedef void (*MSG_ReadData_t)(msg_t *msg, void *dest, int len);
+static const opd_t bo1_opd_MSG_ReadData = { 0x003B0230u, BO1_TOC };
+
+/* likely: Bounded string reader: consumes bytes from the message (advancing msg->readcount, limited by msg->cursize) and stores into out only while the written count < size, then NUL-terminates. Used by SV_ClientCommand and the NetMsg_* string fields (size 0x400). Stops at a NUL or an end-of-message -1 byte. */
+#define BO1_ADDR_MSG_ReadString 0x003B1008u
+typedef char * (*MSG_ReadString_t)(msg_t *msg, char *out, int size);
+static const opd_t bo1_opd_MSG_ReadString = { 0x003B1008u, BO1_TOC };
+
 /* likely: "Netchan_Transmit: length = %i" */
 #define BO1_ADDR_Netchan_Transmit 0x003C8660u
 typedef bool (*Netchan_Transmit_t)(netchan_t *chan, int length, const char *data);
@@ -399,7 +426,7 @@ static const opd_t bo1_opd_SV_MapRestart = { 0x003E0660u, BO1_TOC };
 typedef void (*SV_FastRestart_f_t)(void);
 static const opd_t bo1_opd_SV_FastRestart_f = { 0x003E0848u, BO1_TOC };
 
-/* guess: forum list */
+/* likely: SV_Cmd_TokenizeString(s), then a linear strcmp walk of the svcmds table (0xB5DDA4, {name, Cmd_Function_s*}; first entry "userinfo"); a matched command is called through its function pointer, else (when clientOK) falls through to game ClientCommand (0x2D6140). */
 #define BO1_ADDR_SV_ExecuteClientCommand 0x003E1B60u
 typedef void (*SV_ExecuteClientCommand_t)(client_t *cl, const char *s, int clientOK);
 static const opd_t bo1_opd_SV_ExecuteClientCommand = { 0x003E1B60u, BO1_TOC };
@@ -409,14 +436,34 @@ static const opd_t bo1_opd_SV_ExecuteClientCommand = { 0x003E1B60u, BO1_TOC };
 typedef void (*SV_GetChallenge_t)(netadr_t from);
 static const opd_t bo1_opd_SV_GetChallenge = { 0x003E1F68u, BO1_TOC };
 
+/* guess: same checks as SV_GetClientStatInt, getdstat uses it for DDL type 3 */
+#define BO1_ADDR_SV_GetClientStatUInt64 0x003E2500u
+typedef uint64_t (*SV_GetClientStatUInt64_t)(int clientNum, const ddlState_t *state);
+static const opd_t bo1_opd_SV_GetClientStatUInt64 = { 0x003E2500u, BO1_TOC };
+
+/* guess: same checks as SV_GetClientStatInt, getdstat uses it for DDL type 5 */
+#define BO1_ADDR_SV_GetClientStatString 0x003E2600u
+typedef const char * (*SV_GetClientStatString_t)(int clientNum, const ddlState_t *state);
+static const opd_t bo1_opd_SV_GetClientStatString = { 0x003E2600u, BO1_TOC };
+
+/* likely: client = svs.clients + clientNum * 0x651C8; returns 0 unless the stats chunk mask (client + 0x651B8) is 0x1FFFFFFFF and client->state > 1; validates the 0x9968-byte buffer at client + 0x5A4F8 once (flag client + 0x651C0), then tail-calls DDL_GetInt(state, buffer) */
+#define BO1_ADDR_SV_GetClientStatInt 0x003E2700u
+typedef int (*SV_GetClientStatInt_t)(int clientNum, const ddlState_t *state);
+static const opd_t bo1_opd_SV_GetClientStatInt = { 0x003E2700u, BO1_TOC };
+
+/* likely: OOB "stats" handler of SV_ConnectionlessPacket; client = SV_FindClientByAddress(from); reads chunk index and chunk count bytes, ignores the packet if all chunks are in or index > 0x20, copies min(0x4C6, 0x9968 - index * 0x4C6) bytes to client + 0x5A4F8 + index * 0x4C6 (MSG_ReadData) and sets bit index of the 64-bit mask at client + 0x651B8; answers "statresponse %lld" with the missing chunks */
+#define BO1_ADDR_SV_ReceiveStats 0x003E2828u
+typedef void (*SV_ReceiveStats_t)(netadr_t from, msg_t *msg);
+static const opd_t bo1_opd_SV_ReceiveStats = { 0x003E2828u, BO1_TOC };
+
 /* likely: 'EXE_DISCONNECTED', 'EXE_LEFTGAME', 'disconnect %s'; prototype guessed */
 #define BO1_ADDR_SV_DropClient 0x003E4160u
 typedef void (*SV_DropClient_t)(client_t *cl, const char *reason);
 static const opd_t bo1_opd_SV_DropClient = { 0x003E4160u, BO1_TOC };
 
-/* likely: "EXE_LOSTRELIABLECOMMANDS" */
+/* likely: Reads the reliable sequence (MSG_ReadBits) and the command string (MSG_ReadString into a 0x400 stack buffer). Drops if seq <= cl->reliableSequence (+0x5170) or on a gap (EXE_LOSTRELIABLECOMMANDS). Special-cases a leading "team ", calls SV_ExecuteClientCommand, then stores the new sequence. */
 #define BO1_ADDR_SV_ClientCommand 0x003E47B8u
-typedef void (*SV_ClientCommand_t)(client_t *cl, msg_t *msg);
+typedef int (*SV_ClientCommand_t)(client_t *cl, msg_t *msg, int unused);
 static const opd_t bo1_opd_SV_ClientCommand = { 0x003E47B8u, BO1_TOC };
 
 /* likely: "EXE_NEEDSTATS", config string csv; forum list */
@@ -464,10 +511,15 @@ static const opd_t bo1_opd_SV_SetConfigValueForKey = { 0x003EB208u, BO1_TOC };
 typedef void (*Sys_SpawnServerThread_t)(void);
 static const opd_t bo1_opd_Sys_SpawnServerThread = { 0x003ED9A8u, BO1_TOC };
 
-/* likely: dispatches getchallenge/connect/disconnect... */
+/* likely: Parses out-of-band packets by command string: challenge, mdata, getstatus, getinfo, getchallenge, connect, stats, disconnect. */
 #define BO1_ADDR_SV_ConnectionlessPacket 0x003EE520u
 typedef void (*SV_ConnectionlessPacket_t)(netadr_t from, msg_t *msg);
 static const opd_t bo1_opd_SV_ConnectionlessPacket = { 0x003EE520u, BO1_TOC };
+
+/* guess: loops svs.clients (stride 0x651C8) up to sv_maxclients, skips clients with state 0, compares the address */
+#define BO1_ADDR_SV_FindClientByAddress 0x003EEAF8u
+typedef client_t * (*SV_FindClientByAddress_t)(netadr_t from, ...);
+static const opd_t bo1_opd_SV_FindClientByAddress = { 0x003EEAF8u, BO1_TOC };
 
 /* confirmed: "EXE_SERVERCOMMANDOVERFLOW" */
 #define BO1_ADDR_SV_AddServerCommand 0x003EED08u
@@ -753,6 +805,11 @@ static const opd_t bo1_opd_Scr_AddEntity = { 0x005DF800u, BO1_TOC };
 typedef void (*DDL_GetRootState_t)(ddlState_t *state, ddlDef_t *def);
 static const opd_t bo1_opd_DDL_GetRootState = { 0x005E50B8u, BO1_TOC };
 
+/* likely: checks the buffer size against the DDL and the version in the buffer header against def->version (no checksum over the data); an unversioned buffer is zeroed and gets the version */
+#define BO1_ADDR_DDL_ValidateBuffer 0x005E53B0u
+typedef int (*DDL_ValidateBuffer_t)(void *buffer, int size, const ddlDef_t *def);
+static const opd_t bo1_opd_DDL_ValidateBuffer = { 0x005E53B0u, BO1_TOC };
+
 /* likely: Cmd_statSetByName_f passes statsDDLRootState, depth 2, {"PlayerStatsList", name}; loops DDL_MoveToName */
 #define BO1_ADDR_DDL_MoveToPath 0x005E55C8u
 typedef int (*DDL_MoveToPath_t)(const ddlState_t *from, ddlState_t *to, int depth, const char **path);
@@ -762,6 +819,11 @@ static const opd_t bo1_opd_DDL_MoveToPath = { 0x005E55C8u, BO1_TOC };
 #define BO1_ADDR_DDL_Load 0x005E5E58u
 typedef ddlDef_t * (*DDL_Load_t)(const char *name);
 static const opd_t bo1_opd_DDL_Load = { 0x005E5E58u, BO1_TOC };
+
+/* guess: tail call of SV_GetClientStatInt with the client stats buffer */
+#define BO1_ADDR_DDL_GetInt 0x005E6D30u
+typedef int (*DDL_GetInt_t)(const ddlState_t *state, const void *buffer);
+static const opd_t bo1_opd_DDL_GetInt = { 0x005E6D30u, BO1_TOC };
 
 /* likely: checks member min/max, stores value-min at bit (state->offset + 0x140) little-endian (ldbrx/stdbrx), sets buffer[8] |= 1 (dirty); every DDL accessor adds 0x140 bits = 0x28-byte buffer header */
 #define BO1_ADDR_DDL_SetInt 0x005E7330u
