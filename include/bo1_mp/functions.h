@@ -451,7 +451,7 @@ static const opd_t bo1_opd_SV_GetClientStatString = { 0x003E2600u, BO1_TOC };
 typedef int (*SV_GetClientStatInt_t)(int clientNum, const ddlState_t *state);
 static const opd_t bo1_opd_SV_GetClientStatInt = { 0x003E2700u, BO1_TOC };
 
-/* likely: OOB "stats" handler of SV_ConnectionlessPacket; client = SV_FindClientByAddress(from); reads chunk index and chunk count bytes, ignores the packet if all chunks are in or index > 0x20, copies min(0x4C6, 0x9968 - index * 0x4C6) bytes to client + 0x5A4F8 + index * 0x4C6 (MSG_ReadData) and sets bit index of the 64-bit mask at client + 0x651B8; answers "statresponse %lld" with the missing chunks */
+/* likely: OOB "stats" handler of SV_ConnectionlessPacket; client = SV_FindClientByAddress(from); reads chunk index and chunk count bytes, ignores the packet if the count is 0, the mask bits 0..count-1 are all set (count is client-supplied, so count > 33 passes a complete mask) or index > 0x20, copies min(0x4C6, 0x9968 - index * 0x4C6) bytes to client + 0x5A4F8 + index * 0x4C6 (MSG_ReadData) and sets bit index of the 64-bit mask at client + 0x651B8; answers "statresponse %lld" with the missing chunks */
 #define BO1_ADDR_SV_ReceiveStats 0x003E2828u
 typedef void (*SV_ReceiveStats_t)(netadr_t from, msg_t *msg);
 static const opd_t bo1_opd_SV_ReceiveStats = { 0x003E2828u, BO1_TOC };
@@ -471,7 +471,7 @@ static const opd_t bo1_opd_SV_ClientCommand = { 0x003E47B8u, BO1_TOC };
 typedef void (*SV_SendClientGameState_t)(client_t *client);
 static const opd_t bo1_opd_SV_SendClientGameState = { 0x003E5200u, BO1_TOC };
 
-/* guess: sends "connectResponse" */
+/* guess: sends "connectResponse"; memset(cl, 0, 0x651C8) of the new client_t at 0x3E66D4, also on a reconnect from the same address */
 #define BO1_ADDR_SV_DirectConnect 0x003E61F8u
 typedef void (*SV_DirectConnect_t)(netadr_t from);
 static const opd_t bo1_opd_SV_DirectConnect = { 0x003E61F8u, BO1_TOC };

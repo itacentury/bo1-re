@@ -55,8 +55,17 @@ count byte, then the data. `SV_ReceiveStats` looks the client up by address
 | `+0x651B8` | `uint64` mask of the received chunks, complete = `0x1FFFFFFFF` (33 chunks) |
 | `+0x651C0` | int, set once the buffer passed `DDL_ValidateBuffer` (`0x5E53B0`) |
 
-- Chunk `i` lands at buffer `+ i * 0x4C6` with `min(0x4C6, 0x9968 - i * 0x4C6)` bytes. Packets
-  with an index above `0x20`, or after the mask is complete, are ignored.
+- Chunk `i` lands at buffer `+ i * 0x4C6` with `min(0x4C6, 0x9968 - i * 0x4C6)` bytes. A packet
+  is ignored if its chunk count is 0, if the mask bits `0..count - 1` are all set, or if the index
+  is above `0x20`. The count is the client's, so once the mask is complete a packet with a count
+  above 33 still overwrites a chunk (and sets its bit again). An incomplete mask accepts any chunk,
+  also one that is already in.
+- `SV_DirectConnect` clears the whole `client_t` (`memset(cl, 0, 0x651C8)` at `0x3E66D4`) before it
+  uses a slot, for a free slot and for a reconnect from the same address (which first calls
+  `0x3E3388`). The buffer and the mask of the previous client survive only until then.
+- `svs.clients` is 0 while no server runs: `0x3EB7D8` allocates and clears the array, `0x3EA990`
+  frees it and stores 0 (`0x3EAA0C`). `0x3EA990` is reached from `0x3ECE60` (`hostquit`,
+  `EXE_DISCONNECTED`) via `0x1C7038`. These are the only stores to `svs + 0x1C`.
 - `getdstat` on a player reads this buffer via `SV_GetClientStatInt` (also `0x3E2500` uint64,
   `0x3E2600` string). It returns 0 until the mask is complete and `client->state > 1`.
 - `DDL_ValidateBuffer` only checks the buffer size and the DDL version in the header, there is

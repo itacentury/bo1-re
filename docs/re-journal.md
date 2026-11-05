@@ -203,6 +203,13 @@ what to do about it.
     (`0xB5DDA4`, first entry `"userinfo"`); a match is called via its function
     pointer, otherwise it falls through to game `ClientCommand` (`0x2D6140`).
 
+40. **Stats packets after the mask is complete.** `SV_ReceiveStats` doesn't test the mask
+    against `0x1FFFFFFFF`: it skips the packet only if the bits `0..count - 1` are all set,
+    with `count` the second byte of the packet. A client that sends a count above 33 can
+    overwrite any chunk `<= 0x20` after the host has checked or changed the buffer. A new
+    client never inherits the old mask, `SV_DirectConnect` memsets the whole `client_t`
+    (`0x3E66D4`).
+
 ## Open questions
 
 - Meaning of dvar flags `0x100`, `0x1000`, `0x2000`; field at `dvar_t+0x48`.
