@@ -13,6 +13,10 @@ valid in both modes. The EBOOTs are shared by all regions (BLES01031–01035, BL
 BLUS30591, NPUB20584). The binaries themselves are **not** in this repo (see `.gitignore`);
 put them in the repo root.
 
+There is also a PS3HEN build of the MP EBOOT (`97af351090234ac3a48ef41516e4925357a95c70`). It is the same ELF,
+retail-signed, so every MP address applies to it too; see
+[00 SELF/ELF format](docs/00-self-format.md#cfw-and-hen-builds).
+
 ## Layout
 
 ```

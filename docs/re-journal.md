@@ -133,6 +133,13 @@ what to do about it.
     in `'A'..'Z'` (`addi -0x41; cmplwi 0x19`) before comparing. `ClientCommand` (`0x2D6140`)
     matches `say`/`say_team`/`mr`/`callvote`/… with it, so `SAY` is chat as well.
 
+## HEN
+
+35. **HEN files are retail-signed.** The HEN EBOOT and InfinityOps are compressed and encrypted
+    (key revision 4), so `self2elf.py` rejects them. `rpcs3 --decrypt` decrypts them without separate keys. The
+    decrypted EBOOT differs from the CFW one only in `sys_process_param.sdk_version`, and the SPRX code is
+    identical (see [00-self-format.md](00-self-format.md#cfw-and-hen-builds)).
+
 ## Open questions
 
 - Meaning of dvar flags `0x100`, `0x1000`, `0x2000`; field at `dvar_t+0x48`.
