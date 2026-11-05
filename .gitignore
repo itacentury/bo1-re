@@ -4,6 +4,7 @@
 *.elf
 *.self
 *.ff
+*.sprx
 build/
 analysis/
 __pycache__/
