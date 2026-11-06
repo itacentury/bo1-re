@@ -31,7 +31,7 @@ the RW range come from the ELF; everything else an extractor needs (dvar registe
 | `match.py` | cross-target function matching (`--transfer` copies curated names/globals) |
 | `validate_db.py` | consistency checks against the ELF |
 | `sprx_path.py` | show/change the SPRX path a patched EBOOT loads at startup (max 39 chars; updates the ELF SHA-1 in the control info). In Git Bash set `MSYS_NO_PATHCONV=1`, or `/dev_hdd0/...` gets rewritten |
-| `hen_eboot.py` | build a PS3HEN EBOOT from the CFW EBOOT (or a plain ELF) with a new SPRX path: patches the path and `sys_process_param.sdk_version` (`0x00340001` → `0x00330001`, as in the reference HEN EBOOT), then signs it with scetool as a free NPDRM SELF (key revision 4). scetool and its keys are not in the repo (`--scetool` or `$SCETOOL`; keys in `./data` or `$PS3`). `--elf` keeps the patched ELF |
+| `hen_eboot.py` | build a PS3HEN EBOOT from the CFW EBOOT (or a plain ELF), optionally with a new SPRX path (default: keep it; output default `<eboot>_HEN<ext>`): patches the path and `sys_process_param.sdk_version` (`0x00340001` → `0x00330001`, as in the reference HEN EBOOT), then signs it with scetool as a free NPDRM SELF (key revision 4). scetool and its keys are not in the repo (`--scetool` or `$SCETOOL`; keys in `./data` or `$PS3`). `--elf` keeps the patched ELF |
 
 ## Rawfiles (optional)
 

@@ -13,7 +13,7 @@ import sys
 import tempfile
 
 from self2elf import ELF_MAGIC, extract
-from sprx_path import SLOT_SIZE, path_offset
+from sprx_path import SLOT_SIZE, check_path, path_offset, read_path, write_path
 
 PT_PROC_PARAM = 0x60000001
 SDK_CFW = 0x00340001
@@ -79,18 +79,22 @@ def print_header(path: str) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("eboot", help="CFW EBOOT (fake-signed SELF) or plain ELF, e.g. from rpcs3 --decrypt")
-    ap.add_argument("new_path", help=f"e.g. /dev_hdd0/tmp/MyMenu.sprx (max {SLOT_SIZE - 1} chars)")
-    ap.add_argument("-o", "--output", required=True, help="HEN EBOOT to write")
+    ap.add_argument("new_path", nargs="?",
+                    help=f"e.g. /dev_hdd0/tmp/MyMenu.sprx (max {SLOT_SIZE - 1} chars; default: keep the current path)")
+    ap.add_argument("-o", "--output", help="HEN EBOOT to write (default: <eboot>_HEN<ext> next to the input)")
     ap.add_argument("--scetool", default=os.environ.get("SCETOOL", "scetool"),
                     help="scetool binary (default: $SCETOOL or scetool on PATH)")
     ap.add_argument("--elf", help="also keep the patched ELF at this path")
     args = ap.parse_args()
 
     new = args.new_path
-    if not new.isascii() or not new.startswith("/"):
-        sys.exit("path must be ASCII and absolute, e.g. /dev_hdd0/tmp/MyMenu.sprx")
-    if len(new) + 1 > SLOT_SIZE:
-        sys.exit(f"path is {len(new)} chars, max is {SLOT_SIZE - 1}")
+    if new is not None:
+        check_path(new)
+    if args.output is None:
+        stem, ext = os.path.splitext(args.eboot)
+        args.output = f"{stem}_HEN{ext}"
+    if os.path.abspath(args.output) == os.path.abspath(args.eboot):
+        sys.exit("output must differ from the input")
 
     scetool = shutil.which(args.scetool)
     if not scetool:
@@ -98,8 +102,9 @@ def main() -> None:
 
     elf = load_elf(args.eboot)
     off = path_offset(bytes(elf), bytes(elf), 0)
-    old = bytes(elf[off:elf.index(b"\0", off)]).decode("latin-1")
-    elf[off:off + SLOT_SIZE] = new.encode().ljust(SLOT_SIZE, b"\0")
+    old = read_path(elf, off)
+    if new is not None:
+        write_path(elf, off, new)
 
     sdk_off = sdk_version_offset(elf)
     sdk = struct.unpack(">I", elf[sdk_off:sdk_off + 4])[0]
@@ -122,7 +127,10 @@ def main() -> None:
     if res.returncode != 0 or not os.path.exists(args.output):
         sys.exit(f"scetool failed:\n{res.stdout}{res.stderr}")
 
-    print(f"{old} -> {new}  ({args.output})")
+    if new is None or new == old:
+        print(f"{old}  ({args.output})")
+    else:
+        print(f"{old} -> {new}  ({args.output})")
     print_header(args.output)
 
 

@@ -31,6 +31,21 @@ def path_offset(data: bytes, elf: bytes, header_len: int) -> int:
     sys.exit(f"path address {va:#x} not inside a PT_LOAD")
 
 
+def read_path(buf: bytes, off: int) -> str:
+    return bytes(buf[off:buf.index(b"\0", off)]).decode("latin-1")
+
+
+def check_path(new: str) -> None:
+    if not new.isascii() or not new.startswith("/"):
+        sys.exit("path must be ASCII and absolute, e.g. /dev_hdd0/tmp/MyMenu.sprx")
+    if len(new) + 1 > SLOT_SIZE:
+        sys.exit(f"path is {len(new)} chars, max is {SLOT_SIZE - 1}")
+
+
+def write_path(buf: bytearray, off: int, new: str) -> None:
+    buf[off:off + SLOT_SIZE] = new.encode().ljust(SLOT_SIZE, b"\0")
+
+
 def digest_offset(data: bytes) -> int:
     # Control info list; the type 2 entry (size 0x40) holds digest2 = SHA-1 of the ELF at +0x24.
     ci_off, ci_size = struct.unpack(">QQ", data[0x58:0x68])
@@ -57,19 +72,15 @@ def main() -> None:
     header_len, data_len = struct.unpack(">QQ", data[0x10:0x20])
     elf = extract(bytes(data))
     off = path_offset(data, elf, header_len)
-    old = bytes(data[off:data.index(b"\0", off)]).decode("latin-1")
+    old = read_path(data, off)
 
     if args.new_path is None:
         print(f"{old}  (max {SLOT_SIZE - 1} chars)")
         return
 
     new = args.new_path
-    if not new.isascii() or not new.startswith("/"):
-        sys.exit("path must be ASCII and absolute, e.g. /dev_hdd0/tmp/MyMenu.sprx")
-    if len(new) + 1 > SLOT_SIZE:
-        sys.exit(f"path is {len(new)} chars, max is {SLOT_SIZE - 1}")
-
-    data[off:off + SLOT_SIZE] = new.encode().ljust(SLOT_SIZE, b"\0")
+    check_path(new)
+    write_path(data, off, new)
     d = digest_offset(data)
     data[d:d + 20] = hashlib.sha1(data[header_len:header_len + data_len]).digest()
 
