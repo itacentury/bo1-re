@@ -35,8 +35,8 @@ build/, analysis/   local outputs (ignored)
 | File | MP | SP/ZM | Content |
 |---|---|---|---|
 | `target.json` | | | anchors the extractors need (register functions, tables) + section names |
-| `functions.csv` | 107 | 104 | address, game OPD (if any), name, C prototype, subsystem, confidence, evidence |
-| `globals.csv` | 14 | 10 | address, name, type, size, confidence, evidence |
+| `functions.csv` | 197 | 104 | address, game OPD (if any), name, C prototype, subsystem, confidence, evidence |
+| `globals.csv` | 33 | 10 | address, name, type, size, confidence, evidence |
 | `structs.json` | | | struct layouts with per-field confidence |
 | `dvars.csv` | 2766 | 2582 | every static dvar registration: type, default, min/max, enum values, flags, `dvar_t*` global, register site; descriptions from an Xbox 360 dump (2368 / 1985 matched by name) |
 | `commands.csv` | 628 | 410 | console commands (client + server lists) with handler and `cmd_function_t` |

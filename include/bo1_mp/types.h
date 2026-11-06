@@ -13,11 +13,17 @@ typedef struct level_locals_t level_locals_t;
 typedef struct scr_entref_t scr_entref_t;
 typedef struct msg_t msg_t;
 typedef struct cg_t cg_t;
+typedef struct CmdArgs CmdArgs;
+typedef struct clientConnection_t clientConnection_t;
+typedef struct client_t client_t;
+typedef struct XAssetEntry XAssetEntry;
+typedef struct XZoneInfo XZoneInfo;
+typedef union XAssetHeader XAssetHeader;
 typedef struct Font_s Font_s; /* opaque */
 typedef struct GfxCmdDrawText2D GfxCmdDrawText2D; /* opaque */
 typedef struct Material Material; /* opaque */
+typedef struct PartyData_s PartyData_s; /* opaque */
 typedef struct WeaponDef WeaponDef; /* opaque */
-typedef struct client_t client_t; /* opaque */
 typedef struct ddlDef_t ddlDef_t; /* opaque */
 typedef struct ddlState_t ddlState_t; /* opaque */
 typedef struct netadr_t netadr_t; /* opaque */

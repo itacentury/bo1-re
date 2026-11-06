@@ -1,11 +1,20 @@
 addr,name,type,size,subsystem,confidence,notes
 0x00B31AF0,netMsgHandlerList,struct { const char *name; void **opd; }[],,net,likely,"NetMsg dispatch descriptor array, NUL-terminated (name==0). Each entry pairs a message name with the OPD pointer of its handler; walked by NetMsg_Dispatch (0x203AD8), which matches name+1 with I_stricmp and calls the handler via its descriptor. Names come from builtins.csv (NetMsg_ prefix)."
+0x00B320F4,g_assetPools,void *[],,db,likely,"XAsset pool pointers by asset type, read by DB_LoadXAssets, DB_FindXAssetHeader, 0x25E2C8, 0x25E918; type 6 (material) = 0xDD8C68. A parallel table at 0xB321C0 is likely the pool sizes (unverified)"
+0x00B446B0,rb_renderCommandTable,void *[],,render,likely,"render command handlers as OPD pointers by command id, entry 0 NULL; read at 0x7911B4 and 0x798064. Entry 16 = draw text (0x79AB78). Name inferred"
 0x00B5DDA4,svcmds,struct { const char *name; Cmd_Function_s *fn; }[],,server,likely,"Server command table walked by SV_ExecuteClientCommand (strcmp). First entry name ""userinfo"". Entries are {name, OPD/Cmd_Function_s*} pairs."
+0x00BD8778,bg_lastParsedWeaponIndex,int,4,bgame,likely,BG_GetNumWeapons returns it + 1; name inferred
+0x00BD877C,bg_weaponDefs,WeaponDef *[],,bgame,likely,"weapon table indexed by BG_GetWeaponDef without a bounds check (""C <n>"" server command, re-journal 41)"
 0x00C3DFB8,cg_ptr,cg_t *,,cgame,confirmed,pointer to cg_t[4] (stride 0x6B100); +0x0 clientNum; client name at + i*0x5D0 + 0x5DB04
+0x00D223C8,clientConnections,clientConnection_t *,4,client,confirmed,"+ localClientNum * 0x35890, see structs.json clientConnection_t; read by CL_CGameNeedsServerCommand"
+0x00DD8C68,g_materialPool,Material[],,db,likely,"XAsset pool of type 6 (g_assetPools[6]) in the eboot BSS, so a real Material* has a 0 high byte; size unverified"
+0x00EC8C74,g_assetEntryPool,XAssetEntry[30000],0x75300,db,likely,"16-byte entries, index 0 is never used (DB_LoadXAssets builds the free list from 1, 0x26183C); see structs.json XAssetEntry"
+0x00F3E97C,db_hashTable,unsigned short[30000],0xEA60,db,likely,"entry index per hash bucket (hash mod 30000), 0 ends a chain; 62 refs in the DB code"
 0x011F2738,g_hudelems,game_hudelem_t[],,game,likely,stride 0x7C; address of the in-use byte the newhudelem builtins scan (HudElem_Alloc is inlined); the array may start a few bytes lower
 0x01213800,level,level_locals_t,,game,confirmed,level.clients at +0x0 (indexed with sizeof(gclient_t)=0x2A38)
 0x012AB290,g_entities,gentity_t[],,game,confirmed,stride 0x2F8 (setclientdvar)
 0x013950C8,g_clients,gclient_t[18],0x2F9F0,game,likely,assigned to level.clients in G_InitGame; count 18 inferred from party_maxplayers max
+0x01461F74,sv_cmd_args,CmdArgs,,cmd,likely,"server side CmdArgs read by SV_Cmd_ArgvBuffer and ClientCommand (127 refs), same layout as the client CmdArgs at Sys_GetValue(4). SV_Cmd_Argc is inlined"
 0x014648AC,cmd_functions,cmd_function_t *,4,cmd,confirmed,client command list head
 0x014648B0,sv_cmd_functions,cmd_function_t *,4,cmd,confirmed,server command list head
 0x014B4A88,sv_maxclients,dvar_t *,,server,guess,SV_FindClientByAddress loops svs.clients up to ->current.integer (+0x18)

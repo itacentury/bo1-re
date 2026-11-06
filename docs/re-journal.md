@@ -210,6 +210,50 @@ what to do about it.
     client never inherits the old mask, `SV_DirectConnect` memsets the whole `client_t`
     (`0x3E66D4`).
 
+## Freezes from other consoles (MP)
+
+Found while building a host-side filter (Silinium's anti-freeze). The "Freeze PS3" options
+of RTM tools use these.
+
+41. **Two server commands index tables unchecked.** `CG_ServerCommand` (`0x164BB8`) passes
+    `strtol(argv1, NULL, 10)` of `C <n>` to `BG_GetWeaponDef` (`0xC0A98`), which indexes
+    `bg_weaponDefs` (`0xBD877C`) without a bounds check (the bound is `BG_GetNumWeapons`).
+    A host sends `C 2026` or `C 44444444444` with `SV_GameSendServerCommand`. Configstrings
+    (`d <index> <value>`) only get a `Com_Error` above `0xAC1` in
+    `CL_CGameNeedsServerCommand` (`0x1A6F00`). That function tokenizes with
+    `Cmd_TokenizeString` (`0x39B538`); for `d` it ends that and tokenizes again with
+    `Cmd_TokenizeStringWithLimit(text, 3)` (`0x39B828`). `CG_ExecuteNewServerCommands`
+    only calls `Cmd_EndTokenizedString` (`0x39A150`) when it returned 1. A filter that reads
+    argv there has to tokenize the same way, or it checks a different argv than the game.
+42. **Text icons carry a raw `Material *`.** A text icon is 8 bytes: `^`, type, width,
+    height, `Material *`. The game builds them itself with a pointer into its own memory.
+    The backend draw loop (`RB_DrawText`, `0x798490`) only takes types 1 and 2
+    (`(b - 1) & 0xFF <= 1` at `0x799014`) and uses the pointer as is. Sent from another
+    console (chat, a player name), the bytes after `^\x01` become a pointer to garbage,
+    e.g. `^\x01xx\x12gfx_snow_sheet;` gives `0x12676678`, and every console that draws the text
+    freezes. Routes: chat; a name in the userinfo, which the host stores
+    (`SV_UserinfoChanged` `0x3E49D0`, `ClientUserinfoChanged` `0x2C2AE8` via `SV_GetUserinfo`
+    `0x3EAB20`) and sends on to every client; in the lobby the host sends every member's name
+    and clan tag on in `partystate` (`Party_WriteMembers` `0x204820`). The draw loop is only
+    reached through render command 16 (`rb_renderCommandTable` `0xB446B0`, handler
+    `0x79AB78`), which only `AddBaseDrawTextCmd` (`0x7538E8`) and `R_AddCmdDrawConsoleText`
+    (`0x7533C0`) build. The other icon parsers (text width in `0x734A50`, the message window
+    copy in `0x1AEAE0`) don't read the pointer. The kill feed (`CG_Obituary`, `0x1B0CD8`)
+    stores the pointer as is.
+43. **A real icon's `Material *` has a 0 high byte.** Materials live in the type 6 XAsset
+    pool (`g_assetPools[6]` = `0xDD8C68`, eboot BSS). A filter can look a pointer up without
+    `Material_RegisterHandle`, which would create a default entry for a missing name and
+    wait for zone loads: `DB_FindXAssetHeader` (`0x2601A0`) hashes the name mod 30000 into
+    `db_hashTable` (`0xF3E97C`, u16 entry indices, 0 ends a chain) over
+    `g_assetEntryPool` (`0xEC8C74`, 16-byte `XAssetEntry`, next in chain at `+0xA`). Every
+    zone load and unload goes through `DB_LoadXAssets` (`0x2615C0`). The unload runs on the
+    calling thread before the load is handed off: a loop over the loaded zones calls the
+    zone free `0x25E2C8` (no other caller) for each zone matching `freeFlags`, under
+    critical section `0x44`. Only then are the names queued and the DB thread signaled
+    (`0x3D4410`, `0x3D3FD8`, `0x3D6388`, no other caller). `sync` only selects the wait at
+    the end. A cache of looked-up pointers therefore has to be cleared in a
+    `DB_LoadXAssets` hook.
+
 ## Open questions
 
 - Meaning of dvar flags `0x100`, `0x1000`, `0x2000`; field at `dvar_t+0x48`.
@@ -227,3 +271,10 @@ what to do about it.
   seen so far. Also whether the prestige classes of a player who never prestiged are zero.
 - Inspect commands: who sends them (Demonware task, server command?) and what `handler2` does.
 - SP/ZM `level_locals_t` ends where `g_entities` begins (`level + 0x585C`) — verify.
+- Size of the material pool (`0xDD8C68`); `0xB321C0` runs parallel to `g_assetPools` and may
+  hold the pool sizes.
+- Which thread draws the loading screen while `DB_LoadXAssets` runs (the remote screen
+  update?).
+- Names of the DB helpers `0x25E2C8` (zone free), `0x25E918` (links a default entry),
+  `0x3D4410` / `0x3D3FD8` / `0x3D6388` (DB thread queue) and `0x265F60` (loadzone path).
+- `XAssetEntry` field names other than `nextHash` are taken from the IW engine.

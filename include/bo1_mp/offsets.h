@@ -5,12 +5,21 @@
 #define BO1_TOC 0x00B576E8u
 
 #define BO1_netMsgHandlerList 0x00B31AF0u /* struct { const char *name; void **opd; }[] (likely) */
+#define BO1_g_assetPools 0x00B320F4u /* void *[] (likely) */
+#define BO1_rb_renderCommandTable 0x00B446B0u /* void *[] (likely) */
 #define BO1_svcmds 0x00B5DDA4u /* struct { const char *name; Cmd_Function_s *fn; }[] (likely) */
+#define BO1_bg_lastParsedWeaponIndex 0x00BD8778u /* int (likely) */
+#define BO1_bg_weaponDefs 0x00BD877Cu /* WeaponDef *[] (likely) */
 #define BO1_cg_ptr 0x00C3DFB8u /* cg_t * (confirmed) */
+#define BO1_clientConnections 0x00D223C8u /* clientConnection_t * (confirmed) */
+#define BO1_g_materialPool 0x00DD8C68u /* Material[] (likely) */
+#define BO1_g_assetEntryPool 0x00EC8C74u /* XAssetEntry[30000] (likely) */
+#define BO1_db_hashTable 0x00F3E97Cu /* unsigned short[30000] (likely) */
 #define BO1_g_hudelems 0x011F2738u /* game_hudelem_t[] (likely) */
 #define BO1_level 0x01213800u /* level_locals_t (confirmed) */
 #define BO1_g_entities 0x012AB290u /* gentity_t[] (confirmed) */
 #define BO1_g_clients 0x013950C8u /* gclient_t[18] (likely) */
+#define BO1_sv_cmd_args 0x01461F74u /* CmdArgs (likely) */
 #define BO1_cmd_functions 0x014648ACu /* cmd_function_t * (confirmed) */
 #define BO1_sv_cmd_functions 0x014648B0u /* cmd_function_t * (confirmed) */
 #define BO1_sv_maxclients 0x014B4A88u /* dvar_t * (guess) */

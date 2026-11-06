@@ -40,6 +40,9 @@ Reads support a split buffer (`data` + `splitData`, `readcount` across both).
 | `0x3E95F0` | `SV_GameSendServerCommand` | `iprintlnbold` |
 | `0x3E2828` | `SV_ReceiveStats` | OOB `stats`, answers `statresponse %lld` |
 | `0x3E2700` | `SV_GetClientStatInt` | called by `getdstat`, "DDL: Could not get stat. Buffer error." |
+| `0x3E49D0` | `SV_UserinfoChanged(cl)` | copies `name`/`clanAbbrev` from the userinfo (`client_t + 0x720`) |
+| `0x3EAB20` | `SV_GetUserinfo(index, buf, size)` | the only userinfo reader of the game code (`ClientUserinfoChanged` `0x2C2AE8`, `ClientConnect` `0x2C2FB8`) |
+| `0x1A6F00` | `CL_CGameNeedsServerCommand` | `clientConnections` (`0xD223C8`) + `lc * 0x35890`: sequence `+0x4348`, last executed `+0x434C`, 128 commands of `0x400` at `+0x4350` |
 
 Host migration has its own `connectResponseMigration` path on the client.
 
@@ -85,6 +88,11 @@ name (`builtins.csv`, tables `net_msg_handlers_a..e`):
 | `0xB3ECC4` | 4 | `mrate` … `mtoack` | `0x3F1560` |
 
 These are a natural place to filter malicious lobby packets (e.g. `pkick`).
+
+The host sends the member list in `partystate` (`0x208DB0`, `%ipartystate`). It is written by
+`Party_WriteMembers` (`0x204820`, only called from there): from a first member on until the
+message is full, name with `MSG_WriteString`, clan tag with `MSG_WriteData`. Names and clan
+tags of other members reach every client this way (see journal 42).
 
 ## Demonware
 

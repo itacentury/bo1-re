@@ -71,6 +71,13 @@ different modules (e.g. `sv_cheats` in SV, game and UI code), each with its own 
 | `0x399828` | `Cmd_RemoveCommand(name)` |
 | `0x399CC8` | `Cbuf_AddText(localClientNum, text)` |
 | `0x3996D8` | `Cbuf_AddServerText_f` — empty stub (`blr`) |
+| `0x39B538` | `Cmd_TokenizeString(text)` |
+| `0x39B828` | `Cmd_TokenizeStringWithLimit(text, maxTokens)` — only `CL_CGameNeedsServerCommand` (`d`, limit 3) |
+| `0x39A150` | `Cmd_EndTokenizedString()` |
+
+`CmdArgs`: `nesting +0x0`, `argc[8] +0x84`, `argv[8] +0xA4`, indexed by `nesting`. The client
+instance is `Sys_GetValue(4)` (thread local), the server instance `sv_cmd_args` (`0x1461F74`,
+read by `SV_Cmd_ArgvBuffer` `0x3997C8`; `SV_Cmd_Argc` is inlined).
 
 `cmd_function_t` (0x14): `next +0x0`, `name +0x4`, `function +0x10` (an **OPD pointer**).
 Server commands are registered twice: in the client list with the empty stub, and in the
@@ -184,3 +191,17 @@ wrong; read the fields above and test single bits.
 | `0x7458D8` | `Material_RegisterHandle(name, imageTrack)` (e.g. `"white"`) |
 | `0x430770` | `UI_AssetCache` |
 | `0x42E2E8` | `UI_DrawText` (guess) |
+| `0x7533C0` | `R_AddCmdDrawConsoleText(textPool, poolSize, firstChar, charCount, font, x, y, xScale, yScale, color, style)` (guess, from CoD4) — the other builder of render command 16, for the console message windows |
+| `0x79AB78` | render command 16 (draw text) handler, entry 16 of the table at `0xB446B0` (OPD pointers, entry 0 NULL) |
+| `0x798490` | backend text draw loop; text icons `^`, type 1/2, width, height, `Material *` (see journal 42) |
+
+### Asset database
+
+| Address | Function |
+|---|---|
+| `0x2615C0` | `DB_LoadXAssets(XZoneInfo *zones, count, sync)` — every zone load and unload; the first call registers `loadzone` & co. |
+| `0x2601A0` | `DB_FindXAssetHeader(type, name, errorIfMissing, waitMsec)` — header through a hidden pointer in `r3`; a miss waits for loads, then links a default entry |
+
+`g_assetPools` (`0xB320F4`, by asset type; 6 = material, `0xDD8C68`), `db_hashTable`
+(`0xF3E97C`, `u16[30000]`), `g_assetEntryPool` (`0xEC8C74`, `XAssetEntry[30000]` of 16 bytes,
+index 0 unused). Details in the journal (43).

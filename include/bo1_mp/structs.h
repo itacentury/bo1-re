@@ -23,6 +23,14 @@ _Static_assert(offsetof(union DvarValue, color) == 0x0, "DvarValue.color");
 _Static_assert(offsetof(union DvarValue, integer64) == 0x0, "DvarValue.integer64");
 _Static_assert(sizeof(union DvarValue) == 0x10, "sizeof DvarValue");
 
+/* DB_FindXAssetHeader 0x2601A0 return value (through a hidden pointer, read as one word) */
+union XAssetHeader
+{
+    void * data; /* +0x0 confirmed */
+};
+_Static_assert(offsetof(union XAssetHeader, data) == 0x0, "XAssetHeader.data");
+_Static_assert(sizeof(union XAssetHeader) == 0x4, "sizeof XAssetHeader");
+
 /* Dvar_RegisterNew 0x4C9B98 (pool stride 0x70, field writes) */
 struct dvar_t
 {
@@ -160,3 +168,80 @@ struct cg_t
 };
 _Static_assert(offsetof(struct cg_t, clientNum) == 0x0, "cg_t.clientNum");
 _Static_assert(sizeof(struct cg_t) == 0x6B100, "sizeof cg_t");
+
+/* Cmd_EndTokenizedString 0x39A150 and SV_Cmd_ArgvBuffer 0x3997C8 index +0x84/+0xA4 with nesting * 4; client instance at Sys_GetValue(4), server instance sv_cmd_args 0x1461F74. Names after +0xA4 from CoD4 */
+struct CmdArgs
+{
+    int nesting; /* +0x0 confirmed */
+    char _pad0004[0x80];
+    int argc[8]; /* +0x84 confirmed */
+    const char ** argv[8]; /* +0xA4 confirmed */
+    char _pad00C4[0x2800];
+    int usedTextPool[8]; /* +0x28C4 guess */
+    int totalUsedArgvPool; /* +0x28E4 guess */
+    int totalUsedTextPool; /* +0x28E8 guess */
+};
+_Static_assert(offsetof(struct CmdArgs, nesting) == 0x0, "CmdArgs.nesting");
+_Static_assert(offsetof(struct CmdArgs, argc) == 0x84, "CmdArgs.argc");
+_Static_assert(offsetof(struct CmdArgs, argv) == 0xA4, "CmdArgs.argv");
+_Static_assert(offsetof(struct CmdArgs, usedTextPool) == 0x28C4, "CmdArgs.usedTextPool");
+_Static_assert(offsetof(struct CmdArgs, totalUsedArgvPool) == 0x28E4, "CmdArgs.totalUsedArgvPool");
+_Static_assert(offsetof(struct CmdArgs, totalUsedTextPool) == 0x28E8, "CmdArgs.totalUsedTextPool");
+
+/* CL_CGameNeedsServerCommand 0x1A6F00: clientConnections (0xD223C8) + localClientNum * 0x35890, command text at +0x4350 + (n & 0x7F) * 0x400 */
+struct clientConnection_t
+{
+    char _pad0000[0x4348];
+    int serverCommandSequence; /* +0x4348 confirmed */
+    int lastExecutedServerCommand; /* +0x434C likely */
+    char serverCommands[131072]; /* +0x4350 confirmed */
+    char _pad24350[0x11540];
+};
+_Static_assert(offsetof(struct clientConnection_t, serverCommandSequence) == 0x4348, "clientConnection_t.serverCommandSequence");
+_Static_assert(offsetof(struct clientConnection_t, lastExecutedServerCommand) == 0x434C, "clientConnection_t.lastExecutedServerCommand");
+_Static_assert(offsetof(struct clientConnection_t, serverCommands) == 0x4350, "clientConnection_t.serverCommands");
+_Static_assert(sizeof(struct clientConnection_t) == 0x35890, "sizeof clientConnection_t");
+
+/* svs.clients (0x169529C) stride 0x651C8 (SV_GetUserinfo 0x3EAB20, memset in SV_DirectConnect 0x3E66D4); more fields in docs/mp/05-network.md */
+struct client_t
+{
+    char _pad0000[0x720];
+    char userinfo[1024]; /* +0x720 likely */
+    char _pad0B20[0x4650];
+    int reliableSequence; /* +0x5170 likely */
+    char _pad5174[0x60054];
+};
+_Static_assert(offsetof(struct client_t, userinfo) == 0x720, "client_t.userinfo");
+_Static_assert(offsetof(struct client_t, reliableSequence) == 0x5170, "client_t.reliableSequence");
+_Static_assert(sizeof(struct client_t) == 0x651C8, "sizeof client_t");
+
+/* DB_FindXAssetHeader 0x2601A0 hash chain walk over g_assetEntryPool (0xEC8C74, index * 16, next index at +0xA). Field names from the IW engine (unverified) */
+struct XAssetEntry
+{
+    int type; /* +0x0 likely */
+    void * header; /* +0x4 likely */
+    unsigned char zoneIndex; /* +0x8 guess */
+    unsigned char inuse; /* +0x9 guess */
+    unsigned short nextHash; /* +0xA confirmed */
+    unsigned short nextOverride; /* +0xC guess */
+    char _pad000E[0x2];
+};
+_Static_assert(offsetof(struct XAssetEntry, type) == 0x0, "XAssetEntry.type");
+_Static_assert(offsetof(struct XAssetEntry, header) == 0x4, "XAssetEntry.header");
+_Static_assert(offsetof(struct XAssetEntry, zoneIndex) == 0x8, "XAssetEntry.zoneIndex");
+_Static_assert(offsetof(struct XAssetEntry, inuse) == 0x9, "XAssetEntry.inuse");
+_Static_assert(offsetof(struct XAssetEntry, nextHash) == 0xA, "XAssetEntry.nextHash");
+_Static_assert(offsetof(struct XAssetEntry, nextOverride) == 0xC, "XAssetEntry.nextOverride");
+_Static_assert(sizeof(struct XAssetEntry) == 0x10, "sizeof XAssetEntry");
+
+/* DB_LoadXAssets 0x2615C0 argument; 0x3A3298 frees zones with {NULL, 0, 0x40} */
+struct XZoneInfo
+{
+    const char * name; /* +0x0 likely */
+    int allocFlags; /* +0x4 likely */
+    int freeFlags; /* +0x8 likely */
+};
+_Static_assert(offsetof(struct XZoneInfo, name) == 0x0, "XZoneInfo.name");
+_Static_assert(offsetof(struct XZoneInfo, allocFlags) == 0x4, "XZoneInfo.allocFlags");
+_Static_assert(offsetof(struct XZoneInfo, freeFlags) == 0x8, "XZoneInfo.freeFlags");
+_Static_assert(sizeof(struct XZoneInfo) == 0xC, "sizeof XZoneInfo");

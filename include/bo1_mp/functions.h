@@ -95,6 +95,9 @@ static const opd_t bo1_opd_CG_ExecuteNewServerCommands = { 0x00166DF0u, BO1_TOC 
 typedef int (*CL_CGameNeedsServerCommand_t)(int localClientNum, int serverCommandNumber);
 static const opd_t bo1_opd_CL_CGameNeedsServerCommand = { 0x001A6F00u, BO1_TOC };
 
+/* guess: kill feed entry ('CGAME_QUAKE_SUICIDE'), only caller 0x105420; stores the text icons (Material pointers) of the message as they are. Name from CoD4 */
+#define BO1_ADDR_CG_Obituary 0x001B0CD8u
+
 /* confirmed: "fonts/normalfont", "fonts/bigDevFont" ... from UI/CG asset setup */
 #define BO1_ADDR_CL_RegisterFont 0x001C5FA0u
 typedef Font_s * (*CL_RegisterFont_t)(const char *fontName, int imageTrack);
@@ -135,11 +138,37 @@ static const opd_t bo1_opd_Party_IsBanned = { 0x001E7830u, BO1_TOC };
 typedef int (*NetMsg_Dispatch_t)(int chan, const char *name, int srcMember, ...);
 static const opd_t bo1_opd_NetMsg_Dispatch = { 0x00203AD8u, BO1_TOC };
 
+/* likely: writes the members from firstMember on into a partystate message until it is full (name at member + 0x18 with MSG_WriteString, 0x24 bytes at + 0x38 and the clan tag at + 0x5C (4 bytes) with MSG_WriteData). Only called by the partystate sender 0x208DB0 at 0x209404, 0x209538, 0x2096FC. Parameter 2 unknown */
+#define BO1_ADDR_Party_WriteMembers 0x00204820u
+typedef void (*Party_WriteMembers_t)(PartyData_s *party, int unknown, int firstMember, int targetMember, msg_t *msg);
+static const opd_t bo1_opd_Party_WriteMembers = { 0x00204820u, BO1_TOC };
+
+/* guess: host side partystate sender ('%ipartystate' at 0x209188/0x2094C0), only caller of Party_WriteMembers; 29 callers incl. NetMsg_memberJoin, NetMsg_leaderdis. Name inferred */
+#define BO1_ADDR_Party_SendPartyState 0x00208DB0u
+
 /* likely: Runs only when local is party host (party+0x570C). Reads member name via MSG_ReadString (0x3B1008, cap 0x400) then I_strncpyz into 0x20 buf before Party_IsBanned; clan tag I_strncpyz into 5; fixed structs via MSG_ReadData (0x3B0230) with constant lengths 8/0x24. All reads bounded (audited 2026-11-05). */
 #define BO1_ADDR_NetMsg_memberJoin 0x00213270u
 #define BO1_GAME_OPD_NetMsg_memberJoin 0x00B47E50u /* the game's own descriptor */
 typedef void (*NetMsg_memberJoin_t)(party_t *party, const char *name, ...);
 static const opd_t bo1_opd_NetMsg_memberJoin = { 0x00213270u, BO1_TOC };
+
+/* likely: 104 callers; the header is returned through a hidden pointer in r3 (type in r4), Material_Register/Material_RegisterHandle pass (6, name, 1, -1). Lookup: hash mod 30000 (mulli 0x7530) into db_hashTable (0xF3E97C, u16 entry indices), entries at g_assetEntryPool (0xEC8C74) * 16, chain via +0xA. A miss waits while a zone loads, then links a default entry under the name (0x25E918, only caller); Com_Error once the entry pool is full */
+#define BO1_ADDR_DB_FindXAssetHeader 0x002601A0u
+typedef XAssetHeader (*DB_FindXAssetHeader_t)(int type, const char *name, int errorIfMissing, int waitMsec);
+static const opd_t bo1_opd_DB_FindXAssetHeader = { 0x002601A0u, BO1_TOC };
+
+/* likely: 16 callers (loadzone 0x266018 via 0x265F60; level/UI code, e.g. 0x3A3298 frees with {NULL, 0, 0x40}). The first call registers loadzone/listdefaultassets/listassetpool/dumpmateriallist. Every zone unload runs here on the calling thread before the load is queued: a loop over the loaded zones calls the zone free 0x25E2C8 (8 sites, no other caller) for each zone matching freeFlags, under critical section 0x44. Then it queues the names and signals the DB thread (0x3D4410, 0x3D3FD8, 0x3D6388, only called from here); sync only selects the final wait */
+#define BO1_ADDR_DB_LoadXAssets 0x002615C0u
+typedef void (*DB_LoadXAssets_t)(XZoneInfo *zoneInfo, unsigned int zoneCount, int sync);
+static const opd_t bo1_opd_DB_LoadXAssets = { 0x002615C0u, BO1_TOC };
+
+/* likely: reads the userinfo via SV_GetUserinfo (0x3EAB20); strings name, clanAbbrev, xuid, UnnamedPlayer, cg_predictItems; callers include GScr_updateclientnames, ClientConnect (0x2C2FB8) and 0x3E5EF8 */
+#define BO1_ADDR_ClientUserinfoChanged 0x002C2AE8u
+typedef void (*ClientUserinfoChanged_t)(int clientNum);
+static const opd_t bo1_opd_ClientUserinfoChanged = { 0x002C2AE8u, BO1_TOC };
+
+/* guess: callers SV_DirectConnect, 0x3E5EF8, 0x3E0040, 0x3EC268; second caller of SV_GetUserinfo, calls ClientUserinfoChanged. Name from the IW engine call graph, prototype unknown */
+#define BO1_ADDR_ClientConnect 0x002C2FB8u
 
 /* likely: scans gsc_methods_player (0xB32C2C) */
 #define BO1_ADDR_Player_GetMethod 0x002C3228u
@@ -310,15 +339,30 @@ static const opd_t bo1_opd_Cmd_AddServerCommand = { 0x003998B8u, BO1_TOC };
 typedef void (*Cbuf_AddText_t)(int localClientNum, const char *text);
 static const opd_t bo1_opd_Cbuf_AddText = { 0x00399CC8u, BO1_TOC };
 
+/* likely: 30 callers; pops one nesting level of the CmdArgs at Sys_GetValue(4). CG_ExecuteNewServerCommands calls it only when CL_CGameNeedsServerCommand returned 1 */
+#define BO1_ADDR_Cmd_EndTokenizedString 0x0039A150u
+typedef void (*Cmd_EndTokenizedString_t)(void);
+static const opd_t bo1_opd_Cmd_EndTokenizedString = { 0x0039A150u, BO1_TOC };
+
 /* confirmed: links static cmd_function_t into cmd_functions */
 #define BO1_ADDR_Cmd_AddCommand 0x0039B280u
 typedef void (*Cmd_AddCommand_t)(const char *name, void (*function)(void), cmd_function_t *allocedCmd);
 static const opd_t bo1_opd_Cmd_AddCommand = { 0x0039B280u, BO1_TOC };
 
+/* likely: 12 callers (CL_CGameNeedsServerCommand, InspectCmd_Dispatch, ...); pushes a nesting level onto the client CmdArgs (Sys_GetValue(4)): nesting +0x00, argc[] +0x84, argv[] +0xA4 */
+#define BO1_ADDR_Cmd_TokenizeString 0x0039B538u
+typedef void (*Cmd_TokenizeString_t)(const char *text);
+static const opd_t bo1_opd_Cmd_TokenizeString = { 0x0039B538u, BO1_TOC };
+
 /* guess: forum list */
 #define BO1_ADDR_SV_Cmd_TokenizeString 0x0039B6C0u
 typedef void (*SV_Cmd_TokenizeString_t)(const char *text_in);
 static const opd_t bo1_opd_SV_Cmd_TokenizeString = { 0x0039B6C0u, BO1_TOC };
+
+/* likely: only caller CL_CGameNeedsServerCommand: for 'd' it ends the first tokenization and tokenizes again with maxTokens 3, so the configstring value keeps its spaces */
+#define BO1_ADDR_Cmd_TokenizeStringWithLimit 0x0039B828u
+typedef void (*Cmd_TokenizeStringWithLimit_t)(const char *text, int maxTokens);
+static const opd_t bo1_opd_Cmd_TokenizeStringWithLimit = { 0x0039B828u, BO1_TOC };
 
 /* likely: looks up cmd_functions; a handler equal to the Cbuf_AddServerText_f OPD (0xB4AAD0, cmp at 0x39C5DC) is a server command: calls 0x3F0650 (wait for the server thread) and runs it inline on the calling thread (0x39B9A0). Prototype guessed */
 #define BO1_ADDR_Cmd_ExecuteSingleCommand 0x0039C258u
@@ -390,10 +434,20 @@ static const opd_t bo1_opd_MSG_ReadBits = { 0x003B0008u, BO1_TOC };
 typedef void (*MSG_ReadData_t)(msg_t *msg, void *dest, int len);
 static const opd_t bo1_opd_MSG_ReadData = { 0x003B0230u, BO1_TOC };
 
+/* likely: if cursize + length fits maxsize: memcpy to data + cursize, cursize += length (else overflowed). Party_WriteMembers writes the clan tag (member + 0x5C, 4 bytes) and 0x24 bytes at member + 0x38 with it */
+#define BO1_ADDR_MSG_WriteData 0x003B0368u
+typedef void (*MSG_WriteData_t)(msg_t *msg, const void *data, int length);
+static const opd_t bo1_opd_MSG_WriteData = { 0x003B0368u, BO1_TOC };
+
 /* likely: Bounded string reader: consumes bytes from the message (advancing msg->readcount, limited by msg->cursize) and stores into out only while the written count < size, then NUL-terminates. Used by SV_ClientCommand and the NetMsg_* string fields (size 0x400). Stops at a NUL or an end-of-message -1 byte. */
 #define BO1_ADDR_MSG_ReadString 0x003B1008u
 typedef char * (*MSG_ReadString_t)(msg_t *msg, char *out, int size);
 static const opd_t bo1_opd_MSG_ReadString = { 0x003B1008u, BO1_TOC };
+
+/* likely: strlen checked against 0x3FF; Party_WriteMembers writes the member name (member + 0x18) with it */
+#define BO1_ADDR_MSG_WriteString 0x003B1738u
+typedef void (*MSG_WriteString_t)(msg_t *msg, const char *s);
+static const opd_t bo1_opd_MSG_WriteString = { 0x003B1738u, BO1_TOC };
 
 /* likely: "Netchan_Transmit: length = %i" */
 #define BO1_ADDR_Netchan_Transmit 0x003C8660u
@@ -466,6 +520,11 @@ static const opd_t bo1_opd_SV_DropClient = { 0x003E4160u, BO1_TOC };
 typedef int (*SV_ClientCommand_t)(client_t *cl, msg_t *msg, int unused);
 static const opd_t bo1_opd_SV_ClientCommand = { 0x003E47B8u, BO1_TOC };
 
+/* likely: copies name and clanAbbrev from the userinfo at client_t+0x720 into the client_t; also reads rate, natType, xuid. Called by SV_DirectConnect, 0x3E5EF8 (after ClientUserinfoChanged), 0x3E5148 and 0x3D9660 */
+#define BO1_ADDR_SV_UserinfoChanged 0x003E49D0u
+typedef void (*SV_UserinfoChanged_t)(client_t *cl);
+static const opd_t bo1_opd_SV_UserinfoChanged = { 0x003E49D0u, BO1_TOC };
+
 /* likely: "EXE_NEEDSTATS", config string csv; forum list */
 #define BO1_ADDR_SV_SendClientGameState 0x003E5200u
 typedef void (*SV_SendClientGameState_t)(client_t *client);
@@ -495,6 +554,11 @@ static const opd_t bo1_opd_SV_GetGuid = { 0x003E88B8u, BO1_TOC };
 #define BO1_ADDR_SV_GameSendServerCommand 0x003E95F0u
 typedef void (*SV_GameSendServerCommand_t)(int clientNum, svscmd_type type, const char *text);
 static const opd_t bo1_opd_SV_GameSendServerCommand = { 0x003E95F0u, BO1_TOC };
+
+/* confirmed: Com_Error on bufferSize < 1 or an index outside sv_maxclients, then I_strncpyz(buffer, svs.clients + index * 0x651C8 + 0x720, bufferSize). Only callers ClientUserinfoChanged and ClientConnect */
+#define BO1_ADDR_SV_GetUserinfo 0x003EAB20u
+typedef void (*SV_GetUserinfo_t)(int index, char *buffer, int bufferSize);
+static const opd_t bo1_opd_SV_GetUserinfo = { 0x003EAB20u, BO1_TOC };
 
 /* confirmed: "SV_SetConfigstring: bad index %i" */
 #define BO1_ADDR_SV_SetConfigstring 0x003EAD98u
@@ -865,7 +929,7 @@ static const opd_t bo1_opd_R_RegisterFont = { 0x00734350u, BO1_TOC };
 typedef Material * (*Material_Register_t)(const char *name, int imageTrack);
 static const opd_t bo1_opd_Material_Register = { 0x00745440u, BO1_TOC };
 
-/* confirmed: "white" in UI and CG asset setup; 206 call sites with material names */
+/* confirmed: "white" in UI and CG asset setup; 206 call sites with material names. DB_FindXAssetHeader(6, name, 1, -1): a missing name waits for zone loads and then creates a default entry, so only call it with fixed names */
 #define BO1_ADDR_Material_RegisterHandle 0x007458D8u
 typedef Material * (*Material_RegisterHandle_t)(const char *name, int imageTrack);
 static const opd_t bo1_opd_Material_RegisterHandle = { 0x007458D8u, BO1_TOC };
@@ -874,6 +938,11 @@ static const opd_t bo1_opd_Material_RegisterHandle = { 0x007458D8u, BO1_TOC };
 #define BO1_ADDR_R_AddCmdDrawStretchPic 0x00751940u
 typedef void (*R_AddCmdDrawStretchPic_t)(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const float *color, Material *material);
 static const opd_t bo1_opd_R_AddCmdDrawStretchPic = { 0x00751940u, BO1_TOC };
+
+/* guess: second builder of render command 16 (draw text) besides AddBaseDrawTextCmd: copies charCount bytes of a ring buffer from firstChar on. Only called by the wrappers 0x753610, 0x753768, 0x753860, which are all called by 0x1AC960 (console message windows). Name and prototype from CoD4 and the register use */
+#define BO1_ADDR_R_AddCmdDrawConsoleText 0x007533C0u
+typedef void (*R_AddCmdDrawConsoleText_t)(const char *textPool, int poolSize, int firstChar, int charCount, Font_s *font, float x, float y, float xScale, float yScale, const float *color, int style);
+static const opd_t bo1_opd_R_AddCmdDrawConsoleText = { 0x007533C0u, BO1_TOC };
 
 /* likely: shared by R_AddCmdDrawText (w=1.0, cursorPos=-1, cursor=0) and the *WithEffects variants, which fill the returned command; forum lists it as R_AddCmdDrawText with the wrong prototype */
 #define BO1_ADDR_AddBaseDrawTextCmd 0x007538E8u
@@ -904,6 +973,12 @@ static const opd_t bo1_opd_R_AddCmdDrawTextWithEffects = { 0x00754108u, BO1_TOC 
 #define BO1_ADDR_R_AddCmdDrawText 0x00754410u
 typedef void (*R_AddCmdDrawText_t)(const char *text, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, float rotation, const float *color, int style);
 static const opd_t bo1_opd_R_AddCmdDrawText = { 0x00754410u, BO1_TOC };
+
+/* guess: text draw loop of the backend, only caller is the draw-text command handler 0x79AB78. Text icons are '^', type, width, height, Material* (8 bytes); only types 1 and 2 are icons ((b - 1) & 0xFF <= 1 at 0x799014) and the Material pointer is used unchecked. Name inferred */
+#define BO1_ADDR_RB_DrawText 0x00798490u
+
+/* guess: render command 16 (draw text) handler: entry 16 of rb_renderCommandTable (0xB446B0); calls RB_DrawText (0x798490). The commands are built by AddBaseDrawTextCmd and R_AddCmdDrawConsoleText. Name inferred */
+#define BO1_ADDR_RB_DrawText2DCmd 0x0079AB78u
 
 /* likely: ("info/"|"warn/"|"err/", "dwNet"...) 650 calls */
 #define BO1_ADDR_bdLogMessage 0x008773E8u
