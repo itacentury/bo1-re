@@ -151,6 +151,7 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x004DB3D8,,va,"char *va(const char *fmt, ...)",common,likely,"1045 calls with ""%d"" etc. as r3"
 0x004DD0E8,,I_strncat,"void I_strncat(char *dest, int size, const char *src)",common,confirmed,"""I_strncat: already overflowed"""
 0x004DD8C0,,I_stricmp,"int I_stricmp(const char *s0, const char *s1)",common,confirmed,"folds only 'A'..'Z' (+0x20) before comparing, returns early on a NULL argument; ClientCommand matches say/say_team/mr/callvote/... with it"
+0x005598D0,,Crc32,"unsigned int Crc32(const void *data, unsigned int size, unsigned int seed)",common,likely,reflected CRC-32: builds its 256-entry table from 0xEDB88320 on first use (starts with ~seed). 19 callers incl. NetMsg_mdata and the stats CRC at buffer + 0
 0x005CB210,,Scr_GetNumParam,unsigned int Scr_GetNumParam(scriptInstance_t inst),gsc,confirmed,arg-count checks in getentarray/spawn/iprintlnbold
 0x005CBE30,,Scr_AddArray,void Scr_AddArray(scriptInstance_t inst),gsc,likely,after each Scr_AddEntity in getentarray
 0x005CE3C0,,Scr_Error,"void Scr_Error(scriptInstance_t inst, const char *error, bool force_terminal)",gsc,confirmed,"copies msg (I_strncpyz 0x400), longjmp, Com_Error(""%s"")"
@@ -172,7 +173,7 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x005DF630,,Scr_AddFloat,"void Scr_AddFloat(float value, scriptInstance_t inst)",gsc,confirmed,tail of getdvarfloat/distance/abs
 0x005DF800,,Scr_AddEntity,void Scr_AddEntity(gentity_t *ent),gsc,confirmed,tail of getent; per element in getentarray
 0x005E50B8,,DDL_GetRootState,"void DDL_GetRootState(ddlState_t *state, ddlDef_t *def)",ddl,likely,"called once per cached state after DDL_Load in 0x6A0208, before DDL_MoveToName"
-0x005E53B0,,DDL_ValidateBuffer,"int DDL_ValidateBuffer(void *buffer, int size, const ddlDef_t *def)",ddl,likely,checks the buffer size against the DDL and the version in the buffer header against def->version (no checksum over the data); an unversioned buffer is zeroed and gets the version
+0x005E53B0,,DDL_ValidateBuffer,"int DDL_ValidateBuffer(void *buffer, int size, const ddlDef_t *def)",ddl,likely,checks the buffer size against the DDL and the version at buffer + 4 (header copied out by 0x5E7A10) against def->version (no checksum over the data); an unversioned buffer is zeroed and gets the version
 0x005E55C8,,DDL_MoveToPath,"int DDL_MoveToPath(const ddlState_t *from, ddlState_t *to, int depth, const char **path)",ddl,likely,"Cmd_statSetByName_f passes statsDDLRootState, depth 2, {""PlayerStatsList"", name}; loops DDL_MoveToName"
 0x005E5E58,,DDL_Load,ddlDef_t *DDL_Load(const char *name),ddl,likely,"loads asset type 0x2A by name and returns the newest version in the def chain (+0x0 version, +0x18 next); called with ""ddl_mp/stats.ddl"""
 0x005E6D30,,DDL_GetInt,"int DDL_GetInt(const ddlState_t *state, const void *buffer)",ddl,guess,tail call of SV_GetClientStatInt with the client stats buffer
@@ -180,8 +181,11 @@ addr,opd,name,prototype,subsystem,confidence,notes
 0x005E8CF0,,DDL_MoveToName,"int DDL_MoveToName(const ddlState_t *from, const char *name, ddlState_t *to)",ddl,likely,"called with member names (""CacLoadouts"", ""emblemstats""); used per path component by DDL_MoveToPath"
 0x0060EB80,,Actor_GetMethod,BuiltinMethod Actor_GetMethod(const char **pName),gsc,likely,scans actor methods (0xB40390)
 0x00650DC0,,InspectCmd_Dispatch,void InspectCmd_Dispatch(int controller),net,guess,looks up remote_inspect_commands (peek/checksum/procaddr/section/dvar/dir/upload/mount) by name; per-controller online frame
+0x0069F110,,Crc32_Buffer,"unsigned int Crc32_Buffer(const void *data, unsigned int size)",live,guess,tail call of Crc32 with seed 0; LiveStats_UploadStats uses it for the stats CRC (re-journal 44)
+0x0069F900,,LiveStats_ValidateChecksum,"int LiveStats_ValidateChecksum(const char *buffer, unsigned int size)",live,likely,"true if buffer[0..3] equals Crc32(buffer + 4, size, 0); size 0x9964. Only called for fetched stats buffers (kind 5 at 0x6B2810, kind 2 at 0x6B9DC0, 0x6BA498)"
 0x006B1E98,,LiveStats_GetStatsBuffer,"char *LiveStats_GetStatsBuffer(int controller, int kind, int check)",live,likely,switch on kind 0..5 over statsBuffers + controller*0x26694 (kind 4: global 0x2137C40); kind 0 switches to the basic-training copy while xblive_basictraining
 0x006B2400,,LiveStats_GetStatsBufferPtr,"char *LiveStats_GetStatsBufferPtr(int controller, int kind, int check)",live,guess,"thin wrapper of LiveStats_GetStatsBuffer; Cmd_statSetByName_f calls it with (controller, 0, 1)"
+0x006B97D8,,LiveStats_UploadStats,,live,guess,"name inferred: clears buffer[8] bit 0 (dirty), stores Crc32_Buffer(buffer + 4, 0x9964) at buffer + 0, then creates a task of 0x9968 bytes (0x4BFD20); sets the dirty bit again if that fails. No direct callers (re-journal 44)"
 0x00734350,,R_RegisterFont,"Font_s *R_RegisterFont(const char *name, int imageTrack)",render,guess,forum list
 0x00745440,,Material_Register,"Material *Material_Register(const char *name, int imageTrack)",render,likely,"DB_FindXAssetHeader(ASSET_TYPE_MATERIAL=6, name); imageTrack unused; Material_RegisterHandle adds the empty-name check"
 0x007458D8,,Material_RegisterHandle,"Material *Material_RegisterHandle(const char *name, int imageTrack)",render,confirmed,"""white"" in UI and CG asset setup; 206 call sites with material names. DB_FindXAssetHeader(6, name, 1, -1): a missing name waits for zone loads and then creates a default entry, so only call it with fixed names"

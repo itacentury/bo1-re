@@ -764,6 +764,11 @@ static const opd_t bo1_opd_I_strncat = { 0x004DD0E8u, BO1_TOC };
 typedef int (*I_stricmp_t)(const char *s0, const char *s1);
 static const opd_t bo1_opd_I_stricmp = { 0x004DD8C0u, BO1_TOC };
 
+/* likely: reflected CRC-32: builds its 256-entry table from 0xEDB88320 on first use (starts with ~seed). 19 callers incl. NetMsg_mdata and the stats CRC at buffer + 0 */
+#define BO1_ADDR_Crc32 0x005598D0u
+typedef unsigned int (*Crc32_t)(const void *data, unsigned int size, unsigned int seed);
+static const opd_t bo1_opd_Crc32 = { 0x005598D0u, BO1_TOC };
+
 /* confirmed: arg-count checks in getentarray/spawn/iprintlnbold */
 #define BO1_ADDR_Scr_GetNumParam 0x005CB210u
 typedef unsigned int (*Scr_GetNumParam_t)(scriptInstance_t inst);
@@ -869,7 +874,7 @@ static const opd_t bo1_opd_Scr_AddEntity = { 0x005DF800u, BO1_TOC };
 typedef void (*DDL_GetRootState_t)(ddlState_t *state, ddlDef_t *def);
 static const opd_t bo1_opd_DDL_GetRootState = { 0x005E50B8u, BO1_TOC };
 
-/* likely: checks the buffer size against the DDL and the version in the buffer header against def->version (no checksum over the data); an unversioned buffer is zeroed and gets the version */
+/* likely: checks the buffer size against the DDL and the version at buffer + 4 (header copied out by 0x5E7A10) against def->version (no checksum over the data); an unversioned buffer is zeroed and gets the version */
 #define BO1_ADDR_DDL_ValidateBuffer 0x005E53B0u
 typedef int (*DDL_ValidateBuffer_t)(void *buffer, int size, const ddlDef_t *def);
 static const opd_t bo1_opd_DDL_ValidateBuffer = { 0x005E53B0u, BO1_TOC };
@@ -909,6 +914,16 @@ static const opd_t bo1_opd_Actor_GetMethod = { 0x0060EB80u, BO1_TOC };
 typedef void (*InspectCmd_Dispatch_t)(int controller);
 static const opd_t bo1_opd_InspectCmd_Dispatch = { 0x00650DC0u, BO1_TOC };
 
+/* guess: tail call of Crc32 with seed 0; LiveStats_UploadStats uses it for the stats CRC (re-journal 44) */
+#define BO1_ADDR_Crc32_Buffer 0x0069F110u
+typedef unsigned int (*Crc32_Buffer_t)(const void *data, unsigned int size);
+static const opd_t bo1_opd_Crc32_Buffer = { 0x0069F110u, BO1_TOC };
+
+/* likely: true if buffer[0..3] equals Crc32(buffer + 4, size, 0); size 0x9964. Only called for fetched stats buffers (kind 5 at 0x6B2810, kind 2 at 0x6B9DC0, 0x6BA498) */
+#define BO1_ADDR_LiveStats_ValidateChecksum 0x0069F900u
+typedef int (*LiveStats_ValidateChecksum_t)(const char *buffer, unsigned int size);
+static const opd_t bo1_opd_LiveStats_ValidateChecksum = { 0x0069F900u, BO1_TOC };
+
 /* likely: switch on kind 0..5 over statsBuffers + controller*0x26694 (kind 4: global 0x2137C40); kind 0 switches to the basic-training copy while xblive_basictraining */
 #define BO1_ADDR_LiveStats_GetStatsBuffer 0x006B1E98u
 typedef char * (*LiveStats_GetStatsBuffer_t)(int controller, int kind, int check);
@@ -918,6 +933,9 @@ static const opd_t bo1_opd_LiveStats_GetStatsBuffer = { 0x006B1E98u, BO1_TOC };
 #define BO1_ADDR_LiveStats_GetStatsBufferPtr 0x006B2400u
 typedef char * (*LiveStats_GetStatsBufferPtr_t)(int controller, int kind, int check);
 static const opd_t bo1_opd_LiveStats_GetStatsBufferPtr = { 0x006B2400u, BO1_TOC };
+
+/* guess: name inferred: clears buffer[8] bit 0 (dirty), stores Crc32_Buffer(buffer + 4, 0x9964) at buffer + 0, then creates a task of 0x9968 bytes (0x4BFD20); sets the dirty bit again if that fails. No direct callers (re-journal 44) */
+#define BO1_ADDR_LiveStats_UploadStats 0x006B97D8u
 
 /* guess: forum list */
 #define BO1_ADDR_R_RegisterFont 0x00734350u

@@ -155,13 +155,35 @@ what to do about it.
     (no model) effect follows from that **(inferred from the scripts, not traced on a
     console)**. The host reads the *client's* stats it got over the network
     (`SV_ReceiveStats` → `client + 0x5A4F8`, read back by `getdstat`, see
-    [mp/05-network.md](mp/05-network.md#client-stats-on-the-host)). The buffer has no data
-    checksum, so the host can check and fix the value there: `body` of custom class `n`
+    [mp/05-network.md](mp/05-network.md#client-stats-on-the-host)). The host doesn't check the
+    buffer's CRC (`DDL_ValidateBuffer` only checks the version, see 44), so the host can check
+    and fix the value there: `body` of custom class `n`
     is at buffer bit `0x140 + 0x164C + n * 280`.
     Other writes of the same tool: Save/Load Classes reads or writes `0xC0` bytes at
     `0x208B8E0` (the 5 MP custom classes start at offset `0x11` of that block). "FFA TAC"
     writes `C4 04` at `0x208B8F7` (primary = `0x4C`, the tactical insertion). Its Combat
     Training addresses (`0x20A8538 + n * 0x23`) are unverified.
+44. **Stats buffer header.** Found by scanning all 256 `LiveStats_GetStatsBuffer(Ptr)` call
+    sites for accesses below `+0x28`, plus `DDL_ValidateBuffer`. The layout of the `0x28`-byte
+    header:
+    - `+0` **CRC-32** of `buf + 4`, `0x9964` bytes, stored big-endian. `Crc32` (`0x5598D0`)
+      builds its table from `0xEDB88320` on first use; `0x69F110` calls it with seed 0.
+      `LiveStats_UploadStats` (`0x6B97D8`) clears the dirty bit, recalculates the CRC and
+      then starts the task with size `0x9968`. If the task can't be created, it sets the
+      dirty bit again. The stats resets (`0x6A7D68`, `0x6A9D10`) also write it.
+      `LiveStats_ValidateChecksum` (`0x69F900`) recalculates and compares the 4 bytes. It is
+      only called for the fetched buffers of kind 5 (`0x6B2810`, after `popup_gettingdata`)
+      and kind 2 (`0x6B9DC0`, `0x6BA498`), never for the live kind 0 buffer. So a stale CRC in
+      the live buffer is fixed by the next upload.
+    - `+4` **DDL version** (u32). `DDL_ValidateBuffer` copies the header out (`0x5E7A10`,
+      written back by `0x5E7B58`). If the version is 0, it zeroes the buffer and stores
+      `def->version`; any other value that doesn't match is an error.
+    - `+8` **flags**. Bit 0 is dirty (`DDL_SetInt` sets it, the upload clears it). The stats
+      reset `0x6A7D68` sets bit 2 and then clears bits 0–1; their meaning is unknown.
+    - `+9..+0x27`: no access found. `0x6AC440` (the `MPUI_STATSERROR` path) zeroes all
+      `0x28` bytes.
+    `STATS_VERSION` is not in the header: it is the DDL field `PlayerStatsList.STATS_VERSION`
+    (`0x6A7FD0`, `0x6B2914`, compared with the dvar at `0x2057030`). All static only.
 
 ## HEN
 
@@ -266,6 +288,8 @@ of RTM tools use these.
 - Stats: meaning of stats buffer kinds 2–4 (`stats_archive.ddl`? other-player stats?). The
   address chain (`0x2094429` = `kills`) is static only — confirm once at runtime with
   `statSetByName kills 1234` (expect bytes `D2 04 00 00`).
+- Stats header (44): confirm at runtime that `buf[0..3]` matches the CRC-32 of `buf + 4`
+  after an upload. Meaning of flag bits 1–2 at `+8` and of bytes `+9..+0x27`.
 - Exact `body`/`head` item ids (statsTable rows of group `body`/`head`, i.e.
   `level.armor_index_start..end`). Only `0x61` (head) and `0x62`–`0x66` (body) have been
   seen so far. Also whether the prestige classes of a player who never prestiged are zero.
