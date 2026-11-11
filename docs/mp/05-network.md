@@ -32,6 +32,7 @@ Reads support a split buffer (`data` + `splitData`, `readcount` across both).
 |---|---|---|
 | `0x1C7748` | `CL_CheckForResend` (guess) | sends `getchallenge` |
 | `0x1CC320` | `CL_ConnectionlessPacket` | `challengeResponse`, `connectResponse`, `connectResponseMigration`, `disconnect` |
+| `0x1CB160` | `CL_RelayPacket` (guess) | OOB `v`, `vt`, `relay`; `relay <n>` indexes the party members with `strtol(argv1)` unchecked (crash at `0x1E14A0` with `n = -1234567`), `v`/`vt` check their index `<= 0x11` |
 | `0x1D9640` | `CL_ParseServerMessage` | "Compressed msg overflow in CL_ParseServerMessage" |
 | `0x3EE520` | `SV_ConnectionlessPacket` | `getchallenge`, `disconnect` |
 | `0x3E1F68` | `SV_GetChallenge` | `challengeResponse %i` |
