@@ -95,6 +95,30 @@ The host sends the member list in `partystate` (`0x208DB0`, `%ipartystate`). It 
 message is full, name with `MSG_WriteString`, clan tag with `MSG_WriteData`. Names and clan
 tags of other members reach every client this way (see journal 42).
 
+### Map and gametype in `partystate`
+
+`Party_UpdateState` (`0x207770`) copies `ui_mapname` / `ui_gametype` into `party_mapname` /
+`party_gametype` and sends `partystate`. How a member applies the map depends on the session
+mode (receiver `NetMsg_partystate` `0x2023B0` → `0x200B68` → `0x1FF598`):
+
+- **Private match** (`Com_SessionModeIs(3)` at `0x2003C8`): map and gametype are read as
+  strings (`0x2003F0`, `0x20042C`) and written to `party_*` and `ui_*`.
+- **Public online game** (`0x39EC58`): the strings are ignored. The party holds a ring of 8
+  playlist rotation indices at `party + 0x676D`, current slot at `party + 0x6778`.
+  `Party_SendPartyState` writes the 8 entries from `cur + 1` on (oldest first, `0x2098FC` ff.).
+  The member pushes each one into its own ring (`0x200880`–`0x2009F8`) and calls
+  `0x440910(localClient, ring[cur])`. That sets `ui_mapname` / `ui_gametype` from rotation
+  entry `0x1898250 + (first + index) * 16` (+0 map, +4 gametype) of the current playlist:
+  playlist slot = the `playlist`-th entry of `0x18950A8` (stride `0x98`) with a non-zero
+  rotation count (`+0x58`), `first` at `+0x54`. Index `0xFF` = none. Wager matches select the
+  slot through `wagerCategory` instead.
+- The host side of the game does this in `0x1F0268` (LobbyParty only): next index from
+  `0x441930`, `cur = (cur + 1) & 7`, `ring[cur] = index`, `Party_UpdateState`, then `0x440910`
+  for the host's own client.
+
+Not confirmed on the console yet; the member branch at `0x20086C` has a further condition
+(`0x6ABB18(...) <= 3`) that was not followed.
+
 ## Demonware
 
 Demonware hosts: `cod7-ps3-{auth,lobby}.{prod,dev,cert}.demonware.net`,
