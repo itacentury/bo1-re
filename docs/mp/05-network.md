@@ -112,9 +112,42 @@ mode (receiver `NetMsg_partystate` `0x2023B0` → `0x200B68` → `0x1FF598`):
   playlist slot = the `playlist`-th entry of `0x18950A8` (stride `0x98`) with a non-zero
   rotation count (`+0x58`), `first` at `+0x54`. Index `0xFF` = none. Wager matches select the
   slot through `wagerCategory` instead.
+- The `playlist` dvar goes along: `Party_SendPartyState` writes it as a byte right before the
+  ring (`0x2098EC`), the member sets its own `playlist` from it (`0x200828`–`0x200838`,
+  `Dvar_SetInt` `0x4CB970`) before resolving the ring. A rotation index therefore always refers
+  to the host's current playlist.
+- `NetMsg_go` (`0x1F4E68`, match start) does the same in a public online game: sets `playlist`
+  (`0x1F5338`), calls `0x440910` with the rotation index (`0x1F5348`), then copies `ui_mapname` /
+  `ui_gametype` into `party_mapname` / `party_gametype`. A gametype the host set that is not in
+  the rotation is undone for the UI here, although the server already runs it.
 - The host side of the game does this in `0x1F0268` (LobbyParty only): next index from
   `0x441930`, `cur = (cur + 1) & 7`, `ring[cur] = index`, `Party_UpdateState`, then `0x440910`
   for the host's own client.
+
+- Matchmaking: a search (`0x69A6D8` → `0x26F3A8` → bdMatchMaking `findSessions`) sends the
+  searcher's `playlist` dvar (`0x69A79C`). The host offers the playlist of its session info
+  (`*0x20009EC`): `0x68B5B8(localClient, playlist)` sets `+0x148` = playlist, `+0x144` / `+0x110`
+  = slot (`0x43F020`) and `+0x160` = 1 (pending session update). It is called at host start
+  (`0x20D420`), session creation / host migration (`0x69C09C`), search (`0x69A788`) and by
+  members on `partystate` (`0x200844`) only, so setting the `playlist` dvar alone does not change
+  the offered playlist. `NetMsg_joinParty` checks netcode and playlist *version* (`0x43D540`), not
+  the playlist number.
+
+- Wager check on members: after resolving the ring (`0x200A20`) and in `NetMsg_go` (`0x1F5354`)
+  the member calls `0x1EA320`. In a public online game it runs
+  `0x43F8D0(local, slot, rank, prestige, 0, localPlayers)`; a non-zero reason opens the popup
+  (`0x4333B8`, switch over 14 reasons) and `Com_Error(ERR_DROP)`. Reason 10 =
+  `MPUI_WAGERMATCH_NOT_ENOUGH_CP` (`0x43FCC0`): the playlist cost, `+0x78` plus `+0x7C` of the
+  playlist entry (`0x18950A8 + slot * 0x98`, probably `wagerentry` / `wagerbet`), is above the COD
+  points from `0x43CA30` → `0x221900(0xD5A090, ...)`, i.e. `+0x64` of the member's own entry in
+  its private party. A cost of 0 skips the comparison (`0x43FAD8`). On the console a member that
+  joined through Team Deathmatch was dropped when the host switched to Gun Game playlist 22
+  (cost 10 + 0) although its stats and its private party had held 100000000 CP before: in the
+  lobby that party is not active (Silinium's check of it stopped logging there).
+- Members keep their own party entry's rank / prestige / COD points in sync: `0x1FB768` compares
+  `+0xC8` / `+0xCC` / `+0x64` with the stats (`0x6A0B78`, `0x6AB620`, `0x6AB740` =
+  `PlayerStatsList.CODPOINTS`) and sends `rank <rankId> <prestige> <cp>` on a difference, the host
+  stores it in `0x2122F0`.
 
 Not confirmed on the console yet; the member branch at `0x20086C` has a further condition
 (`0x6ABB18(...) <= 3`) that was not followed.
